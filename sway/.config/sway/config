@@ -131,7 +131,10 @@ workspace_auto_back_and_forth yes
 for_window [class="Alacritty" instance="__text_scratchpad"] floating enable
 bindsym $mod+c exec bash anywhereVimI3.sh --class float
 
-#take screenshots with super+p 
+#take screenshots with super+p, requiere slurp y grim
+bindsym $mod+p exec grim -g "$(slurp)" - | wl-copy
+#bindsym $mod+Shift+p exec grim -g "$(slurp)" /home/pipe99g/Desktop/$(date +'%s_grim.png')
+bindsym $mod+Shift+p exec grim -g "$(slurp)" - | swappy -f -
 
 
 #
@@ -188,7 +191,7 @@ bindsym $mod+c exec bash anywhereVimI3.sh --class float
     
 #opening some apps in certain workspace, usar xprop para determinar el instance(primero) y el class(segundo) para wayland se usa "swaymsg -t get_tree"
 assign [class="firefox" instance="Navigator"] → 2
-assign [class="Spotify" instance="spotify" title="Spotify"] → 1
+assign [class="Spotify" instance="spotify"] → 1
 assign [class="LibreWolf" instance="Navigator"] → 2
 assign [class="csgo_linux64" instance="csgo_linux64"] → 10
 

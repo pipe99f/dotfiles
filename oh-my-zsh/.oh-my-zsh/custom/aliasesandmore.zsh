@@ -26,10 +26,10 @@ alias cemount="udisksctl mount -b /dev/sdb1"
 alias vim="nvim"
 
 #mount ce disk
-alias cemount="sudo mount UUID=468471E88471DB3F ~/ce"
+alias cemount="sudo mount UUID=468471E88471DB3F /mnt/ce/"
 
 #mount ve disk
-alias vemount="sudo mount UUID=0C100A54100A44E4 ~/ve"
+alias vemount="sudo mount UUID=940CCE940CCE70B2 /mnt/ve/"
 
 #folder de libros 
 alias lifolder="cd ~/ce/Libros/"

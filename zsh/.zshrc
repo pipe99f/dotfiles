@@ -80,7 +80,7 @@ plugins=(
     thefuck
     vi-mode
     zsh-autosuggestions
-    copydir
+    copypath
     copyfile
     copybuffer
     history

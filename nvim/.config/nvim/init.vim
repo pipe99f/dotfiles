@@ -23,10 +23,12 @@ Plug 'junegunn/fzf.vim'
 """"""""""Modes""
 "Markdown   
 Plug 'godlygeek/tabular'
-Plug 'plasticboy/vim-markdown'
+Plug 'preservim/vim-markdown'
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 "R
 Plug 'jalvesaq/Nvim-R'
 "latex
+Plug 'lervag/vimtex'
 
 "tessst
 Plug 'vim-test/vim-test'
@@ -309,5 +311,16 @@ tnoremap <Esc> <C-,><C-n>
 "go to the next Ale syntax/lint error
 nmap <silent> <leader>a <Plug>(ale_next_wrap)
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+ " => Latex and vimtex
+ """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 
+let g:vimtex_view_method = 'zathura'
+let g:vimtex_quickfix_mode=0
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+ " => Markdown
+ """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+let g:mkdp_browser = 'librewolf'
