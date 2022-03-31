@@ -324,3 +324,9 @@ let g:vimtex_quickfix_mode=0
  """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 let g:mkdp_browser = 'librewolf'
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+ " => COC
+ """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+let g:coc_global_extensions = ['coc-json', 'coc-go', 'coc-prettier', 'coc-pyright', 'coc-sh', 'coc-snippets', 'coc-sql', 'coc-css', 'coc-ltex', 'coc-html']
