@@ -68,6 +68,23 @@ bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle 
 bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle
 
+#Brightness. Requires "light"
+bindsym XF86MonBrightnessUp exec sudo light -A 10
+bindsym --locked XF86MonBrightnessDown exec sudo light -U 10
+
+
+#Touchpad configuration
+#dwt es disable while typing
+#middle_emulation se activa presionando click izquierdo y derecho a la vez 
+   input type:touchpad {
+       dwt enabled
+       tap enabled
+       natural_scroll enabled
+       middle_emulation enabled
+       scroll_factor 0.3
+   }
+
+
 # Example configuration:
 #
 #   input "2:14:SynPS/2_Synaptics_TouchPad" {
@@ -297,9 +314,10 @@ exec swayidle -w \
     timeout 720 'swaylock -f -e -i ~/.config/sway/grotesqueimpalement.jpg' \
     timeout 1500 'systemctl suspend' \
     resume 'swaymsg "output * dpms on"' \
-    before-sleep 'swaylock -f -e -i ~/.config/sway/grotesqueimpalement.jpg' \
-    before-sleep 'playerctl pause'
-    
+    before-sleep 'playerctl pause && swaylock -f -e -i ~/.config/sway/grotesqueimpalement.jpg'
+ 
+
+
     #va entre 720 y 1020, no sé por qué no funciona
     #timeout 15 'if pgrep -x swaylock; then swaymsg "output * dpms off"; fi' \
 

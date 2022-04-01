@@ -10,4 +10,5 @@ print_command=true
 layer=overlay
 insensitive=true
 prompt=
-content_halign=center
+#hay un bug que impide quu se centren correctamente los resultados 
+#content_halign=center
