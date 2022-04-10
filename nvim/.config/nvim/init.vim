@@ -21,14 +21,22 @@ Plug 'junegunn/fzf.vim'
 
 
 """"""""""Modes""
-"Markdown   
+"Git
+Plug 'tpope/vim-fugitive'
+
+""Markdown   
 Plug 'godlygeek/tabular'
 Plug 'preservim/vim-markdown'
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
+
+"Python
+Plug 'jupyter-vim/jupyter-vim'
+
 "R
 Plug 'jalvesaq/Nvim-R'
 "latex
 Plug 'lervag/vimtex'
+
 
 "tessst
 Plug 'vim-test/vim-test'
@@ -93,6 +101,10 @@ nmap <leader>w :w!<cr>
 " (useful for handling the permission-denied error)
 command! W execute 'w !sudo tee % > /dev/null' <bar> edit!
 
+
+"py code
+autocmd FileType python map <buffer> <F9> :w<CR>:exec '!python3' shellescape(@%, 1)<CR>
+autocmd FileType python imap <buffer> <F9> <esc>:w<CR>:exec '!python3' shellescape(@%, 1)<CR>
 
 "VIM UI
 
