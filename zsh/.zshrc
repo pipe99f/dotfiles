@@ -84,6 +84,8 @@ plugins=(
     copyfile
     copybuffer
     history
+    zsh-syntax-highlighting
+    sudo
     )
 
 source $ZSH/oh-my-zsh.sh
@@ -103,6 +105,14 @@ source $ZSH/oh-my-zsh.sh
  fi
 
  export VISUAL=nvim
+
+# Exa icons
+export LF_ICONS="\
+    *.sh=:\
+    *.py=:\
+    *.tex=:\
+    "
+
 
 #default programs
 # export MAIL:geary
