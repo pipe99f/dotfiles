@@ -34,6 +34,7 @@ font pango:lato 10
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
 output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
+
 #
 # Example configuration:
 #
@@ -307,6 +308,7 @@ bar {
 
 
 exec gammastep
+exec_always autotiling
 workspace 1; exec flatpak run com.spotify.Client;
 workspace 2; exec librewolf;
 output "*" bg /home/pipe99g/.config/sway/revocationwallpaper.jpeg tile

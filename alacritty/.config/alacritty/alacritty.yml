@@ -793,5 +793,5 @@ font:
 
    size: 14
    normal:
-     family: SourceCodePro
-     style: semibold
+     family: RobotoMono Nerd Font
+     style: medium
