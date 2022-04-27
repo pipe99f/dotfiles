@@ -22,8 +22,14 @@ set $term alacritty
 set $menu wofi --show=drun --lines=7 --prompt=""
 
 #intl dead keys keyboard
-input * xkb_layout "us" 
-input * xkb_variant "intl"  
+# input * xkb_layout "us,ru"
+# input * xkb_variant "intl,"
+# input * xkb_option "grp:alt_shift_toggle"
+input type:keyboard {
+    xkb_layout us,ru,gr
+    xkb_variant intl,,
+    xkb_options grp:alt_shift_toggle
+}
 
 
 # Font for window titles. Will also be used by the bar unless a different font
@@ -124,10 +130,10 @@ exec_always {
     bindsym $mod+Return exec $term
 
     # Kill focused window
-    bindsym $mod+Shift+q kill
+    bindsym --to-code $mod+Shift+q kill
 
     # Start your launcher
-    bindsym $mod+d exec $menu
+    bindsym --to-code $mod+d exec $menu
 
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
@@ -137,10 +143,10 @@ exec_always {
     floating_modifier $mod normal
 
     # Reload the configuration file
-    bindsym $mod+Shift+c reload
+    bindsym --to-code $mod+Shift+c reload
 
     # Exit sway (logs you out of your Wayland session)
-    bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
+    bindsym --to-code $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
 
 #return to previous workspace
 workspace_auto_back_and_forth yes
@@ -152,19 +158,19 @@ bindsym $mod+c exec bash anywhereVimI3.sh --class float
 #screen recording
 
 #take screenshots with super+p, requiere slurp y grim
-bindsym $mod+p exec grim -g "$(slurp)" - | wl-copy
+bindsym --to-code $mod+p exec grim -g "$(slurp)" - | wl-copy
 #bindsym $mod+Shift+p exec grim -g "$(slurp)" /home/pipe99g/Desktop/$(date +'%s_grim.png')
-bindsym $mod+Shift+p exec grim -g "$(slurp)" - | swappy -f -
+bindsym --to-code $mod+Shift+p exec grim -g "$(slurp)" - | swappy -f -
 
 
 #
 # Moving around:
 #
     # Move your focus around
-    bindsym $mod+$left focus left
-    bindsym $mod+$down focus down
-    bindsym $mod+$up focus up
-    bindsym $mod+$right focus right
+    bindsym --to-code $mod+$left focus left
+    bindsym --to-code $mod+$down focus down
+    bindsym --to-code $mod+$up focus up
+    bindsym --to-code $mod+$right focus right
     # Or use $mod+[up|down|left|right]
     bindsym $mod+Left focus left
     bindsym $mod+Down focus down
@@ -172,10 +178,10 @@ bindsym $mod+Shift+p exec grim -g "$(slurp)" - | swappy -f -
     bindsym $mod+Right focus right
 
     # Move the focused window with the same, but add Shift
-    bindsym $mod+Shift+$left move left
-    bindsym $mod+Shift+$down move down
-    bindsym $mod+Shift+$up move up
-    bindsym $mod+Shift+$right move right
+    bindsym --to-code $mod+Shift+$left move left
+    bindsym --to-code $mod+Shift+$down move down
+    bindsym --to-code $mod+Shift+$up move up
+    bindsym --to-code $mod+Shift+$right move right
     # Ditto, with arrow keys
     bindsym $mod+Shift+Left move left
     bindsym $mod+Shift+Down move down
@@ -226,16 +232,16 @@ for_window [app_id=".*"] inhibit_idle fullscreen
     # You can "split" the current object of your focus with
     # $mod+b or $mod+v, for horizontal and vertical splits
     # respectively.
-    bindsym $mod+b splith
-    bindsym $mod+v splitv
+    bindsym --to-code $mod+b splith
+    bindsym --to-code $mod+v splitv
 
     # Switch the current container between different layout styles
     bindsym $mod+s layout stacking
-    bindsym $mod+w layout tabbed
-    bindsym $mod+e layout toggle split
+    bindsym --to-code $mod+w layout tabbed
+    bindsym --to-code $mod+e layout toggle split
 
     # Make the current focus fullscreen
-    bindsym $mod+f fullscreen
+    bindsym --to-code $mod+f fullscreen
 
     # Toggle the current focus between tiling and floating mode
     bindsym $mod+Shift+space floating toggle
@@ -244,7 +250,7 @@ for_window [app_id=".*"] inhibit_idle fullscreen
     bindsym $mod+space focus mode_toggle
 
     # Move focus to the parent container
-    bindsym $mod+a focus parent
+    bindsym --to-code $mod+a focus parent
 #
 # Scratchpad:
 #
@@ -252,11 +258,11 @@ for_window [app_id=".*"] inhibit_idle fullscreen
     # You can send windows there and get them back later.
 
     # Move the currently focused window to the scratchpad
-    bindsym $mod+Shift+minus move scratchpad
+    bindsym --to-code $mod+Shift+minus move scratchpad
 
     # Show the next scratchpad window or hide the focused scratchpad window.
     # If there are multiple scratchpad windows, this command cycles through them.
-    bindsym $mod+minus scratchpad show
+    bindsym --to-code $mod+minus scratchpad show
 #
 # Resizing containers:
 #
@@ -280,7 +286,7 @@ mode "resize" {
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
-bindsym $mod+r mode "resize"
+bindsym --to-code $mod+r mode "resize"
 
 ###GAPS
 gaps inner 5

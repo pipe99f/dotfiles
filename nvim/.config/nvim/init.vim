@@ -283,12 +283,14 @@ let g:NERDToggleCheckAllLines = 1
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
- " => Otros
+ " => R
  """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 "activar R (\rf) cada vez que empiezo a editar un archivo de R
 let R_auto_start = 2
 
+"open object browser in start
+let R_objbr_auto_start = 1
 
  """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
  " => Remap
