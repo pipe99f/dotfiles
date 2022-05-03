@@ -1,28 +1,58 @@
 call plug#begin('~/.local/share/nvim/plugged')
 "code completion and check
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'mattn/emmet-vim'
 "Plug 'dense-analysis/ale'
-Plug 'sheerun/vim-polyglot'
+" Plug 'sheerun/vim-polyglot'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+    
+"Snippets
+Plug 'L3MON4D3/LuaSnip'
+"vscode-like
+Plug 'rafamadriz/friendly-snippets'
+"snipmate-like (el plugin de snipmate no incluye ningún snippet)
+Plug 'honza/vim-snippets'
+
+"LSP
+Plug 'neovim/nvim-lspconfig'
+Plug 'williamboman/nvim-lsp-installer'
+Plug 'folke/trouble.nvim'
+Plug 'jose-elias-alvarez/null-ls.nvim'
+Plug 'glepnir/lspsaga.nvim'
 
 
-"git
-Plug 'https://github.com/tpope/vim-fugitive'
-Plug 'https://github.com/mattn/vim-gist'
+"Debugger
+Plug 'mfussenegger/nvim-dap'
+
+
+"cmp
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-path'
+Plug 'hrsh7th/cmp-cmdline'
+Plug 'hrsh7th/nvim-cmp'
+Plug 'saadparwaiz1/cmp_luasnip'
+Plug 'kdheepak/cmp-latex-symbols'
 
 
 
 
-"otros
+"telescope
+Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+
+
 Plug 'preservim/nerdcommenter'
 Plug 'https://github.com/preservim/nerdtree'
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
-
+" Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+" Plug 'junegunn/fzf.vim'
+Plug 'ThePrimeagen/vim-be-good'
 
 """"""""""Modes""
 "Git
 Plug 'tpope/vim-fugitive'
+Plug 'https://github.com/mattn/vim-gist'
 
 ""Markdown   
 Plug 'godlygeek/tabular'
@@ -34,6 +64,7 @@ Plug 'jupyter-vim/jupyter-vim'
 
 "R
 Plug 'jalvesaq/Nvim-R'
+
 "latex
 Plug 'lervag/vimtex'
 
@@ -51,19 +82,20 @@ Plug 'rakr/vim-one'
 "appearance details
 Plug 'ryanoasis/vim-devicons'
 Plug 'itchyny/lightline.vim'
+Plug 'kyazdani42/nvim-web-devicons'
 
 "typing
 Plug 'jiangmiao/auto-pairs'
 Plug 'machakann/vim-sandwich'
 Plug 'alvan/vim-closetag'
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
-Plug 'lilydjwg/colorizer'
-
+Plug 'norcalli/nvim-colorizer.lua'
 
 
 
 "Visuals
 Plug 'https://github.com/Yggdroot/indentLine'
+Plug 'sbdchd/neoformat'
 
 
 
@@ -73,6 +105,9 @@ call plug#end()
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+lua require('init')
+
+
 " Sets how many lines of history VIM has to remember
 set history=503
 
@@ -144,7 +179,7 @@ set cmdheight=1
 
 " A buffer becomes hidden when it is abandoned
 set hid
-
+set hidden
 " Configure backspace so it acts as it should act
 set backspace=eol,start,indent
 set whichwrap+=<,>,h,l
@@ -250,6 +285,11 @@ let g:lightline = {
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+ " => Treesitter
+ " """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
  " => NERDCommenter
  " """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -292,6 +332,12 @@ let R_auto_start = 2
 "open object browser in start
 let R_objbr_auto_start = 1
 
+" R output is highlighted with current colorscheme
+let g:rout_follow_colorscheme = 1
+
+" R commands in R output are highlighted
+let g:Rout_more_colors = 1
+
  """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
  " => Remap
  """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -326,10 +372,20 @@ tnoremap <Esc> <C-,><C-n>
 nmap <silent> <leader>a <Plug>(ale_next_wrap)
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+ " => Telescope
+ """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Using Lua functions
+nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files()<cr>
+nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep()<cr>
+nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>
+nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
  " => Latex and vimtex
  """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-
+let g:coc_filetype_map = {'tex': 'latex'}
 let g:vimtex_view_method = 'zathura'
 let g:vimtex_quickfix_mode=0
 
@@ -343,4 +399,20 @@ let g:mkdp_browser = 'librewolf'
  " => COC
  """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-let g:coc_global_extensions = ['coc-json', 'coc-go', 'coc-prettier', 'coc-pyright', 'coc-sh', 'coc-snippets', 'coc-sql', 'coc-css', 'coc-ltex', 'coc-html']
+let g:coc_global_extensions = ['coc-json', 'coc-go', 'coc-prettier', 'coc-pyright', 'coc-sh', 'coc-snippets', 'coc-sql', 'coc-css', 'coc-html', 'coc-r-lsp', 'coc-texlab', 'coc-ltex']
+
+set nobackup
+set nowritebackup
+
+
+" Give more space for displaying messages.
+set cmdheight=2
+
+" Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
+" delays and poor user experience.
+set updatetime=300
+
+" Don't pass messages to |ins-completion-menu|.
+set shortmess+=c
+
+

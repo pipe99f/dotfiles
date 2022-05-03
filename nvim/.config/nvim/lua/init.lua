@@ -1,0 +1,8 @@
+require('plugins.treesitter')
+require('plugins.cmp')
+require('plugins.lspinstaller')
+require('plugins.luasnip')
+require('plugins.lspconfig')
+require('plugins.trouble')
+require('plugins.null-ls')
+require('plugins.lspsaga')
