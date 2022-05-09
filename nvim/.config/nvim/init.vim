@@ -18,7 +18,8 @@ Plug 'neovim/nvim-lspconfig'
 Plug 'williamboman/nvim-lsp-installer'
 Plug 'folke/trouble.nvim'
 Plug 'jose-elias-alvarez/null-ls.nvim'
-Plug 'glepnir/lspsaga.nvim'
+" Plug 'glepnir/lspsaga.nvim' Unmaintained
+Plug 'tami5/lspsaga.nvim'
 
 
 "Debugger
@@ -106,10 +107,12 @@ call plug#end()
 " => General
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 lua require('init')
-
-
+" nnoremap <silent>K :Lspsaga hover_doc<CR>
+" nnoremap <silent>gr <cmd>lua require('lspsaga.rename').rename()<CR>
 " Sets how many lines of history VIM has to remember
 set history=503
+
+
 
 " Disable compatibility with vi which can cause unexpected issues.
 set nocompatible
