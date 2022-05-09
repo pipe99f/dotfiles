@@ -153,7 +153,7 @@ workspace_auto_back_and_forth yes
 
 #vim anywhere para que sea popup
 for_window [class="Alacritty" instance="__text_scratchpad"] floating enable
-bindsym $mod+c exec bash anywhereVimI3.sh --class float
+# bindsym $mod+c exec bash anywhereVimI3.sh --class float
 
 #screen recording
 
@@ -161,6 +161,9 @@ bindsym $mod+c exec bash anywhereVimI3.sh --class float
 bindsym --to-code $mod+p exec grim -g "$(slurp)" - | wl-copy
 #bindsym $mod+Shift+p exec grim -g "$(slurp)" /home/pipe99g/Desktop/$(date +'%s_grim.png')
 bindsym --to-code $mod+Shift+p exec grim -g "$(slurp)" - | swappy -f -
+
+#exec jupyter qterminal and nvim
+bindsym --to-code $mod+c exec jupyter qtconsole | exec alacritty -e nvim ~/ve/prog/
 
 
 #

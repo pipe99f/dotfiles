@@ -44,8 +44,10 @@ Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 
 
+
+Plug 'kyazdani42/nvim-tree.lua'
 Plug 'preservim/nerdcommenter'
-Plug 'https://github.com/preservim/nerdtree'
+" Plug 'https://github.com/preservim/nerdtree'
 " Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 " Plug 'junegunn/fzf.vim'
 Plug 'ThePrimeagen/vim-be-good'
@@ -365,8 +367,8 @@ nnoremap <silent> <C-k> :call WinMove('k')<CR>
 nnoremap <silent> <C-l> :call WinMove('l')<CR>
 
 "open NERDTRE
-nnoremap <leader>n :NERDTreeFocus<CR>
-
+" nnoremap <leader>n :NERDTreeFocus<CR>
+nnoremap <leader>n :NvimTreeToggle<CR>
 
 "insert mode in terminal with ESC
 tnoremap <Esc> <C-,><C-n>
