@@ -81,11 +81,14 @@ Plug 'dracula/vim', { 'as': 'draculaOfficial' }
 "Plug 'flazz/vim-colorschemes'
 Plug 'arcticicestudio/nord-vim'
 Plug 'rakr/vim-one'
+Plug 'xiyaowong/nvim-transparent'
 
 "appearance details
 Plug 'ryanoasis/vim-devicons'
-Plug 'itchyny/lightline.vim'
+Plug 'nvim-lualine/lualine.nvim'
 Plug 'kyazdani42/nvim-web-devicons'
+Plug 'goolord/alpha-nvim'
+" Plug 'startup-nvim/startup.nvim'
 
 "typing
 Plug 'jiangmiao/auto-pairs'
@@ -284,10 +287,10 @@ set encoding=utf8
 set ffs=unix,dos,mac
 
 " Lightline plugin theme
-let g:lightline = {
-      \ 'colorscheme': 'wombat',
-      \ }
-
+" let g:lightline = {
+"       \ 'colorscheme': 'wombat',
+"       \ }
+"
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
  " => Treesitter

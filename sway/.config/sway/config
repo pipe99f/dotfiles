@@ -165,6 +165,10 @@ bindsym --to-code $mod+Shift+p exec grim -g "$(slurp)" - | swappy -f -
 #exec jupyter qterminal and nvim
 bindsym --to-code $mod+c exec jupyter qtconsole | exec alacritty -e nvim ~/ve/prog/
 
+#brightness control (laptop brightness keys are failing)
+bindsym --to-code $mod+= exec sudo light -A 10
+bindsym --to-code $mod+- exec sudo light -U 10
+
 
 #
 # Moving around:
@@ -320,7 +324,8 @@ exec gammastep
 exec_always autotiling
 workspace 1; exec flatpak run com.spotify.Client;
 workspace 2; exec librewolf;
-output "*" bg /home/pipe99g/.config/sway/revocationwallpaper.jpeg tile
+# output "*" bg /home/pipe99g/.config/sway/revocationwallpaper.jpeg tile
+output "*" bg /home/pipe99g/.config/sway/skeletonwitch.jpg fill
 exec swayidle -w \
     timeout 720 'swaylock -f -e -i ~/.config/sway/grotesqueimpalement.jpg' \
     timeout 1500 'systemctl suspend' \

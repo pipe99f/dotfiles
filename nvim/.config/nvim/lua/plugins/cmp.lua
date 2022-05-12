@@ -36,7 +36,7 @@ local kind_icons = {
 
 
 require'cmp'.setup{
-  
+
   snippet = {
     expand = function(args)
       require'luasnip'.lsp_expand(args.body)
@@ -48,7 +48,8 @@ require'cmp'.setup{
     { name = "path" },
     { name = "buffer" },
     { name = "luasnip" },
-    { name = "latex_symbols" }
+    { name = "latex_symbols" },
+    { name = "zsh" }
   },
 
   mapping = {
@@ -81,7 +82,7 @@ require'cmp'.setup{
     ['<C-Space>'] = cmp.mapping.complete(),
     ['<C-e>'] = cmp.mapping.abort(),
     ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-    
+
 
     -- ... Your other mappings ...
   },
@@ -102,20 +103,23 @@ require'cmp'.setup{
     end
   },
 
-  
+
 }
 
 require'cmp'.setup.cmdline(':', {
-  sources = {
-    { name = 'cmdline' }
-  }
-})
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = cmp.config.sources({
+      { name = 'path' }
+    }, {
+      { name = 'cmdline' }
+    })
+  })
+
 
 require'cmp'.setup.cmdline('/', {
-  sources = {
-    { name = 'buffer' }
-  }
-})
-
-
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = {
+      { name = 'buffer' }
+    }
+  })
 
