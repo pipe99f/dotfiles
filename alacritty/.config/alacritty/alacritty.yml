@@ -51,7 +51,7 @@ env:
   #  y: 0
 
   # Spread additional padding evenly around the terminal content.
-  #dynamic_padding: false
+  dynamic_padding: True
 
   # Window decorations
   #
@@ -396,7 +396,12 @@ window:
 #  - { mouse: Middle, action: PasteSelection }
 
 # Key bindings
-#
+
+key_bindings:
+
+  ##open new terminal in same folder 
+  - { key: Return,   mods: Super|Shift, action: SpawnNewInstance }
+
 # Key bindings are specified as a list of objects. For example, this is the
 # default paste binding:
 #

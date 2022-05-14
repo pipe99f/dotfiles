@@ -5,7 +5,7 @@ fi
 
 
 #mandatory for rust
-. "$HOME/.cargo/env"
+# . "$HOME/.cargo/env"
 
 #makes tmux consider what is in this bashrc
 source ~/.zshrc

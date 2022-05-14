@@ -76,8 +76,8 @@ bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ to
 bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle
 
 #Brightness. Requires "light"
-bindsym XF86MonBrightnessUp exec sudo light -A 10
-bindsym --locked XF86MonBrightnessDown exec sudo light -U 10
+bindsym --locked XF86MonBrightnessUp exec brightnessctl set 5%+
+bindsym --locked XF86MonBrightnessDown exec brightnessctl set 5%- 
 
 
 #Touchpad configuration
@@ -114,7 +114,7 @@ exec_always {
 ## Window colors
 
  # class                 border  backgr. text    indicator
-    client.focused          #81a1c1 #81a1c1 #ffffff #81a1c1
+    client.focused          #64727d #64727D #ffffff #81a1c1
     client.unfocused        #2e3440 #2e3440 #888888 #2e3440
     client.focused_inactive #2e3440 #2e3440 #888888 #2e3440
     client.placeholder      #2e3440 #2e3440 #888888 #2e3440
@@ -165,9 +165,6 @@ bindsym --to-code $mod+Shift+p exec grim -g "$(slurp)" - | swappy -f -
 #exec jupyter qterminal and nvim
 bindsym --to-code $mod+c exec jupyter qtconsole | exec alacritty -e nvim ~/ve/prog/
 
-#brightness control (laptop brightness keys are failing)
-bindsym --to-code $mod+= exec sudo light -A 10
-bindsym --to-code $mod+- exec sudo light -U 10
 
 
 #
@@ -299,7 +296,7 @@ bindsym --to-code $mod+r mode "resize"
 gaps inner 5
 
 # Removes the title bar of each window.
-  default_border pixel 3
+  default_border pixel 2
 
 #
 # Status Bar:

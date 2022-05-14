@@ -100,7 +100,7 @@ Plug 'norcalli/nvim-colorizer.lua'
 
 
 "Visuals
-Plug 'https://github.com/Yggdroot/indentLine'
+Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'sbdchd/neoformat'
 
 
@@ -140,14 +140,34 @@ let mapleader = ","
 " Fast saving
 nmap <leader>w :w!<cr>
 
+"copypath
+" copy result to the system clipboard and echo the result
+    " the cb> prompt means the clipboard
+    " *f*ile *n*ame, ex. init.vim
+    map <Leader>fn :let @+ = expand("%:t") \| echo 'File name copied: ' . @+<CR>
+    " *f*ile *p*ath, ex. /home/user/nvim/init.vim
+    map <Leader>fp :let @+ = expand("%:p") \| echo 'File path copied: ' . @+<CR>
+    " *d*irectory *p*ath, ex. /home/user/nvim
+    map <Leader>dp :let @+ = expand("%:p:h") \| echo 'Directory path copied: ' . @+<CR>
+    " *d*irectory *n*ame, ex. nvim
+    map <Leader>dn :let @+ = expand("%:p:h:t") \| echo 'Directory name copied: ' . @+<CR>
+
+
 " :W sudo saves the file
 " (useful for handling the permission-denied error)
 command! W execute 'w !sudo tee % > /dev/null' <bar> edit!
 
+autocmd TermOpen * startinsert
 
 "py code
 autocmd FileType python map <buffer> <F9> :w<CR>:exec '!python3' shellescape(@%, 1)<CR>
 autocmd FileType python imap <buffer> <F9> <esc>:w<CR>:exec '!python3' shellescape(@%, 1)<CR>
+autocmd FileType python nnoremap <leader>run :w <CR> :bo :8sp <CR> :term python % <CR>
+
+"lua code
+autocmd FileType lua nnoremap <leader>run :w <CR> :bo :8sp <CR> :term lua % <CR>
+
+
 
 "VIM UI
 
@@ -373,8 +393,8 @@ nnoremap <silent> <C-l> :call WinMove('l')<CR>
 " nnoremap <leader>n :NERDTreeFocus<CR>
 nnoremap <leader>n :NvimTreeToggle<CR>
 
-"insert mode in terminal with ESC
-tnoremap <Esc> <C-,><C-n>
+"normal mode in terminal with ESC
+tnoremap <Esc> <C-\><C-n>
 
 "go to the next Ale syntax/lint error
 nmap <silent> <leader>a <Plug>(ale_next_wrap)

@@ -1,6 +1,4 @@
 style=/home/pipe99g/.config/wofi/style.css
-xoffset=760
-yoffset=290
 show=drun
 width=400
 height=400
