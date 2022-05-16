@@ -1,33 +1,33 @@
 window {
 margin: 0px;
-border: 2px solid #4c566a;
+border: 2px solid #64727d;
 border-radius: 5px;
-background-color: #3b4252;
-font-family: monospace;
+background-color: #2e3440;
+font-family: RobotoMono Nerd Font;
 font-size: 18px;
 }
 
 #input {
 margin: 5px;
-border: 1px solid #3b4252;
-color: #eceff4;
-background-color: #3b4252;
+border: 1px solid #64727d;
+color: #cacaca;
+background-color: #2e3440;
 }
 
 #input image {
-	color: #eceff4;
+	color: #cacaca;
 }
 
 #inner-box {
 margin: 5px;
 border: none;
-background-color: #3b4252;
+background-color: #2e3440;
 }
 
 #outer-box {
 margin: 5px;
 border: none;
-background-color: #3b4252;
+background-color: #2e3440;
 }
 
 #scroll {
@@ -38,16 +38,16 @@ border: none;
 #text {
 margin: 5px;
 border: none;
-color: #eceff4;
+color: #cacaca;
 } 
 
 #entry:selected {
-	background-color: #4c566a;
+	background-color: rgba(59, 66, 82, 0.5);
 	font-weight: normal;
 }
 
 #text:selected {
-	background-color: #4c566a;
+	background-color: rgba(59, 66, 82, 0.5);
 	font-weight: normal;
 }
 

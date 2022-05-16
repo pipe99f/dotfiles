@@ -34,7 +34,7 @@ input type:keyboard {
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font pango:lato 10
+font pango:Arimo Nerd Font 11
 
 ### Output configuration
 #
@@ -91,6 +91,9 @@ bindsym --locked XF86MonBrightnessDown exec brightnessctl set 5%-
        scroll_factor 0.3
    }
 
+# hide mouse after 10 seconds inactivity
+seat * hide_cursor 10000
+
 
 # Example configuration:
 #
@@ -114,7 +117,7 @@ exec_always {
 ## Window colors
 
  # class                 border  backgr. text    indicator
-    client.focused          #64727d #64727D #ffffff #81a1c1
+    client.focused          #64727d #64727D #ffffff #64727d
     client.unfocused        #2e3440 #2e3440 #888888 #2e3440
     client.focused_inactive #2e3440 #2e3440 #888888 #2e3440
     client.placeholder      #2e3440 #2e3440 #888888 #2e3440
@@ -151,9 +154,16 @@ exec_always {
 #return to previous workspace
 workspace_auto_back_and_forth yes
 
-#vim anywhere para que sea popup
-for_window [class="Alacritty" instance="__text_scratchpad"] floating enable
-# bindsym $mod+c exec bash anywhereVimI3.sh --class float
+
+# default floating windows
+for_window [window_role = "pop-up"] floating enable
+for_window [window_role = "bubble"] floating enable
+for_window [window_role = "dialog"] floating enable
+for_window [window_type = "dialog"] floating enable
+for_window [window_role = "task_dialog"] floating enable
+for_window [window_type = "menu"] floating enable
+for_window [app_id = "floating"] floating enable
+
 
 #screen recording
 
@@ -222,7 +232,8 @@ bindsym --to-code $mod+c exec jupyter qtconsole | exec alacritty -e nvim ~/ve/pr
 #opening some apps in certain workspace, usar xprop para determinar el instance(primero) y el class(segundo) para wayland se usa "swaymsg -t get_tree"
 assign [class="firefox" instance="Navigator"] → 2
 assign [class="Spotify" instance="spotify"] → 1
-assign [class="LibreWolf" instance="Navigator"] → 2
+assign [class="libreWolf" instance="Navigator"] → 2
+assign [class="Steam" instance="Steam"] → 9
 assign [class="csgo_linux64" instance="csgo_linux64"] → 10
 
 #Evita que swayidle funcione cuando tengo algún programa en fullscreen
@@ -293,7 +304,7 @@ mode "resize" {
 bindsym --to-code $mod+r mode "resize"
 
 ###GAPS
-gaps inner 5
+gaps inner 4
 
 # Removes the title bar of each window.
   default_border pixel 2
@@ -305,22 +316,14 @@ gaps inner 5
 bar {
 	swaybar_command waybar
 
-    # When the status_command prints a new line to stdout, swaybar updates.
-    # The default just shows the current date and time.
-    status_command while date +'%Y-%m-%d %l:%M:%S %p'; do sleep 1; done
-
-    colors {
-        statusline #ffffff
-        background #323232
-        inactive_workspace #32323200 #32323200 #5c5c5c
     }
 }
 
 
 exec gammastep
 exec_always autotiling
+workspace 2; exec firefox;
 workspace 1; exec flatpak run com.spotify.Client;
-workspace 2; exec librewolf;
 # output "*" bg /home/pipe99g/.config/sway/revocationwallpaper.jpeg tile
 output "*" bg /home/pipe99g/.config/sway/skeletonwitch.jpg fill
 exec swayidle -w \

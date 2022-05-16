@@ -44,7 +44,7 @@ Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 
 
-
+Plug 'akinsho/bufferline.nvim', { 'tag': 'v2.*' }
 Plug 'kyazdani42/nvim-tree.lua'
 Plug 'preservim/nerdcommenter'
 " Plug 'https://github.com/preservim/nerdtree'
@@ -179,6 +179,8 @@ set relativenumber
 set cursorline
 "hi CursorLine cterm=NONE ctermbg=237
 
+
+
 " Set 7 lines to the cursor - when moving vertically using j/k
 set so=7
 
@@ -306,11 +308,6 @@ set encoding=utf8
 " Use Unix as the standard file type
 set ffs=unix,dos,mac
 
-" Lightline plugin theme
-" let g:lightline = {
-"       \ 'colorscheme': 'wombat',
-"       \ }
-"
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
  " => Treesitter
@@ -366,7 +363,16 @@ let g:rout_follow_colorscheme = 1
 " R commands in R output are highlighted
 let g:Rout_more_colors = 1
 
- """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"object window position and size
+" let R_objbr_place = 'RIGHT'
+let R_objbr_w = 30
+
+"terminal window position and size
+let R_rconsole_width = 0
+let R_rconsole_height = 12
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
  " => Remap
  """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 

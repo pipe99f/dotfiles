@@ -17,7 +17,10 @@ vim.api.nvim_set_keymap('n', 'K', "<cmd>lua require('lspsaga.hover').render_hove
 vim.api.nvim_set_keymap('n', 'C-u', "<cmd>lua require('lspsaga.action').smart_scroll_with_saga(1)<CR>", opts)
 vim.api.nvim_set_keymap('n', 'C-d', "<cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1)<CR>", opts)
 vim.api.nvim_set_keymap('n', 'gd', "<cmd>lua require'lspsaga.provider'.preview_definition()<CR>", opts)
--- map(0, "n", "K",  "<cmd>Lspsaga hover_doc<cr>", {silent = true, noremap = true})
--- map(0, "n", "<C-u>", "<cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1, '<c-u>')<cr>", {})
--- map(0, "n", "<C-d>", "<cmd>lua require('lspsaga.action').smart_scroll_with_saga(1, '<c-d>')<cr>", {})
 vim.api.nvim_set_keymap('n', 'gh', "<cmd>lua require('lspsaga.provider').lsp_finder()<CR>", opts)
+vim.api.nvim_set_keymap('n', '<space>e', "<cmd>lua require'lspsaga.diagnostic'.show_line_diagnostics()<CR>", opts)
+
+
+vim.api.nvim_set_keymap('n', '[d', "<cmd>lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_prev()<CR>", opts)
+vim.api.nvim_set_keymap('n', ']d', "<cmd>lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_next()<CR>", opts)
+

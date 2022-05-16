@@ -11,3 +11,7 @@ require('plugins.lualine')
 require('plugins.alpha')
 require('plugins.nvim-transparent')
 require('plugins.blankline')
+require('plugins.bufferline')
+
+--UI
+vim.opt.laststatus = 3 -- use global statusline
