@@ -47,6 +47,7 @@ Plug 'nvim-telescope/telescope.nvim'
 Plug 'akinsho/bufferline.nvim', { 'tag': 'v2.*' }
 Plug 'kyazdani42/nvim-tree.lua'
 Plug 'preservim/nerdcommenter'
+Plug 'voldikss/vim-floaterm'
 " Plug 'https://github.com/preservim/nerdtree'
 " Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 " Plug 'junegunn/fzf.vim'
@@ -56,6 +57,7 @@ Plug 'ThePrimeagen/vim-be-good'
 "Git
 Plug 'tpope/vim-fugitive'
 Plug 'https://github.com/mattn/vim-gist'
+Plug 'lewis6991/gitsigns.nvim'
 
 ""Markdown   
 Plug 'godlygeek/tabular'
@@ -162,10 +164,10 @@ autocmd TermOpen * startinsert
 "py code
 autocmd FileType python map <buffer> <F9> :w<CR>:exec '!python3' shellescape(@%, 1)<CR>
 autocmd FileType python imap <buffer> <F9> <esc>:w<CR>:exec '!python3' shellescape(@%, 1)<CR>
-autocmd FileType python nnoremap <leader>run :w <CR> :bo :8sp <CR> :term python % <CR>
+autocmd FileType python nnoremap <buffer> <F8> :w <CR> :bo :8sp <CR> :term python % <CR>
 
 "lua code
-autocmd FileType lua nnoremap <leader>run :w <CR> :bo :8sp <CR> :term lua % <CR>
+autocmd FileType lua nnoremap <buffer> <F8>:w <CR> :bo :8sp <CR> :term lua % <CR>
 
 
 

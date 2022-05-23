@@ -12,6 +12,7 @@ require('plugins.alpha')
 require('plugins.nvim-transparent')
 require('plugins.blankline')
 require('plugins.bufferline')
+require('plugins.gitsigns')
 
 --UI
 vim.opt.laststatus = 3 -- use global statusline
