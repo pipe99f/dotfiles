@@ -235,6 +235,7 @@ assign [class="Spotify" instance="spotify"] → 1
 assign [class="libreWolf" instance="Navigator"] → 2
 assign [class="Steam" instance="Steam"] → 9
 assign [class="csgo_linux64" instance="csgo_linux64"] → 10
+assign [class="dota2" instance="dota2"] → 10
 
 #Evita que swayidle funcione cuando tengo algún programa en fullscreen
 for_window [class=".*"] inhibit_idle fullscreen
