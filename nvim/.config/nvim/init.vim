@@ -42,6 +42,8 @@ Plug 'kdheepak/cmp-latex-symbols'
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
+" Plug 'tami5/sqlite.lua'
+" Plug 'nvim-telescope/telescope-frecency.nvim'
 
 
 Plug 'akinsho/bufferline.nvim', { 'tag': 'v2.*' }
@@ -429,26 +431,6 @@ let g:vimtex_quickfix_mode=0
  " => Markdown
  """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-let g:mkdp_browser = 'librewolf'
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
- " => COC
- """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-let g:coc_global_extensions = ['coc-json', 'coc-go', 'coc-prettier', 'coc-pyright', 'coc-sh', 'coc-snippets', 'coc-sql', 'coc-css', 'coc-html', 'coc-r-lsp', 'coc-texlab', 'coc-ltex']
-
-set nobackup
-set nowritebackup
-
-
-" Give more space for displaying messages.
-set cmdheight=2
-
-" Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
-" delays and poor user experience.
-set updatetime=300
-
-" Don't pass messages to |ins-completion-menu|.
-set shortmess+=c
+let g:mkdp_browser = 'brave'
 
 
