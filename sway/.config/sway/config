@@ -26,8 +26,8 @@ set $menu wofi --show=drun --lines=7 --prompt=""
 # input * xkb_variant "intl,"
 # input * xkb_option "grp:alt_shift_toggle"
 input type:keyboard {
-    xkb_layout us,ru,gr
-    xkb_variant intl,,
+    xkb_layout us,us,ru,gr
+    xkb_variant intl,altgr-intl,,
     xkb_options grp:alt_shift_toggle
 }
 
@@ -36,10 +36,21 @@ input type:keyboard {
 # is used in the bar {} block below.
 font pango:Arimo Nerd Font 11
 
+##Cursor theme
+# seat seat0 xcursor_theme "Sunity-cursors" 30
+
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
 output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
+
+
+##monitor settings
+output 'Unknown GFV22CB             ' mode 1920x1080@120Hz
+output 'Unknown GFV22CB             ' adaptive_sync on
+output 'Samsung Electric Company S22F350 H4ZM701012' disable
+
+bindsym $mod+Shift+Escape exec sway output "*" enable | sway output DP-1 res 1920x1080 pos 0 0 | sway output HDMI-A-1 resolution 1920x1080 position 0 1080
 
 #
 # Example configuration:
@@ -131,6 +142,9 @@ exec_always {
 #
     # Start a terminal
     bindsym $mod+Return exec $term
+    bindsym $mod+Shift+Return exec alacritty --class floatterm
+    for_window [app_id="floatterm"] floating enable
+
 
     # Kill focused window
     bindsym --to-code $mod+Shift+q kill
@@ -204,17 +218,6 @@ bindsym --to-code $mod+c exec jupyter qtconsole | exec alacritty -e nvim ~/ve/pr
 #
 # Workspaces:
 #
-    # Switch to workspace
-    bindsym $mod+1 workspace number 1
-    bindsym $mod+2 workspace number 2
-    bindsym $mod+3 workspace number 3
-    bindsym $mod+4 workspace number 4
-    bindsym $mod+5 workspace number 5
-    bindsym $mod+6 workspace number 6
-    bindsym $mod+7 workspace number 7
-    bindsym $mod+8 workspace number 8
-    bindsym $mod+9 workspace number 9
-    bindsym $mod+0 workspace number 10
     # Move focused container to workspace
     bindsym $mod+Shift+1 move container to workspace number 1
     bindsym $mod+Shift+2 move container to workspace number 2
@@ -228,6 +231,16 @@ bindsym --to-code $mod+c exec jupyter qtconsole | exec alacritty -e nvim ~/ve/pr
     bindsym $mod+Shift+0 move container to workspace number 10
     # Note: workspaces can have any name you want, not just numbers.
     # We just use 1-10 as the default.
+    bindsym $mod+1 [workspace="1"] move workspace to output current; workspace number 1
+    bindsym $mod+2 [workspace="2"] move workspace to output current; workspace number 2
+    bindsym $mod+3 [workspace="3"] move workspace to output current; workspace number 3
+    bindsym $mod+4 [workspace="4"] move workspace to output current; workspace number 4
+    bindsym $mod+5 [workspace="5"] move workspace to output current; workspace number 5
+    bindsym $mod+6 [workspace="6"] move workspace to output current; workspace number 6
+    bindsym $mod+7 [workspace="7"] move workspace to output current; workspace number 7
+    bindsym $mod+8 [workspace="8"] move workspace to output current; workspace number 8
+    bindsym $mod+9 [workspace="9"] move workspace to output current; workspace number 9
+    bindsym $mod+0 [workspace="0"] move workspace to output current; workspace number 10
     
 #opening some apps in certain workspace, usar xprop para determinar el instance(primero) y el class(segundo) para wayland se usa "swaymsg -t get_tree"
 assign [class="firefox" instance="Navigator"] → 2
@@ -253,7 +266,7 @@ for_window [app_id=".*"] inhibit_idle fullscreen
     bindsym --to-code $mod+v splitv
 
     # Switch the current container between different layout styles
-    bindsym $mod+s layout stacking
+    bindsym --to-code $mod+s layout stacking
     bindsym --to-code $mod+w layout tabbed
     bindsym --to-code $mod+e layout toggle split
 
@@ -288,10 +301,10 @@ mode "resize" {
     # right will grow the containers width
     # up will shrink the containers height
     # down will grow the containers height
-    bindsym $left resize shrink width 10px
-    bindsym $down resize grow height 10px
-    bindsym $up resize shrink height 10px
-    bindsym $right resize grow width 10px
+    bindsym --to-code $left resize shrink width 10px
+    bindsym --to-code $down resize grow height 10px
+    bindsym --to-code $up resize shrink height 10px
+    bindsym --to-code $right resize grow width 10px
 
     # Ditto, with arrow keys
     bindsym Left resize shrink width 10px
@@ -325,7 +338,7 @@ bar {
 exec gammastep
 exec_always autotiling
 workspace 2; exec firefox;
-workspace 1; exec flatpak run com.spotify.Client;
+workspace 1; exec flatpak run --socket=wayland com.spotify.Client;
 # output "*" bg /home/pipe99g/.config/sway/revocationwallpaper.jpeg tile
 output "*" bg /home/pipe99g/.config/sway/skeletonwitch.jpg fill
 exec swayidle -w \
