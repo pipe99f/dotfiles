@@ -97,6 +97,12 @@ set -o vi
 export EDITOR=nvim
 export VISUAL=nvim
 
+#qt colorscheme
+export QT_QPA_PLATFORM=wayland
+export QT_QPA_PLATFORMTHEME=qt5ct
+
+
+
 #para correr rust cargo
 . "$HOME/.cargo/env"
 

@@ -104,14 +104,7 @@ source $ZSH/oh-my-zsh.sh
    export EDITOR='nvim'
  fi
 
- export VISUAL=nvim
-
-# Exa icons
-export LF_ICONS="\
-    *.sh=:\
-    *.py=:\
-    *.tex=:\
-    "
+ export VISUAL="nvim"
 
 
 #default programs

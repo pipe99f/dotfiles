@@ -122,7 +122,11 @@ seat * hide_cursor 10000
 set $gnome-schema org.gnome.desktop.interface
 
 exec_always {
-    gsettings set $gnome-schema gtk-theme 'Nordic-darker'
+    gsettings set org.gnome.desktop.wm.preferences theme Nordic-darker
+    gsettings set $gnome-schema font-name "RobotoMono Nerd Font"
+    gsettings set $gnome-schema gtk-theme Nordic-darker
+    gsettings set $gnome-schema icon-theme Adwaita
+
     }
 
 ## Window colors
@@ -250,6 +254,9 @@ assign [class ="discord" instance="discord"] → 8
 assign [class="Steam" instance="Steam"] → 9
 assign [class="csgo_linux64" instance="csgo_linux64"] → 10
 assign [class="dota2" instance="dota2"] → 10
+
+
+workspace 7 output 'Samsung Electric Company S22F350 H4ZM701012'
 
 #Evita que swayidle funcione cuando tengo algún programa en fullscreen
 for_window [class=".*"] inhibit_idle fullscreen

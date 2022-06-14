@@ -1,0 +1,26 @@
+{
+  "settingsVersion": "1.67.1",
+  "exclusionRules": [
+    {
+      "pattern": "https?://mail.google.com/*",
+      "passKeys": ""
+    }
+  ],
+  "filterLinkHints": false,
+  "waitForEnterForFilteredHints": true,
+  "hideHud": false,
+  "keyMappings": "# Insert your preferred key mappings here.",
+  "linkHintCharacters": "sadfjklewcmpgh",
+  "linkHintNumbers": "0123456789",
+  "newTabUrl": "about:newtab",
+  "nextPatterns": "next,more,newer,>,›,→,»,≫,>>",
+  "previousPatterns": "prev,previous,back,older,<,‹,←,«,≪,<<",
+  "regexFindMode": false,
+  "ignoreKeyboardLayout": true,
+  "scrollStepSize": 60,
+  "smoothScroll": false,
+  "grabBackFocus": false,
+  "searchEngines": "w: https://www.wikipedia.org/w/index.php?title=Special:Search&search=%s Wikipedia\n\n# More examples.\n#\n# (Vimium supports search completion Wikipedia, as\n# above, and for these.)\n#\n# g: https://www.google.com/search?q=%s Google\n# l: https://www.google.com/search?q=%s&btnI I'm feeling lucky...\nyt: https://www.youtube.com/results?search_query=%s Youtube\ngm: https://www.google.com/maps?q=%s Google maps\ngh: https://github.com/search?q=%s Github\n# b: https://www.bing.com/search?q=%s Bing\n# d: https://duckduckgo.com/?q=%s DuckDuckGo\na: https://www.amazon.com/s/?field-keywords=%s Amazon\n# qw: https://www.qwant.com/?q=%s Qwant",
+  "searchUrl": "https://duckduckgo.com/?q=%s",
+  "userDefinedLinkHintCss": "/* Nord Vomnibar CSS */\n/* Installation: Open Vimium Options -> Click \"Show Advanced Options\" and paste this into the CSS for Vimium UI text area. */\n\n#vomnibar ol, #vomnibar ul {\n  list-style: none;\n  display: none;\n}\n\n#vomnibar {\n  background: rgba(46, 50, 59, 0.9);\n  border-radius: 4px;\n  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2);\n  border: none;\n}\n\n#vomnibar input {\n  color: #E5E9F0;\n  font-size: 24px;\n  height: auto;\n  margin-bottom: 0;\n  padding: 15px;\n  background-color: unset;\n  border-radius: 3px;\n  border: none;\n  box-shadow: none;\n}\n\n#vomnibar .vomnibarSearchArea {\n  padding: 0;\n  background-color: unset;\n  border-bottom: 1px solid rgba(255,255,255,0.1);\n}\n\n#vomnibar ul {\n  background-color: unset;\n  padding: 0;\n}\n\n#vomnibar li {\n  border-bottom: 1px solid rgba(255,255,255,0.1);\n  color: #E5E9F0;\n}\n\n#vomnibar li.vomnibarSelected {\n  background-color: #363a46;\n}\n\n#vomnibar li .vomnibarSource {\n  color: #e5e9f0;\n}\n\n#vomnibar li em, #vomnibar li .vomnibarTitle {\n  color: #e5e9f0;\n}\n\n#vomnibar li .vomnibarUrl {\n  color: #777e8d;\n}\n\n#vomnibar li .vomnibarMatch {\n  color: #839e6c;\n}\n\n#vomnibar li em .vomnibarMatch, #vomnibar li .vomnibarTitle .vomnibarMatch {\n  color: #839e6c;\n}\n\n#vomnibar li.vomnibarSelected .vomnibarSource {\n  color: #e5e9f0;\n}\n\n#vomnibar li.vomnibarSelected em, #vomnibar li.vomnibarSelected .vomnibarTitle {\n  color: #e5e9f0;\n}\n\n#vomnibar li.vomnibarSelected .vomnibarUrl {\n  color: #777e8d;\n}\n\n#vomnibar li.vomnibarSelected .vomnibarMatch {\n  color: #839e6c;\n}\n\n/* Light Markers */\ndiv > .internalVimiumHintMarker.vimiumHintMarker {\n  background: #EBCB8B;\n  font-size: 12px;\n  border: 1px solid rgba(0,0,0,0.15)\n  border-radius: 5px;\n  box-shadow: 0em 0.1em 0.6em 0.1em rgba(0, 0, 0, 0.2);\n}\n\n/* Link hint text */\ndiv > .internalVimiumHintMarker.vimiumHintMarker span {\n  color: #3B4252;\n  font-size: inherit;\n  text-shadow: none;\n}\n\n/* Link hint matching characters */\ndiv > .internalVimiumHintMarker.vimiumHintMarker > .matchingCharacter {\n  color: #2E3440;\n}\n\n/* Dark Markers */\n/* Remove everything from here below if you prefer light markers */\ndiv > .internalVimiumHintMarker.vimiumHintMarker {\n  background: #5E81AC;\n  font-size: 12px;\n  border: none;\n  border-radius: 5px;\n  box-shadow: 0em 0.1em 0.6em 0.1em rgba(0, 0, 0, 0.2);\n  \n}\n\n/* Link hint text */\ndiv > .internalVimiumHintMarker.vimiumHintMarker span {\n  color: #ECEFF4;\n  font-size: inherit;\n  text-shadow: none;\n}\n\n/* Link hint matching characters */\ndiv > .internalVimiumHintMarker.vimiumHintMarker > .matchingCharacter {\n  color: #FFF;\n}"
+}
