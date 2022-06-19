@@ -24,6 +24,7 @@ local function lsp_highlight_document(client)
   end
 end
 
+
 vim.api.nvim_set_keymap('n', '<space>q', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
 
 -- Use an on_attach function to only map the following keys
@@ -64,6 +65,7 @@ require('plugins.lsp.cssls')
 require('plugins.lsp.gopls')
 require('plugins.lsp.html')
 require('plugins.lsp.ltex')
+require('plugins.lsp.marksman')
 require('plugins.lsp.pyright')
 require('plugins.lsp.r_language_server')
 require('plugins.lsp.rust_analyzer')
@@ -71,7 +73,6 @@ require('plugins.lsp.sqls')
 require('plugins.lsp.sumneko_lua')
 require('plugins.lsp.texlab')
 require('plugins.lsp.tsserver')
-require('plugins.lsp.zeta_note')
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches

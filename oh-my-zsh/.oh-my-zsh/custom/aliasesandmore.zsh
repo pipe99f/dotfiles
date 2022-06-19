@@ -33,7 +33,7 @@ alias vi="nvim"
 alias cemount="sudo mount UUID=468471E88471DB3F /mnt/ce/"
 
 #mount ve disk
-alias vemount="sudo mount UUID=193fbefc-50d2-401d-880c-7d0da10c402c /mnt/ve/"
+alias vemount="sudo mount UUID=EA9898FB9898C809 /mnt/ve/"
 
 #folder de libros 
 alias lifolder="cd ~/ce/Libros/"
