@@ -30,5 +30,8 @@ export _JAVA_AWT_WM_NONREPARENTING=1
 export ECORE_EVAS_ENGINE="wayland_egl"
 export ELM_ENGINE="wayland_egl"
 
+#GTK
+export GTK_THEME=Adwaita-One-Dark
+
 
 

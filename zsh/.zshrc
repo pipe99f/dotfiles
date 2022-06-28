@@ -110,6 +110,10 @@ source $ZSH/oh-my-zsh.sh
 #default programs
 # export MAIL:geary
 
+#GTK THEME
+export GTK_THEME=Adwaita-One-Dark
+
+
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
