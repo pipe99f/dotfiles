@@ -1,6 +1,9 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set termguicolors
+
+lua require('impatient')
 lua require('init')
 
 " Sets how many lines of history VIM has to remember

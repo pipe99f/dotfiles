@@ -1,6 +1,5 @@
 require('packer').startup(function()
 
-
 -- Packer can manage itself
   use 'wbthomason/packer.nvim'
 --code completion and check
@@ -17,7 +16,7 @@ require('packer').startup(function()
 
 
 --LSP
-  use {'neovim/nvim-lspconfig', after = "nvim-lsp-installer"}
+  use 'neovim/nvim-lspconfig'
   use 'williamboman/nvim-lsp-installer'
   use 'folke/trouble.nvim'
   use 'jose-elias-alvarez/null-ls.nvim'
@@ -37,6 +36,7 @@ require('packer').startup(function()
   use 'hrsh7th/nvim-cmp'
   use 'saadparwaiz1/cmp_luasnip'
   use 'kdheepak/cmp-latex-symbols'
+  use 'lukas-reineke/cmp-rg'
 
 
 --telescope
@@ -49,7 +49,12 @@ require('packer').startup(function()
   use {'akinsho/bufferline.nvim', tag = "v2.*", requires = 'kyazdani42/nvim-web-devicons'}
   use 'kyazdani42/nvim-tree.lua'
   use 'numToStr/Comment.nvim'
-  use 'voldikss/vim-floaterm'
+  use {
+      "numToStr/FTerm.nvim",
+      config = function()
+          require('FTerm').setup()
+      end
+  }
 --  Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 --  Plug 'junegunn/fzf.vim'
   use 'ThePrimeagen/vim-be-good'
@@ -61,7 +66,7 @@ require('packer').startup(function()
   use 'https://github.com/mattn/vim-gist'
   use 'lewis6991/gitsigns.nvim'
 
---Markdown   
+--Markdown---
   use 'godlygeek/tabular'
   use 'preservim/vim-markdown'
   use({
@@ -95,6 +100,13 @@ require('packer').startup(function()
   use 'nvim-lualine/lualine.nvim'
   use 'goolord/alpha-nvim'
   use 'lukas-reineke/indent-blankline.nvim'
+  use {
+      "karb94/neoscroll.nvim",
+      config = function()
+          require('neoscroll').setup()
+      end
+  }
+  use 'p00f/nvim-ts-rainbow'
 
 ----typing----
   use 'windwp/nvim-autopairs'
@@ -103,7 +115,18 @@ require('packer').startup(function()
 --  use 'mg979/vim-visual-multi'
   use 'norcalli/nvim-colorizer.lua'
 
+----Others----
+  use "ahmedkhalf/project.nvim"
+  use {
+      'lewis6991/spellsitter.nvim',
+      config = function()
+        require('spellsitter').setup()
+      end
+  }
+  use 'lewis6991/impatient.nvim'
+
 end)
+
 
 
 require('plugins.treesitter')
@@ -117,12 +140,20 @@ require('plugins.lspsaga')
 require('plugins.nvim-tree')
 require('plugins.lualine')
 require('plugins.alpha')
+require('plugins.colorizer')
 require('plugins.nvim-transparent')
 require('plugins.blankline')
 require('plugins.bufferline')
 require('plugins.gitsigns')
 require('plugins.comment')
 require('plugins.autopairs')
+require('plugins.project')
 
 --UI
 vim.opt.laststatus = 3 -- use global statusline
+
+--Keybindins
+-- FTerm
+vim.keymap.set('n', '<A-i>', '<CMD>lua require("FTerm").toggle()<CR>')
+vim.keymap.set('t', '<A-i>', '<C-\\><C-n><CMD>lua require("FTerm").toggle()<CR>')
+

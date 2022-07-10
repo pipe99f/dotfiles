@@ -51,6 +51,7 @@ require'cmp'.setup{
     { name = "path" },
     { name = "buffer" },
     { name = "luasnip" },
+    { name = "rg" },
     { name = "latex_symbols" },
     { name = "zsh" }
   },
