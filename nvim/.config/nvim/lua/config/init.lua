@@ -1,7 +1,6 @@
 require('packer').startup(function()
 
--- Packer can manage itself
-  use 'wbthomason/packer.nvim'
+-- Packer can manage itself use 'wbthomason/packer.nvim'
 --code completion and check
   use 'mattn/emmet-vim'
   use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
@@ -129,31 +128,28 @@ end)
 
 
 
-require('plugins.treesitter')
-require('plugins.cmp')
-require('plugins.lspinstaller') -- must be always before require('plugins.lspconfig')
-require('plugins.luasnip')
-require('plugins.lspconfig')
-require('plugins.trouble')
-require('plugins.null-ls')
-require('plugins.lspsaga')
-require('plugins.nvim-tree')
-require('plugins.lualine')
-require('plugins.alpha')
-require('plugins.colorizer')
-require('plugins.nvim-transparent')
-require('plugins.blankline')
-require('plugins.bufferline')
-require('plugins.gitsigns')
-require('plugins.comment')
-require('plugins.autopairs')
-require('plugins.project')
+require('config.plugins.treesitter')
+require('config.plugins.cmp')
+require('config.plugins.lspinstaller') -- must be always before require('plugins.lspconfig')
+require('config.plugins.luasnip')
+require('config.plugins.lspconfig')
+require('config.plugins.trouble')
+require('config.plugins.null-ls')
+require('config.plugins.lspsaga')
+require('config.plugins.nvim-tree')
+require('config.plugins.lualine')
+require('config.plugins.alpha')
+require('config.plugins.colorizer')
+require('config.plugins.nvim-transparent')
+require('config.plugins.blankline')
+require('config.plugins.bufferline')
+require('config.plugins.gitsigns')
+require('config.plugins.comment')
+require('config.plugins.autopairs')
+require('config.plugins.project')
+require('config.plugins.nvimr')
 
---UI
-vim.opt.laststatus = 3 -- use global statusline
 
---Keybindins
--- FTerm
-vim.keymap.set('n', '<A-i>', '<CMD>lua require("FTerm").toggle()<CR>')
-vim.keymap.set('t', '<A-i>', '<C-\\><C-n><CMD>lua require("FTerm").toggle()<CR>')
+--Mappings
+require('config.mappings')
 
