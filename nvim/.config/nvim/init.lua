@@ -20,7 +20,7 @@ opt.backspace = { 'eol', 'start', 'indent' }
 opt.clipboard = 'unnamedplus'
 opt.encoding = 'utf-8'
 opt.matchpairs = { '(:)', '{:}', '[:]', '<:>' }
-opt.syntax = 'enable'
+-- opt.syntax = 'enable'
 opt.history = 500
 
 -- indention
@@ -83,12 +83,12 @@ opt.ttimeoutlen = 10
 opt.updatetime = 200
 
 --plugins
-vim.cmd([[
+cmd([[
 
 let g:vimtex_view_method = 'zathura'
 let g:vimtex_quickfix_mode=0
 
-let g:mkdp_browser = 'brave' 
+let g:mkdp_browser = 'chromium' 
 
 ]])
 

@@ -1,7 +1,6 @@
 require('packer').startup(function()
 
--- Packer can manage itself use 'wbthomason/packer.nvim'
---code completion and check
+  use 'wbthomason/packer.nvim'
   use 'mattn/emmet-vim'
   use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
 
@@ -49,9 +48,9 @@ require('packer').startup(function()
   use 'kyazdani42/nvim-tree.lua'
   use 'numToStr/Comment.nvim'
   use {
-      "numToStr/FTerm.nvim",
+      "numtostr/Fterm.nvim",
       config = function()
-          require('FTerm').setup()
+          require('fterm').setup()
       end
   }
 --  Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -75,6 +74,9 @@ require('packer').startup(function()
     ft = { "markdown" },
 })
 
+--Web
+
+
 --Python
   use 'jupyter-vim/jupyter-vim'
 
@@ -89,7 +91,6 @@ require('packer').startup(function()
 
 
 ----theme----
---Plug 'flazz/vim-colorschemes'
   use 'arcticicestudio/nord-vim'
   use 'rakr/vim-one'
   use 'xiyaowong/nvim-transparent'
@@ -109,19 +110,22 @@ require('packer').startup(function()
 
 ----typing----
   use 'windwp/nvim-autopairs'
+  use 'kylechui/nvim-surround'
   use 'machakann/vim-sandwich'
-  use 'alvan/vim-closetag'
+  use "windwp/nvim-ts-autotag"
+
 --  use 'mg979/vim-visual-multi'
   use 'norcalli/nvim-colorizer.lua'
 
 ----Others----
   use "ahmedkhalf/project.nvim"
   use {
-      'lewis6991/spellsitter.nvim',
+      "karb94/spellsitter.nvim",
       config = function()
-        require('spellsitter').setup()
+          require('spellsitter').setup()
       end
   }
+
   use 'lewis6991/impatient.nvim'
 
 end)
@@ -148,6 +152,8 @@ require('config.plugins.comment')
 require('config.plugins.autopairs')
 require('config.plugins.project')
 require('config.plugins.nvimr')
+
+require('nvim-surround').setup()  -- por algún motivo el plugin no funcionaba si invocaba desde "use"
 
 
 --Mappings

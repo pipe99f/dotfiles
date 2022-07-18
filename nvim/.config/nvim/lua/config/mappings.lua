@@ -18,7 +18,6 @@ map('n', '<leader>cn', ':cnext<cr>zz', opts)
 -- Copy path
 vim.cmd('map <leader>fn :let @+ = expand("%:t") \\| echo "File name copied: " . @+<CR>')
 vim.cmd('map <leader>fp :let @+ = expand("%:p") \\| echo "File path copied: " . @+<CR>')
-vim.cmd('map <leader>dp :let @+ = expand("%:p:h") \\| echo "Directory path copied: " . @+<CR> *d*irectory *n*ame, ex. nvim map <Leader>dn :let @+ = expand("%:p:h:t") \\| echo "Directory name copied: " . @+<CR>')
 
 
 --fast saving
