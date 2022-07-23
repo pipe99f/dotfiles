@@ -48,6 +48,9 @@ vim.cmd([[
   autocmd FileType python imap <buffer> <F9> <esc>:w<CR>:exec '!python3' shellescape(@%, 1)<CR>
   autocmd FileType python nnoremap <buffer> <F8> :w <CR> :bo :8sp <CR> :term python % <CR>
 
+  autocmd FileType sh nnoremap <buffer> <F8> :w <CR> :bo :8sp <CR> :term  bash % <CR>
+  autocmd FileType zsh nnoremap <buffer> <F8> :w <CR> :bo :8sp <CR> :term  bash % <CR>
+
 ]])
 
 vim.cmd([[

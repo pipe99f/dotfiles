@@ -20,7 +20,7 @@ opt.backspace = { 'eol', 'start', 'indent' }
 opt.clipboard = 'unnamedplus'
 opt.encoding = 'utf-8'
 opt.matchpairs = { '(:)', '{:}', '[:]', '<:>' }
--- opt.syntax = 'enable'
+opt.syntax = 'enable'
 opt.history = 500
 
 -- indention
