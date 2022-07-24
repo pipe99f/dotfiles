@@ -352,7 +352,7 @@ exec_always autotiling
 workspace 2; exec firefox;
 workspace 1; exec flatpak run --socket=wayland com.spotify.Client;
 # output "*" bg /home/pipe99g/.config/sway/revocationwallpaper.jpeg tile
-output "*" bg /home/pipe99g/.config/sway/skeletonwitch.jpg fill
+output "*" bg /home/pipe99g/.config/sway/kriegsplit.jpg fill
 exec swayidle -w \
     timeout 720 'swaylock -f -e -i ~/.config/sway/grotesqueimpalement.jpg' \
     timeout 1500 'systemctl suspend' \

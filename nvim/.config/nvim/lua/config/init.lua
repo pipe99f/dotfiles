@@ -16,10 +16,13 @@ require('packer').startup(function()
 --LSP
   use 'neovim/nvim-lspconfig'
   use 'williamboman/nvim-lsp-installer'
+  use { "williamboman/mason.nvim" }
   use 'folke/trouble.nvim'
   use 'jose-elias-alvarez/null-ls.nvim'
 --Plug 'glepnir/lspsaga.nvim' Unmaintained
   use 'tami5/lspsaga.nvim'
+  use 'CosmicNvim/cosmic-ui'
+  use 'ray-x/lsp_signature.nvim'
 
 
 --Debugger
@@ -107,6 +110,7 @@ require('packer').startup(function()
       end
   }
   use 'p00f/nvim-ts-rainbow'
+  use 'MunifTanjim/nui.nvim'
 
 ----typing----
   use 'windwp/nvim-autopairs'
@@ -120,13 +124,19 @@ require('packer').startup(function()
 ----Others----
   use "ahmedkhalf/project.nvim"
   use {
-      "karb94/spellsitter.nvim",
+      "lewis6991/spellsitter.nvim",
       config = function()
           require('spellsitter').setup()
       end
   }
 
   use 'lewis6991/impatient.nvim'
+  use {
+      "rcarriga/nvim-notify",
+      config = function()
+          require('notify').setup()
+      end
+  }
 
 end)
 
@@ -134,7 +144,7 @@ end)
 
 require('config.plugins.treesitter')
 require('config.plugins.cmp')
-require('config.plugins.lspinstaller') -- must be always before require('plugins.lspconfig')
+require('config.plugins.mason') -- must be always before require('plugins.lspconfig')
 require('config.plugins.luasnip')
 require('config.plugins.lspconfig')
 require('config.plugins.trouble')
@@ -152,10 +162,11 @@ require('config.plugins.comment')
 require('config.plugins.autopairs')
 require('config.plugins.project')
 require('config.plugins.nvimr')
+require('config.plugins.lsp_signature')
+
 
 require('nvim-surround').setup()  -- por algún motivo el plugin no funcionaba si invocaba desde "use"
 
 
 --Mappings
 require('config.mappings')
-

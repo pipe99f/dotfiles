@@ -16,3 +16,6 @@ require("nvim-lsp-installer").setup{
 
 
 }
+
+require("mason").setup()
+

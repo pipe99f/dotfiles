@@ -45,11 +45,6 @@ opt.cursorline = true
 opt.laststatus = 2
 opt.lazyredraw = true
 opt.list = true
-opt.listchars = {
-  extends = '»',
-  precedes = '«',
-  nbsp = '×',
-}
 opt.mouse = 'a'
 opt.number = true
 opt.numberwidth = 2
