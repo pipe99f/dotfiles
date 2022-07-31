@@ -1,21 +1,30 @@
-local lspconfig = require("lspconfig")
-
-local servers = { "bashls", "clangd", "cssls", "gopls", "html", "ltex", "marksman", "pyright", "r_language_server", "rust_analyzer", "sqls", "sumneko_lua", "texlab", "tsserver"}
-
-
-require("nvim-lsp-installer").setup{
-    ensure_installed = servers,
-    automatic_installation = true,
-    ui = {
-        icons = {
-            server_installed = "✓",
-            server_pending = "➜",
-            server_uninstalled = "✗"
-        }
-    }    
-
-
+local servers = {
+  "bashls", -- lsp
+  "clangd",
+  "cssls",
+  "gopls",
+  "html",
+  "jsonls",
+  "ltex",
+  "marksman",
+  "pyright",
+  "r_language_server",
+  "rust_analyzer",
+  "sqls",
+  "sumneko_lua",
+  "texlab",
+  "tsserver",
+  "black", --formatters, no se está instalando automaticamente ningun formatter
+  "gofumpt",
+  "prettierd",
+  "isort",
+  "shfmt",
+  "stylua",
 }
 
 require("mason").setup()
+
+require("mason-lspconfig").setup({
+  ensure_installed = servers,
+})
 
