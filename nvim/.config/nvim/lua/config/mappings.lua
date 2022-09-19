@@ -61,6 +61,8 @@ vim.cmd([[
   autocmd FileType sh nnoremap <buffer> <leader>rr :w <CR> :bo :8sp <CR> :term  bash "%:p" <CR>
   autocmd FileType zsh nnoremap <buffer> <leader>rr :w <CR> :bo :8sp <CR> :term  bash "%:p" <CR>
 
+  autocmd FileType javascript nnoremap <buffer> <leader>rr :w <CR> :bo :8sp <CR> :term  node "%:p" <CR>
+
   autocmd FileType lua nnoremap <buffer> <F8>:w <leader>rr :bo :8sp <CR> :term lua "%:p" <CR>
   augroup END
 ]])

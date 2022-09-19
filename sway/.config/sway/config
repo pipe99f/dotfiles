@@ -257,7 +257,7 @@ bindsym --to-code $mod+x exec $HOME/.config/sway/scripts/toggleSwayRecorder.sh
     
 #opening some apps in certain workspace, usar xprop para determinar el instance(primero) y el class(segundo) para wayland se usa "swaymsg -t get_tree"
 assign [class="firefox" instance="Navigator"] → 2
-assign [class="Spotify" instance="spotify"] → 1
+assign [class="Spotify" instance="spotify" title="Spotify"] → 1
 assign [class="libreWolf" instance="Navigator"] → 2
 assign [class ="discord" instance="discord"] → 8 
 assign [class="Steam" instance="Steam"] → 9

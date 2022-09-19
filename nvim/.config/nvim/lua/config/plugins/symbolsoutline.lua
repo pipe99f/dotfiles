@@ -1,6 +1,6 @@
-vim.g.symbols_outline = {
-  auto_preview = false,
+require("symbols-outline").setup({
   preview_bg_highlight = "transparent",
 }
-vim.cmd(":hi FocusedSymbol gui=bold,italic guifg=#2ac3de")
+)
 
+vim.cmd(":hi FocusedSymbol gui=bold,italic guifg=#2ac3de guibg=NONE")

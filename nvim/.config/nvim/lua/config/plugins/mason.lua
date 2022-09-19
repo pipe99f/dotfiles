@@ -10,6 +10,7 @@ local servers = {
   "pyright",
   "r_language_server",
   "rust_analyzer",
+  "shellcheck",
   "sqls",
   "sumneko_lua",
   "texlab",
