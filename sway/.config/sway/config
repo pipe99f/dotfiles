@@ -202,6 +202,9 @@ bindsym --to-code $mod+c exec jupyter qtconsole | exec alacritty -e nvim ~/ve/pr
 #exec swayrecorder
 bindsym --to-code $mod+x exec $HOME/.config/sway/scripts/toggleSwayRecorder.sh
 
+#for setting up xdg-desktop-portal-wlr
+exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
+
 
 
 #
@@ -360,7 +363,7 @@ output "*" bg /home/pipe99g/.config/sway/kriegsplit.jpg fill
 exec swayidle -w \
     timeout 720 'swaylock -f -e -i ~/.config/sway/grotesqueimpalement.jpg' \
     timeout 1500 'systemctl suspend' \
-    resume 'swaymsg "output * dpms on"' \
+        resume 'swaymsg "output * dpms on"' \
     before-sleep 'playerctl pause && swaylock -f -e -i ~/.config/sway/grotesqueimpalement.jpg'
  
 

@@ -30,7 +30,7 @@ alias vim="nvim"
 alias vi="nvim"
 
 #mount ce disk
-alias cemount="sudo mount UUID=468471E88471DB3F /mnt/ce/"
+alias cemount="sudo mount UUID=987C27C57C279CCE /mnt/ce/"
 
 #mount ve disk
 alias vemount="sudo mount UUID=EA9898FB9898C809 /mnt/ve/"

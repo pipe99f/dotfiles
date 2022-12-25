@@ -78,6 +78,7 @@ require("tokyonight").setup({
 -- vim.cmd('colorscheme one')
 cmd("colorscheme tokyonight")
 opt.laststatus = 3 -- use global statusline
+-- vim.o.ch = 0 --removes bottom blank space. Cmp doesnt work correctly
 opt.cursorline = true
 opt.lazyredraw = true
 opt.list = true
@@ -92,9 +93,9 @@ opt.signcolumn = "yes"
 opt.splitbelow = true -- Open new split below
 opt.splitright = true -- Open new split to the right
 opt.hidden = true
-opt.linebreak = true
-opt.textwidth = 200
-opt.wrap = true
+-- opt.linebreak = true
+-- opt.textwidth = 200
+-- opt.wrap = true
 
 
 -- folding

@@ -101,6 +101,7 @@ require("packer").startup(function()
   use("folke/tokyonight.nvim")
 
   ----appearance details----
+  use({'folke/noice.nvim', requires = "MunifTanjim/nui.nvim"})
   use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
   use("nvim-lualine/lualine.nvim")
   use("xiyaowong/nvim-transparent")
@@ -111,7 +112,7 @@ require("packer").startup(function()
       require("neoscroll").setup()
     end,
   })
-  use({ "p00f/nvim-ts-rainbow", event = { "CursorHold", "CursorHoldI" } })
+  use({ "p00f/nvim-ts-rainbow" })
   use("norcalli/nvim-colorizer.lua")
 
   ----typing----
@@ -193,6 +194,7 @@ require("config.plugins.symbolsoutline")
 require("config.plugins.ufo")
 require("config.plugins.iron")
 require("config.plugins.coderunner")
+-- require("config.plugins.noice")
 
 require("nvim-surround").setup() -- por algún motivo el plugin no funcionaba si invocaba desde "use"
 require("todo-comments").setup()

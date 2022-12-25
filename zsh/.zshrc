@@ -113,6 +113,8 @@ source $ZSH/oh-my-zsh.sh
 #GTK THEME
 export GTK_THEME=Adwaita-One-Dark
 
+export XDG_CURRENT_DESKTOP=sway
+
 
 
 # Compilation flags

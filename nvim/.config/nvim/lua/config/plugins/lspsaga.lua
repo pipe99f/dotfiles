@@ -15,13 +15,14 @@ vim.api.nvim_set_keymap("n", "gn", "<cmd>Lspsaga rename<CR>", opts)
 vim.keymap.set('n', 'K', function()
   local winid = require('ufo').peekFoldedLinesUnderCursor()
   if not winid then
-    require("lspsaga.hover").render_hover_doc()
+    vim.cmd('Lspsaga hover_doc')
+    -- require"lspsaga.hover".render_hover_doc()
   end
 end)
 -- vim.api.nvim_set_keymap("n", "K", "<cmd>lua require('lspsaga.hover').render_hover_doc()<CR>", opts)
 vim.api.nvim_set_keymap("n", ",j", "<cmd>lua require('lspsaga.action').smart_scroll_with_saga(1)<CR>", { silent = true })
 vim.api.nvim_set_keymap("n", ",k", "<cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1)<CR>", { silent = true })
-vim.api.nvim_set_keymap("n", "gd", "<cmd>Lspsaga preview_definition<CR>", opts)
+vim.api.nvim_set_keymap("n", "gd", "<cmd>Lspsaga peek_definition<CR>", opts)
 vim.keymap.set("n", "<space>ga", "<cmd>Lspsaga code_action<CR>", opts)
 vim.keymap.set("v", "<space>ga", "<cmd><C-U>Lspsaga range_code_action<CR>", opts) -- no sirve
 

@@ -10,17 +10,17 @@ local servers = {
   "pyright",
   "r_language_server",
   "rust_analyzer",
-  "shellcheck",
   "sqls",
   "sumneko_lua",
   "texlab",
   "tsserver",
-  "black", --formatters, no se está instalando automaticamente ningun formatter
-  "gofumpt",
-  "prettierd",
-  "isort",
-  "shfmt",
-  "stylua",
+  -- "shellcheck",
+  -- "black", --formatters, no se está instalando automaticamente ningun formatter
+  -- "gofumpt",
+  -- "prettierd",
+  -- "isort",
+  -- "shfmt",
+  -- "stylua",
 }
 
 require("mason").setup()

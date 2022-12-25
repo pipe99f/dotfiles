@@ -138,13 +138,14 @@
         "format-ethernet": "ﮣ ",
         "format-wifi": "  {signalStrength}%",
         "format-disconnected": "⚠ Disconnected",
+        "tooltip-format-wifi": "{essid}",
     },
     "pulseaudio": {
         // "scroll-step": 1, // %, can be a float
         "format": "{icon} {volume}%",
         "format-bluetooth": "{icon} {volume}% {format_source}",
-        "format-bluetooth-muted": " {icon} {format_source}",
-        "format-muted": " {format_source}",
+        "format-bluetooth-muted": " {icon} {format_source}",
+        "format-muted": " {format_source}",
         "format-icons": {
             "headphone": "",
             "hands-free": "",

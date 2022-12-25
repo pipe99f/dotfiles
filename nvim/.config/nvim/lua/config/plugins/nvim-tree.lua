@@ -17,7 +17,6 @@ require("nvim-tree").setup({ -- BEGIN_DEFAULT_OPTS
 	view = {
 		adaptive_size = false,
 		width = 30,
-		height = 30,
 		hide_root_folder = true,
 		centralize_selection = false,
 		side = "right",
