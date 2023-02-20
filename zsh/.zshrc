@@ -105,6 +105,7 @@ source $ZSH/oh-my-zsh.sh
  fi
 
  export VISUAL="nvim"
+ export SYSTEMD_EDITOR="nvim"
 
 
 #default programs
@@ -114,7 +115,6 @@ source $ZSH/oh-my-zsh.sh
 export GTK_THEME=Adwaita-One-Dark
 
 export XDG_CURRENT_DESKTOP=sway
-
 
 
 # Compilation flags

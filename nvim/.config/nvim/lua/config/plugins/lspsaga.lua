@@ -1,18 +1,23 @@
 --hay que configurar esto correctamente porque me estaban apareciendo diagnostics de todos los lsp instalados
 
-local saga = require("lspsaga")
 local opts = { noremap = true, silent = true }
-local map = vim.api.nvim_buf_set_keymap
+local map = vim.keymap.set
 
-local lspsaga = require("lspsaga")
-saga.init_lsp_saga({
+require('lspsaga').setup({
+  ui = {
+    border = 'rounded',
+    winblend = 0,
+    colors = {
+      normal_bg = 'none',
+    }
+  }
 })
 
 -- preview definition
 -- vim.api.nvim_set_keymap('n', 'gd', "require'lspsaga.provider'.preview_definition()<CR>", opts)
 
-vim.api.nvim_set_keymap("n", "gn", "<cmd>Lspsaga rename<CR>", opts)
-vim.keymap.set('n', 'K', function()
+map("n", "gn", "<cmd>Lspsaga rename<CR>", opts)
+map('n', 'K', function()
   local winid = require('ufo').peekFoldedLinesUnderCursor()
   if not winid then
     vim.cmd('Lspsaga hover_doc')
@@ -20,24 +25,24 @@ vim.keymap.set('n', 'K', function()
   end
 end)
 -- vim.api.nvim_set_keymap("n", "K", "<cmd>lua require('lspsaga.hover').render_hover_doc()<CR>", opts)
-vim.api.nvim_set_keymap("n", ",j", "<cmd>lua require('lspsaga.action').smart_scroll_with_saga(1)<CR>", { silent = true })
-vim.api.nvim_set_keymap("n", ",k", "<cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1)<CR>", { silent = true })
-vim.api.nvim_set_keymap("n", "gd", "<cmd>Lspsaga peek_definition<CR>", opts)
-vim.keymap.set("n", "<space>ga", "<cmd>Lspsaga code_action<CR>", opts)
-vim.keymap.set("v", "<space>ga", "<cmd><C-U>Lspsaga range_code_action<CR>", opts) -- no sirve
+map("n", ",j", "<cmd>lua require('lspsaga.action').smart_scroll_with_saga(1)<CR>", { silent = true })
+map("n", ",k", "<cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1)<CR>", { silent = true })
+map("n", "gd", "<cmd>Lspsaga peek_definition<CR>", opts)
+map("n", "<space>ga", "<cmd>Lspsaga code_action<CR>", opts)
+map("v", "<space>ga", "<cmd><C-U>Lspsaga range_code_action<CR>", opts) -- no sirve
 
-vim.api.nvim_set_keymap("n", "gD", "<cmd>lua require'telescope.builtin'.lsp_definitions()<CR>", opts)
-vim.api.nvim_set_keymap("n", "gi", "<cmd>lua require'telescope.builtin'.lsp_implementations()<CR>", opts)
-vim.api.nvim_set_keymap("n", "gt", "<cmd>lua require'telescope.builtin'.lsp_type_definitions()<CR>", opts)
-vim.api.nvim_set_keymap("n", "gr", "<cmd>lua require'telescope.builtin'.lsp_references()<CR>", opts)
+map("n", "gD", "<cmd>lua require'telescope.builtin'.lsp_definitions()<CR>", opts)
+map("n", "gi", "<cmd>lua require'telescope.builtin'.lsp_implementations()<CR>", opts)
+map("n", "gt", "<cmd>lua require'telescope.builtin'.lsp_type_definitions()<CR>", opts)
+map("n", "gr", "<cmd>lua require'telescope.builtin'.lsp_references()<CR>", opts)
 
-vim.api.nvim_set_keymap("n", "gh", "<cmd>lua require('lspsaga.finder').lsp_finder()<CR>", opts)
-vim.api.nvim_set_keymap("n", "<space>e", "<cmd>lua require'lspsaga.diagnostic'.show_line_diagnostics()<CR>", opts)
+map("n", "gh", "<cmd>lua require('lspsaga.finder').lsp_finder()<CR>", opts)
+map("n", "<space>e", "<cmd>Lspsaga show_line_diagnostics<CR>", opts)
 
-vim.api.nvim_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.format()<CR>", opts)
+map("n", "<space>f", "<cmd>lua vim.lsp.buf.format()<CR>", opts)
 
-vim.api.nvim_set_keymap("n", "[d", "<cmd>lua vim.diagnostic.goto_prev()<CR>", opts)
-vim.api.nvim_set_keymap("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<CR>", opts)
+map("n", "[d", "<cmd>lua vim.diagnostic.goto_prev()<CR>", opts)
+map("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<CR>", opts)
 
 -- require("cosmic-ui").setup()
 --

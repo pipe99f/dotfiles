@@ -63,7 +63,10 @@ vim.cmd([[
 
   autocmd FileType javascript nnoremap <buffer> <leader>rr :w <CR> :bo :8sp <CR> :term  node "%:p" <CR>
 
-  autocmd FileType lua nnoremap <buffer> <F8>:w <leader>rr :bo :8sp <CR> :term lua "%:p" <CR>
+  autocmd FileType lua nnoremap <buffer> <leader>rr :w :bo :8sp <CR> :term lua "%:p" <CR>
+
+  autocmd FileType cpp nnoremap <buffer> <leader>rr :w <CR> :make %< && ./%< <cr>
+  autocmd FileType cpp nnoremap <buffer> <leader>ru :w <CR> :!gcc % && ./%< <CR>
   augroup END
 ]])
 

@@ -260,7 +260,7 @@ exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DE
     
 #opening some apps in certain workspace, usar xprop para determinar el instance(primero) y el class(segundo) para wayland se usa "swaymsg -t get_tree"
 assign [class="firefox" instance="Navigator"] → 2
-assign [class="Spotify" instance="spotify" title="Spotify"] → 1
+assign [class="Spotify" instance="spotify"] → 1
 assign [class="libreWolf" instance="Navigator"] → 2
 assign [class ="discord" instance="discord"] → 8 
 assign [class="Steam" instance="Steam"] → 9
@@ -357,7 +357,7 @@ bar {
 exec gammastep
 exec_always autotiling
 workspace 2; exec firefox;
-workspace 1; exec flatpak run --socket=wayland com.spotify.Client;
+workspace 1; exec spotify-launcher;
 # output "*" bg /home/pipe99g/.config/sway/revocationwallpaper.jpeg tile
 output "*" bg /home/pipe99g/.config/sway/kriegsplit.jpg fill
 exec swayidle -w \

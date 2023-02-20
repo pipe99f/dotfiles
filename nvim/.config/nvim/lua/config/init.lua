@@ -2,9 +2,9 @@ require("packer").startup(function()
   use({ "wbthomason/packer.nvim" })
 
   --Snippets
-  use({ "L3MON4D3/LuaSnip"})
+  use({ "L3MON4D3/LuaSnip" })
   --vscode-like
-  use({ "rafamadriz/friendly-snippets"})
+  use({ "rafamadriz/friendly-snippets" })
   --snipmate-like (el plugin de snipmate no incluye ningún snippet)
   use("honza/vim-snippets")
 
@@ -52,12 +52,7 @@ require("packer").startup(function()
   use({ "akinsho/bufferline.nvim", tag = "v2.*", requires = "kyazdani42/nvim-web-devicons" })
   use("kyazdani42/nvim-tree.lua")
   use("numToStr/Comment.nvim")
-  use({
-    "numtostr/Fterm.nvim",
-    config = function()
-      require("fterm").setup()
-    end,
-  })
+  use("numtostr/Fterm.nvim")
   use("ThePrimeagen/vim-be-good")
 
   ----MODES----
@@ -89,6 +84,35 @@ require("packer").startup(function()
   --R
   use("jalvesaq/Nvim-R")
 
+  --AI--
+  use({
+    'dense-analysis/neural',
+    -- config = function()
+    --   require('neural').setup({
+    --     open_ai = {
+    --       api_key = '<YOUR OPENAI API SECRET KEY>'
+    --     }
+    --   })
+    -- end,
+    requires = {
+      "MunifTanjim/nui.nvim",
+      'ElPiloto/significant.nvim'
+    }
+  })
+
+  use({
+    "jackMort/ChatGPT.nvim",
+    -- config = function()
+    --   require("chatgpt").setup({
+    --     -- optional configuration
+    --   })
+    -- end,
+    requires = {
+      "nvim-lua/plenary.nvim",
+      "nvim-telescope/telescope.nvim"
+    }
+  })
+
   ---Running code---
   use("jupyter-vim/jupyter-vim")
   use("hkupty/iron.nvim")
@@ -101,7 +125,7 @@ require("packer").startup(function()
   use("folke/tokyonight.nvim")
 
   ----appearance details----
-  use({'folke/noice.nvim', requires = "MunifTanjim/nui.nvim"})
+  use({ 'folke/noice.nvim', requires = "MunifTanjim/nui.nvim" })
   use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
   use("nvim-lualine/lualine.nvim")
   use("xiyaowong/nvim-transparent")
