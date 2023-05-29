@@ -1,6 +1,7 @@
 vim.opt.termguicolors = true -- must run before colorizer
+vim.g.mapleader = " " -- must run before lazy.nvim
 
-require("impatient") --must run before any plugin
+-- require("impatient") --must run before any plugin
 require("config")
 
 local cmd = vim.cmd --most part taken from CosmicNvim
@@ -43,7 +44,7 @@ require("tokyonight").setup({
   -- your configuration comes here
   -- or leave it empty to use the default settings
   style = "night", -- The theme comes in three styles, `storm`, a darker variant `night` and `day`
-  transparent = false, -- Enable this to disable setting the background color
+  transparent = true, -- Enable this to disable setting the background color
   terminal_colors = true, -- Configure the colors used when opening a `:terminal` in Neovim
   styles = {
     -- Style to be applied to different syntax groups
@@ -78,7 +79,7 @@ require("tokyonight").setup({
 -- vim.cmd('colorscheme one')
 cmd("colorscheme tokyonight")
 opt.laststatus = 3 -- use global statusline
--- vim.o.ch = 0 --removes bottom blank space. Cmp doesnt work correctly
+vim.o.ch = 0 --removes bottom blank space. Cmp doesnt work correctly
 opt.cursorline = true
 opt.lazyredraw = true
 opt.list = true

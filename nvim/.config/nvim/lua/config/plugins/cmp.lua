@@ -35,6 +35,7 @@ local kind_icons = {
 }
 
 
+
 require'cmp'.setup{
   window = {
         completion = cmp.config.window.bordered(),
@@ -47,6 +48,7 @@ require'cmp'.setup{
   },
 
   sources = {
+    { name = "codeium"},
     { name = "nvim_lsp" },
     { name = "path" },
     { name = "buffer" },
@@ -97,6 +99,7 @@ require'cmp'.setup{
       vim_item.kind = string.format('%s %s', kind_icons[vim_item.kind], vim_item.kind) -- This concatonates the icons with the name of the item kind
       -- Source
       vim_item.menu = ({
+        codeium = "[Codeium]",
         buffer = "[Buffer]",
         nvim_lsp = "[LSP]",
         luasnip = "[LuaSnip]",

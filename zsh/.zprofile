@@ -9,6 +9,7 @@ fi
 
 #makes tmux consider what is in this bashrc
 source ~/.zshrc
+source ~/.priv
 
 #fuck alias
 eval $(thefuck --alias)

@@ -1,195 +1,239 @@
-require("packer").startup(function()
-  use({ "wbthomason/packer.nvim" })
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+	vim.fn.system({
+		"git",
+		"clone",
+		"--filter=blob:none",
+		"https://github.com/folke/lazy.nvim.git",
+		"--branch=stable", -- latest stable release
+		lazypath,
+	})
+end
+vim.opt.rtp:prepend(lazypath)
 
-  --Snippets
-  use({ "L3MON4D3/LuaSnip" })
-  --vscode-like
-  use({ "rafamadriz/friendly-snippets" })
-  --snipmate-like (el plugin de snipmate no incluye ningún snippet)
-  use("honza/vim-snippets")
+require("lazy").setup({
 
-  --LSP
-  use("neovim/nvim-lspconfig")
-  use("williamboman/mason.nvim")
-  use("williamboman/mason-lspconfig.nvim")
-  use({ "folke/trouble.nvim" })
-  use("jose-elias-alvarez/null-ls.nvim")
-  use({ "glepnir/lspsaga.nvim" })
-  use("ray-x/lsp_signature.nvim")
-  use({ "simrat39/symbols-outline.nvim" })
-  use("j-hui/fidget.nvim")
+	--Snippets
+	"L3MON4D3/LuaSnip",
+	--vscode-like
+	"rafamadriz/friendly-snippets",
+	--snipmate-like (el plugin de snipmate no incluye ningún snippet)
+	"honza/vim-snippets",
 
-  --Debugging
-  use("mfussenegger/nvim-dap")
-  use("vim-test/vim-test")
+	--LSP
+	"neovim/nvim-lspconfig",
+	"williamboman/mason.nvim",
+	"williamboman/mason-lspconfig.nvim",
+	{ "folke/trouble.nvim" },
+	"jose-elias-alvarez/null-ls.nvim",
+	{ "glepnir/lspsaga.nvim" },
+	"ray-x/lsp_signature.nvim",
+	{ "simrat39/symbols-outline.nvim" },
+	"j-hui/fidget.nvim",
 
-  --cmp
-  use("hrsh7th/cmp-nvim-lsp")
-  use("hrsh7th/cmp-buffer")
-  use("hrsh7th/cmp-path")
-  use("hrsh7th/cmp-cmdline")
-  use("hrsh7th/nvim-cmp")
-  use("saadparwaiz1/cmp_luasnip")
-  use("kdheepak/cmp-latex-symbols")
-  use("lukas-reineke/cmp-rg")
+	--Debugging
+	"mfussenegger/nvim-dap",
+	"vim-test/vim-test",
 
-  --telescope
-  use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make" })
-  use("nvim-lua/plenary.nvim")
-  use("nvim-telescope/telescope.nvim")
-  use({
-    "nvim-telescope/telescope-frecency.nvim",
-    requires = { "tami5/sqlite.lua" },
-  })
-  use({
-    "rmagatti/session-lens",
-    config = function()
-      require("session-lens").setup({ --[[your custom config--]]
-      })
-    end,
-  })
+	--cmp
+	"hrsh7th/cmp-nvim-lsp",
+	"hrsh7th/cmp-buffer",
+	"hrsh7th/cmp-path",
+	"hrsh7th/cmp-cmdline",
+	"hrsh7th/nvim-cmp",
+	"saadparwaiz1/cmp_luasnip",
+	"kdheepak/cmp-latex-symbols",
+	"lukas-reineke/cmp-rg",
 
-  use({ "akinsho/bufferline.nvim", tag = "v2.*", requires = "kyazdani42/nvim-web-devicons" })
-  use("kyazdani42/nvim-tree.lua")
-  use("numToStr/Comment.nvim")
-  use("numtostr/Fterm.nvim")
-  use("ThePrimeagen/vim-be-good")
+	--telescope
+	{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+	"nvim-lua/plenary.nvim",
+	"nvim-telescope/telescope.nvim",
+	{ "nvim-telescope/telescope-frecency.nvim", dependencies = { "tami5/sqlite.lua" } },
+	{
+		"rmagatti/session-lens",
+		config = function()
+			require("session-lens").setup({ --[[your custom config--]]
+			})
+		end,
+	},
 
-  ----MODES----
-  --Docker
-  -- use("dgrbrady/nvim-docker")
+	{
+		"akinsho/bufferline.nvim",
+		version = "v2.*",
+		dependencies = "kyazdani42/nvim-web-devicons",
+	},
+	"kyazdani42/nvim-tree.lua",
+	"numToStr/Comment.nvim",
+	"numtostr/Fterm.nvim",
+	"ThePrimeagen/vim-be-good",
 
-  --Git
-  use("tpope/vim-fugitive")
-  use("https://github.com/mattn/vim-gist")
-  use("lewis6991/gitsigns.nvim")
+	----MODES----
+	--Docker
+	-- ("dgrbrady/nvim-docker"),
 
-  --Latex
-  use("lervag/vimtex")
+	--Git
+	"tpope/vim-fugitive",
+	"https://github.com/mattn/vim-gist",
+	"lewis6991/gitsigns.nvim",
 
-  --Markdown
-  use("preservim/vim-markdown")
-  use({
-    "iamcco/markdown-preview.nvim",
-    run = function()
-      vim.fn["mkdp#util#install"]()
-    end,
-    setup = function()
-      vim.g.mkdp_filetypes = { "markdown" }
-    end,
-    ft = { "markdown", "rmd", "pandoc.markdown" },
-    cmd = { "MarkdownPreview" },
-  })
+	--Jupyter notebook
+	"goerz/jupytext.vim",
 
-  --R
-  use("jalvesaq/Nvim-R")
+	--Latex
+	"lervag/vimtex",
 
-  --AI--
-  use({
-    'dense-analysis/neural',
-    -- config = function()
-    --   require('neural').setup({
-    --     open_ai = {
-    --       api_key = '<YOUR OPENAI API SECRET KEY>'
-    --     }
-    --   })
-    -- end,
-    requires = {
-      "MunifTanjim/nui.nvim",
-      'ElPiloto/significant.nvim'
-    }
-  })
+	--Markdown
+	"preservim/vim-markdown",
+	{
+		"iamcco/markdown-preview.nvim",
+		build = function()
+			vim.fn["mkdp#util#install"]()
+		end,
+		setup = function()
+			vim.g.mkdp_filetypes = { "markdown" }
+		end,
+		ft = { "markdown", "rmd", "pandoc.markdown" },
+		cmd = { "MarkdownPreview" },
+	},
 
-  use({
-    "jackMort/ChatGPT.nvim",
-    -- config = function()
-    --   require("chatgpt").setup({
-    --     -- optional configuration
-    --   })
-    -- end,
-    requires = {
-      "nvim-lua/plenary.nvim",
-      "nvim-telescope/telescope.nvim"
-    }
-  })
+	--R
+	"jalvesaq/Nvim-R",
 
-  ---Running code---
-  use("jupyter-vim/jupyter-vim")
-  use("hkupty/iron.nvim")
-  use({ "michaelb/sniprun", run = "bash ./install.sh" })
-  use({ "CRAG666/code_runner.nvim" }) -- Idk if this is useful, I think I can do the same thing with autocommands.
+	--AI--
+	{
+		"jcdickinson/codeium.nvim",
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			"hrsh7th/nvim-cmp",
+		},
+		config = function()
+			require("codeium").setup({})
+		end,
+	},
+	-- {
+	--     "dpayne/CodeGPT.nvim",
+	--     dependencies = {
+	--       'nvim-lua/plenary.nvim',
+	--       'MunifTanjim/nui.nvim',
+	--     },
+	--     config = function()
+	--         require("codegpt.config")
+	--     end
+	-- },
+	-- {
+	-- 	"dense-analysis/neural",
+	-- 	config = function()
+	-- 		require("neural").setup({
+	-- 			open_ai = {
+	-- 				api_key = "<YOUR OPENAI API SECRET KEY>",
+	-- 			},
+	-- 		})
+	-- 	end,
+	-- 	dependencies = {
+	-- 		"MunifTanjim/nui.nvim",
+	-- 		"ElPiloto/significant.nvim",
+	-- 	},
+	-- },
+	--
+	-- {
+	-- 	"jackMort/ChatGPT.nvim",
+	-- 	event = "VeryLazy",
+	-- 	config = function()
+	-- 		require("chatgpt").setup({
+	-- 			-- optional configuration
+	-- 		})
+	-- 	end,
+	-- 	dependencies = {
+	-- 		"MunifTanjim/nui.nvim",
+	-- 		"nvim-lua/plenary.nvim",
+	-- 		"nvim-telescope/telescope.nvim",
+	-- 	},
+	-- },
+	--
+	-- 'aduros/ai.vim',
 
-  ---Color schemes---
-  use("arcticicestudio/nord-vim")
-  use("rakr/vim-one")
-  use("folke/tokyonight.nvim")
+	---building/running code---
+	"jupyter-vim/jupyter-vim",
+	"hkupty/iron.nvim",
+	{ "michaelb/sniprun", build = "bash ./install.sh" },
+	{ "CRAG666/code_runner.nvim", dependencies = "nvim-lua/plenary.nvim" }, -- Idk if this is useful, I think I can do the same thing with autocommands.,
 
-  ----appearance details----
-  use({ 'folke/noice.nvim', requires = "MunifTanjim/nui.nvim" })
-  use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
-  use("nvim-lualine/lualine.nvim")
-  use("xiyaowong/nvim-transparent")
-  use("lukas-reineke/indent-blankline.nvim")
-  use({
-    "karb94/neoscroll.nvim",
-    config = function()
-      require("neoscroll").setup()
-    end,
-  })
-  use({ "p00f/nvim-ts-rainbow" })
-  use("norcalli/nvim-colorizer.lua")
+	---Color schemes---
+	"arcticicestudio/nord-vim",
+	"rakr/vim-one",
+	{
+		"folke/tokyonight.nvim",
+		lazy = false,
+		priority = 1000,
+	},
 
-  ----typing----
-  use("windwp/nvim-autopairs")
-  use("kylechui/nvim-surround")
-  use("machakann/vim-sandwich")
-  use("windwp/nvim-ts-autotag")
-  use("mattn/emmet-vim")
-  use("godlygeek/tabular")
+	----appearance details----
+	{ "folke/noice.nvim", dependencies = "MunifTanjim/nui.nvim" },
+	{ "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
+	"nvim-lualine/lualine.nvim",
+	{ "xiyaowong/nvim-transparent", lazy = false },
+	"lukas-reineke/indent-blankline.nvim",
+	{
+		"karb94/neoscroll.nvim",
+		config = function()
+			require("neoscroll").setup()
+		end,
+	},
+	"p00f/nvim-ts-rainbow",
+	"norcalli/nvim-colorizer.lua",
 
-  --  use 'mg979/vim-visual-multi'
+	----typing----
+	"windwp/nvim-autopairs",
+	"kylechui/nvim-surround",
+	"machakann/vim-sandwich",
+	"windwp/nvim-ts-autotag",
+	"mattn/emmet-vim",
+	"godlygeek/tabular",
 
-  ----Others----
-  use("ahmedkhalf/project.nvim")
-  use("goolord/alpha-nvim")
-  use({
-    "lewis6991/spellsitter.nvim",
-    config = function()
-      require("spellsitter").setup()
-    end,
-  })
-  use("lewis6991/impatient.nvim")
-  use({
-    "rcarriga/nvim-notify",
-    config = function()
-      require("notify").setup({
-        stages = "slide",
-        background_colour = "#000000",
-      })
-    end,
-  })
-  use({
-    "rmagatti/auto-session",
-    config = function()
-      require("auto-session").setup({
-        log_level = "error",
-        auto_session_enable_last_session = false,
-        auto_session_suppress_dirs = { "~/", "~/Projects", "~/Downloads", "/" },
-      })
-    end,
-  })
-  use({
-    "bennypowers/nvim-regexplainer",
-    config = function()
-      require("regexplainer").setup()
-    end,
-  })
-  use({
-    "folke/todo-comments.nvim",
-    requires = "nvim-lua/plenary.nvim",
-  })
-  use({ "kevinhwang91/nvim-ufo", requires = "kevinhwang91/promise-async" })
-end)
+	--   'mg979/vim-visual-multi',
+
+	----Others----
+	"ahmedkhalf/project.nvim",
+	"goolord/alpha-nvim",
+	{
+		"lewis6991/spellsitter.nvim",
+		config = function()
+			require("spellsitter").setup()
+		end,
+	},
+	"lewis6991/impatient.nvim",
+	{
+		"rcarriga/nvim-notify",
+		config = function()
+			require("notify").setup({
+				stages = "slide",
+				background_colour = "#000000",
+			})
+		end,
+	},
+	{
+		"rmagatti/auto-session",
+		config = function()
+			require("auto-session").setup({
+				log_level = "error",
+				auto_session_enable_last_session = false,
+				auto_session_suppress_dirs = { "~/", "~/Projects", "~/Downloads", "/" },
+			})
+		end,
+	},
+	{
+		"bennypowers/nvim-regexplainer",
+		config = function()
+			require("regexplainer").setup()
+		end,
+	},
+	{
+		"folke/todo-comments.nvim",
+		dependencies = "nvim-lua/plenary.nvim",
+	},
+	{ "kevinhwang91/nvim-ufo", dependencies = "kevinhwang91/promise-async" },
+})
 
 --Requires
 require("config.plugins.treesitter")
@@ -223,18 +267,18 @@ require("config.plugins.coderunner")
 require("nvim-surround").setup() -- por algún motivo el plugin no funcionaba si invocaba desde "use"
 require("todo-comments").setup()
 require("notify").setup({
-  stages = "slide",
-  background_colour = "#000000",
+	stages = "slide",
+	background_colour = "#000000",
 })
 require("fidget").setup({
-  window = {
-    blend = 0,
-  },
+	window = {
+		blend = 0,
+	},
 })
 
 require("auto-session").setup({
-  log_level = "error",
-  auto_session_suppress_dirs = { "~/", "~/Projects", "~/Downloads", "/" },
+	log_level = "error",
+	auto_session_suppress_dirs = { "~/", "~/Projects", "~/Downloads", "/" },
 })
 
 --Mappings

@@ -48,9 +48,11 @@ output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
 ##monitor settings
 output 'Unknown GFV22CB             ' mode 1920x1080@120Hz
 output 'Unknown GFV22CB             ' adaptive_sync on
-output 'Samsung Electric Company S22F350 H4ZM701012' disable
+# output 'Samsung Electric Company S22F350 H4ZM701012' disable
+output HDMI-A-1 disable
 
 bindsym $mod+Shift+Escape exec sway output "*" enable | sway output DP-1 res 1920x1080 pos 0 0 | sway output HDMI-A-1 resolution 1920x1080 position 0 1080
+# bindsym $mod+Shift+Escape exec sway output "*" enable
 
 #
 # Example configuration:
@@ -355,11 +357,13 @@ bar {
 
 
 exec gammastep
-exec_always autotiling
+exec_always autotiling-rs
 workspace 2; exec firefox;
 workspace 1; exec spotify-launcher;
 # output "*" bg /home/pipe99g/.config/sway/revocationwallpaper.jpeg tile
 output "*" bg /home/pipe99g/.config/sway/kriegsplit.jpg fill
+
+# exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
 exec swayidle -w \
     timeout 720 'swaylock -f -e -i ~/.config/sway/grotesqueimpalement.jpg' \
     timeout 1500 'systemctl suspend' \
