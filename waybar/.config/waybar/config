@@ -92,14 +92,14 @@
         "format": " {usage}%",
         "tooltip": false
     },
-    "custom/pacman": {
-        "format": " {}",
-        "interval": 7200,                     // every two hours
-        "exec": "checkupdates | wc -l",       // # of updates
-        "exec-if": "exit 0",                  // always run; consider advanced run conditions
-        "on-click": "alacritty -e sudo pacman -Syu ; pkill -SIGRTMIN+8 waybar", // update system
-        "signal": 8
-    },
+    //"custom/pacman": {
+        //"format": " {}",
+        //"interval": 7200,                     // every two hours
+        //"exec": "checkupdates | wc -l",       // # of updates
+        //"exec-if": "exit 0",                  // always run; consider advanced run conditions
+        //"on-click": "alacritty -e sudo pacman -Syu ; pkill -SIGRTMIN+8 waybar", // update system
+        //"signal": 8
+    //},
     "memory": {
         "format": " {}%"
     },

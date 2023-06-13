@@ -18,9 +18,13 @@ map('n', '<leader>cn', ':cnext<cr>zz', opts)
 -- Copy path
 vim.cmd('map <leader>fn :let @+ = expand("%:t") \\| echo "File name copied: " . @+<CR>')
 vim.cmd('map <leader>fp :let @+ = expand("%:p") \\| echo "File path copied: " . @+<CR>')
+vim.cmd('map re gD:%s/<C-R>///gc<left><left><left>')
 
 --Ctrl+Backspace deletes word
-map('i', '<C-bs>', '<C-w>', { silent = true })
+vim.keymap.set('i', '<C-h>', '<C-w>')
+
+--Enter in normal mode deletes word
+vim.keymap.set('n', '<cr>', 'ciw')
 
 --fast saving
 map('n', '<leader>w', ':w!<CR>', {silent = false})
@@ -75,33 +79,35 @@ vim.cmd([[
 -----------
 
 --Code runner
-vim.keymap.set('n', '<leader>r', ':RunCode<CR>', { noremap = true, silent = false })
-vim.keymap.set('n', '<leader>rf', ':RunFile<CR>', { noremap = true, silent = false })
-vim.keymap.set('n', '<leader>rft', ':RunFile tab<CR>', { noremap = true, silent = false })
-vim.keymap.set('n', '<leader>rp', ':RunProject<CR>', { noremap = true, silent = false })
-vim.keymap.set('n', '<leader>rc', ':RunClose<CR>', { noremap = true, silent = false })
-vim.keymap.set('n', '<leader>crf', ':CRFiletype<CR>', { noremap = true, silent = false })
-vim.keymap.set('n', '<leader>crp', ':CRProjects<CR>', { noremap = true, silent = false })
+-- vim.keymap.set('n', '<leader>r', ':RunCode<CR>', { noremap = true, silent = false })
+-- vim.keymap.set('n', '<leader>rf', ':RunFile<CR>', { noremap = true, silent = false })
+-- vim.keymap.set('n', '<leader>rft', ':RunFile tab<CR>', { noremap = true, silent = false })
+-- vim.keymap.set('n', '<leader>rp', ':RunProject<CR>', { noremap = true, silent = false })
+-- vim.keymap.set('n', '<leader>rc', ':RunClose<CR>', { noremap = true, silent = false })
+-- vim.keymap.set('n', '<leader>crf', ':CRFiletype<CR>', { noremap = true, silent = false })
+-- vim.keymap.set('n', '<leader>crp', ':CRProjects<CR>', { noremap = true, silent = false })
 
 --Iron
 map('n', '<leader>ti', '<cmd>IronRepl<CR>', opts) -- toggle iron REPL
 
--- FTerm
-vim.keymap.set('n', '<A-i>', '<CMD>lua require("FTerm").toggle()<CR>')
-vim.keymap.set('t', '<A-i>', '<C-\\><C-n><CMD>lua require("FTerm").toggle()<CR>')
+-- Toggleterm
+-- vim.keymap.set('n', '<A-i>', '<CMD>lua require("FTerm").toggle()<CR>')
+-- vim.keymap.set('t', '<A-i>', '<C-\\><C-n><CMD>lua require("FTerm").toggle()<CR>')
+vim.keymap.set('n', '<A-i>', '<CMD>lua _hiddenFloat()<CR>')
+vim.keymap.set('t', '<A-i>', '<C-\\><C-n><CMD>:lua _hiddenFloat()<CR>')
+map("n", "<A-g>", "<cmd>lua _lazygit_toggle()<CR>", {noremap = true, silent = true})
+map("t", "<A-g>", "<C-\\><C-n><cmd>lua _lazygit_toggle()<CR>", {noremap = true, silent = true})
+-- map('n', '<A-t>', '<CMD>:ToggleTerm direction=horizontal<CR>',{noremap = true, silent = true})
+-- map('t', '<A-t>', '<C-\\><C-n><CMD>:ToggleTerm direction=horizontal<CR>',{noremap = true, silent = true})
+-- map('t', '<A-\\>', '<C-\\><C-n><CMD>:ToggleTerm direction=float<CR>')
+
+--Symbols Outline
+map('n', '<A-o>', ':SymbolsOutline<CR>', {silent = false, noremap = true})
 
 --NvimTree
 map('n', '<leader>n', ':NvimTreeToggle<CR>', {silent = false, noremap = true})
-map('n', '<leader>r', ':NvimTreeRefresh<CR>', {silent = false, noremap = true})
-
---Symbol outline
-map('n', '<A-o>', '<cmd>SymbolsOutline<CR>', { noremap = true })
 
 --Telescope
-map('n', '<leader>ff', ':<cmd>lua require("telescope.builtin").find_files()<cr>', {silent = false, noremap = true})
-map('n', '<leader>fg', ':<cmd>lua require("telescope.builtin").live_grep()<cr>', {silent = false, noremap = true})
-map('n', '<leader>fb', ':<cmd>lua require("telescope.builtin").buffers()<cr>', {silent = false, noremap = true})
-map('n', '<leader>fh', ':<cmd>lua require("telescope.builtin").help_tags()<cr>', {silent = false, noremap = true})
 map('n', '<leader>tk', ':<cmd>lua require("telescope.builtin").keymaps()<cr>', {silent = false, noremap = true})
 map('n', '<leader><leader>', ':<cmd>lua require("telescope").extensions.frecency.frecency()<cr>', {silent = false, noremap = true})
 

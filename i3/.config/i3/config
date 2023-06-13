@@ -255,7 +255,6 @@ bindsym $mod+r mode "resize"
 
 
 exec firefox
-exec spotify
 exec_always feh --bg-tile /home/pipe99g/.config/sway/revocationwallpaper.jpeg
 #config de monitor. Para obtener el command debo instalar arandr y hacer todas mis configuraciones en el GUI, luego guardo el archivo y por último copio el commando que me genera aquel archivo,
 exec_always xrandr --output DVI-D-0 --mode 1366x768 --pos 277x1080 --rotate normal --output HDMI-0 --primary --mode 1920x1080 --pos 0x0 --rotate normal --output DP-0 --off --output DP-1 --off

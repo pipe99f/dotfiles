@@ -126,10 +126,11 @@ opt.updatetime = 200
 --plugins
 cmd([[
 
-let g:vimtex_view_method = 'zathura'
 let g:vimtex_quickfix_mode=0
 
 let g:mkdp_browser = 'chromium' 
+
+let g:jupytext_fmt = 'py'
 
 ]])
 
@@ -209,4 +210,12 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 			vim.api.nvim_feedkeys("zz", "n", true)
 		end
 	end,
+})
+
+-- Compile when opening a tex file
+
+vim.api.nvim_create_autocmd("FileType", {
+	group = "bufcheck",
+	pattern = "tex",
+  command = "VimtexCompile",
 })

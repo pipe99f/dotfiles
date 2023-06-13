@@ -19,6 +19,7 @@ require("lazy").setup({
 	"rafamadriz/friendly-snippets",
 	--snipmate-like (el plugin de snipmate no incluye ningún snippet)
 	"honza/vim-snippets",
+  "evesdropper/luasnip-latex-snippets.nvim",
 
 	--LSP
 	"neovim/nvim-lspconfig",
@@ -65,7 +66,7 @@ require("lazy").setup({
 	},
 	"kyazdani42/nvim-tree.lua",
 	"numToStr/Comment.nvim",
-	"numtostr/Fterm.nvim",
+  {'akinsho/toggleterm.nvim', version = "*", config = true},
 	"ThePrimeagen/vim-be-good",
 
 	----MODES----
@@ -73,7 +74,6 @@ require("lazy").setup({
 	-- ("dgrbrady/nvim-docker"),
 
 	--Git
-	"tpope/vim-fugitive",
 	"https://github.com/mattn/vim-gist",
 	"lewis6991/gitsigns.nvim",
 
@@ -154,7 +154,7 @@ require("lazy").setup({
 	-- 'aduros/ai.vim',
 
 	---building/running code---
-	"jupyter-vim/jupyter-vim",
+	-- "jupyter-vim/jupyter-vim",
 	"hkupty/iron.nvim",
 	{ "michaelb/sniprun", build = "bash ./install.sh" },
 	{ "CRAG666/code_runner.nvim", dependencies = "nvim-lua/plenary.nvim" }, -- Idk if this is useful, I think I can do the same thing with autocommands.,
@@ -262,6 +262,8 @@ require("config.plugins.symbolsoutline")
 require("config.plugins.ufo")
 require("config.plugins.iron")
 require("config.plugins.coderunner")
+require("config.plugins.vimtex")
+require("config.plugins.toggleterm")
 -- require("config.plugins.noice")
 
 require("nvim-surround").setup() -- por algún motivo el plugin no funcionaba si invocaba desde "use"
