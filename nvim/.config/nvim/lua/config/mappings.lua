@@ -107,6 +107,20 @@ map('n', '<A-o>', ':SymbolsOutline<CR>', {silent = false, noremap = true})
 --NvimTree
 map('n', '<leader>n', ':NvimTreeToggle<CR>', {silent = false, noremap = true})
 
+--Spectre
+vim.keymap.set('n', '<leader>S', '<cmd>lua require("spectre").open()<CR>', {
+    desc = "Open Spectre"
+})
+vim.keymap.set('n', '<leader>sw', '<cmd>lua require("spectre").open_visual({select_word=true})<CR>', {
+    desc = "Search current word"
+})
+vim.keymap.set('v', '<leader>sw', '<esc><cmd>lua require("spectre").open_visual()<CR>', {
+    desc = "Search current word"
+})
+vim.keymap.set('n', '<leader>sp', '<cmd>lua require("spectre").open_file_search({select_word=true})<CR>', {
+    desc = "Search on current file"
+})
+
 --Telescope
 map('n', '<leader>tk', ':<cmd>lua require("telescope.builtin").keymaps()<cr>', {silent = false, noremap = true})
 map('n', '<leader><leader>', ':<cmd>lua require("telescope").extensions.frecency.frecency()<cr>', {silent = false, noremap = true})

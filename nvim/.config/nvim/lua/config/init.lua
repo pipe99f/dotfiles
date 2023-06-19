@@ -19,22 +19,45 @@ require("lazy").setup({
 	"rafamadriz/friendly-snippets",
 	--snipmate-like (el plugin de snipmate no incluye ningún snippet)
 	"honza/vim-snippets",
-  "evesdropper/luasnip-latex-snippets.nvim",
+	"evesdropper/luasnip-latex-snippets.nvim",
 
 	--LSP
 	"neovim/nvim-lspconfig",
+	{ "scalameta/nvim-metals", dependencies = { "nvim-lua/plenary.nvim" } },
 	"williamboman/mason.nvim",
 	"williamboman/mason-lspconfig.nvim",
+	"jay-babu/mason-nvim-dap.nvim",
 	{ "folke/trouble.nvim" },
 	"jose-elias-alvarez/null-ls.nvim",
+	{
+		"jay-babu/mason-null-ls.nvim",
+		event = { "BufReadPre", "BufNewFile" },
+		dependencies = {
+			"williamboman/mason.nvim",
+			"jose-elias-alvarez/null-ls.nvim",
+		},
+	},
 	{ "glepnir/lspsaga.nvim" },
 	"ray-x/lsp_signature.nvim",
 	{ "simrat39/symbols-outline.nvim" },
-	"j-hui/fidget.nvim",
+	{ "j-hui/fidget.nvim", version = "legacy" },
 
 	--Debugging
 	"mfussenegger/nvim-dap",
-	"vim-test/vim-test",
+	{
+		"theHamsta/nvim-dap-virtual-text",
+		config = function()
+			require("nvim-dap-virtual-text").setup()
+		end,
+	},
+	{
+		"rcarriga/nvim-dap-ui",
+		config = function()
+			require("nvim-dap-virtual-text").setup()
+		end,
+	},
+	-- "vim-test/vim-test",
+	"nvim-neotest/neotest",
 
 	--cmp
 	"hrsh7th/cmp-nvim-lsp",
@@ -61,12 +84,12 @@ require("lazy").setup({
 
 	{
 		"akinsho/bufferline.nvim",
-		version = "v2.*",
+		version = "*",
 		dependencies = "kyazdani42/nvim-web-devicons",
 	},
 	"kyazdani42/nvim-tree.lua",
 	"numToStr/Comment.nvim",
-  {'akinsho/toggleterm.nvim', version = "*", config = true},
+	{ "akinsho/toggleterm.nvim", version = "*", config = true },
 	"ThePrimeagen/vim-be-good",
 
 	----MODES----
@@ -77,8 +100,47 @@ require("lazy").setup({
 	"https://github.com/mattn/vim-gist",
 	"lewis6991/gitsigns.nvim",
 
+	--Quarto
+	{
+		"quarto-dev/quarto-nvim",
+		dev = false,
+		dependencies = {
+			{ "hrsh7th/nvim-cmp" },
+			{
+				"jmbuhr/otter.nvim",
+				dev = false,
+				config = function()
+					require("otter.config").setup()
+				end,
+			},
+		},
+		config = function()
+			require("quarto").setup({
+				closePreviewOnExit = true,
+				lspFeatures = {
+					enabled = true,
+					chunks = "curly",
+					languages = { "r", "python", "julia", "bash", "lua", "html" },
+					diagnostics = {
+						enabled = true,
+						triggers = { "BufWritePost" },
+					},
+					completion = {
+						enabled = true,
+					},
+				},
+			})
+		end,
+	},
+
 	--Jupyter notebook
 	"goerz/jupytext.vim",
+  {
+    "kiyoon/jupynium.nvim",
+    build = "pip3 install --user .",
+    -- build = "conda run --no-capture-output -n jupynium pip install .",
+    -- enabled = vim.fn.isdirectory(vim.fn.expand "~/miniconda3/envs/jupynium"),
+  },
 
 	--Latex
 	"lervag/vimtex",
@@ -96,6 +158,7 @@ require("lazy").setup({
 		ft = { "markdown", "rmd", "pandoc.markdown" },
 		cmd = { "MarkdownPreview" },
 	},
+	{ "ekickx/clipboard-image.nvim" },
 
 	--R
 	"jalvesaq/Nvim-R",
@@ -180,8 +243,14 @@ require("lazy").setup({
 			require("neoscroll").setup()
 		end,
 	},
-	"p00f/nvim-ts-rainbow",
+	"HiPhish/nvim-ts-rainbow2",
 	"norcalli/nvim-colorizer.lua",
+	-- {
+	-- 	"HampusHauffman/block.nvim",
+	-- 	config = function()
+	-- 		require("block").setup({})
+	-- 	end,
+	-- },
 
 	----typing----
 	"windwp/nvim-autopairs",
@@ -229,6 +298,12 @@ require("lazy").setup({
 		end,
 	},
 	{
+		"nvim-pack/nvim-spectre",
+		config = function()
+			require("spectre").setup()
+		end,
+	},
+	{
 		"folke/todo-comments.nvim",
 		dependencies = "nvim-lua/plenary.nvim",
 	},
@@ -264,9 +339,10 @@ require("config.plugins.iron")
 require("config.plugins.coderunner")
 require("config.plugins.vimtex")
 require("config.plugins.toggleterm")
+require("config.plugins.metals")
 -- require("config.plugins.noice")
 
-require("nvim-surround").setup() -- por algún motivo el plugin no funcionaba si invocaba desde "use"
+require("nvim-surround").setup()
 require("todo-comments").setup()
 require("notify").setup({
 	stages = "slide",

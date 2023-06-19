@@ -1,4 +1,5 @@
 local cmp = require('cmp')
+local compare = cmp.config.compare
 local has_words_before = function()
   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
   return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
@@ -49,13 +50,25 @@ require'cmp'.setup{
 
   sources = {
     { name = "codeium"},
-    { name = "nvim_lsp" },
+    { name = "nvim_lsp", priority = 100 },
     { name = "path" },
     { name = "buffer" },
     { name = "luasnip" },
+    { name = "jupynium", priority = 1000 },
     { name = "rg" },
     { name = "latex_symbols" },
+    { name = "otter" },
     { name = "zsh" }
+  },
+
+  sorting = {
+    priority_weight = 1.0,
+    comparators = {
+      compare.score,            -- Jupyter kernel completion shows prior to LSP
+      compare.recently_used,
+      compare.locality,
+      -- ...
+    },
   },
 
   mapping = {

@@ -6,6 +6,7 @@ local servers = {
   "gopls",
   "html",
   "jsonls",
+  "julials",
   "ltex",
   "lua_ls",
   "marksman",
@@ -16,13 +17,31 @@ local servers = {
   "lua_ls",
   "texlab",
   "tsserver",
-  -- "shellcheck",
-  -- "black", --formatters, no se está instalando automaticamente ningun formatter
-  -- "gofumpt",
-  -- "prettierd",
-  -- "isort",
-  -- "shfmt",
-  -- "stylua",
+}
+
+local nullPackages = {
+  --diagnostics
+  "shellharden",
+  "sqlfluff",
+
+  --formatting
+  "black", 
+  "gofumpt",
+  "isort",
+  "latexindent",
+  "markdownlint",
+  "prettierd",
+  "rustfmt",
+  "shellcheck",
+  "shfmt",
+  "sql-formatter",
+  "stylua",
+}
+
+local dapPackages = {
+  'bash',
+  'codelldb',
+  "python",
 }
 
 require("mason").setup()
@@ -31,3 +50,11 @@ require("mason-lspconfig").setup({
   ensure_installed = servers,
 })
 
+require("mason-null-ls").setup({
+    ensure_installed = nullPackages,
+    automatic_installation = true,
+})
+
+require("mason-nvim-dap").setup({
+    ensure_installed = dapPackages
+})
