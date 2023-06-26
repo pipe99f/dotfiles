@@ -5,9 +5,11 @@ $directory\
 $git_branch\
 $git_state\
 $git_status\
+$docker_context\
 $cmd_duration\
 $line_break\
 $python\
+$conda\
 $character"""
 
 [directory]
@@ -40,4 +42,11 @@ style = "yellow"
 [python]
 format = "[$virtualenv]($style) "
 style = "bright-black"
+
+[conda]
+format = '[$symbol$environment](dimmed green) '
+ignore_base = false
+
+[docker_context]
+format = 'via [🐋 $context](blue bold)'
 

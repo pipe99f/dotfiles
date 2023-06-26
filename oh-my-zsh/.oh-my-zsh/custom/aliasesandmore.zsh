@@ -41,5 +41,9 @@ alias lifolder="cd ~/ce/Libros/"
 #cerrar sesión
 alias userlogout="pkill -KILL -u pipe99g"
 
+#abrir ranger en la carpeta de libros
+alias li="ranger ~/ce/Libros"
+
+
 
 

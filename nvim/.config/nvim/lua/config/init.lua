@@ -135,12 +135,12 @@ require("lazy").setup({
 
 	--Jupyter notebook
 	"goerz/jupytext.vim",
-  {
-    "kiyoon/jupynium.nvim",
-    build = "pip3 install --user .",
-    -- build = "conda run --no-capture-output -n jupynium pip install .",
-    -- enabled = vim.fn.isdirectory(vim.fn.expand "~/miniconda3/envs/jupynium"),
-  },
+	{
+		"kiyoon/jupynium.nvim",
+		build = "pip3 install --user .",
+		-- build = "conda run --no-capture-output -n jupynium pip install .",
+		-- enabled = vim.fn.isdirectory(vim.fn.expand "~/miniconda3/envs/jupynium"),
+	},
 
 	--Latex
 	"lervag/vimtex",
@@ -298,6 +298,39 @@ require("lazy").setup({
 		end,
 	},
 	{
+		"folke/flash.nvim",
+		event = "VeryLazy",
+		---@type Flash.Config
+		opts = {},
+		keys = {
+			{
+				"s",
+				mode = { "n", "x", "o" },
+				function()
+					-- default options: exact mode, multi window, all directions, with a backdrop
+					require("flash").jump()
+				end,
+				desc = "Flash",
+			},
+			{
+				"S",
+				mode = { "n", "o", "x" },
+				function()
+					require("flash").treesitter()
+				end,
+				desc = "Flash Treesitter",
+			},
+			{
+				"r",
+				mode = "o",
+				function()
+					require("flash").remote()
+				end,
+				desc = "Remote Flash",
+			},
+		},
+	},
+	{
 		"nvim-pack/nvim-spectre",
 		config = function()
 			require("spectre").setup()
@@ -352,11 +385,6 @@ require("fidget").setup({
 	window = {
 		blend = 0,
 	},
-})
-
-require("auto-session").setup({
-	log_level = "error",
-	auto_session_suppress_dirs = { "~/", "~/Projects", "~/Downloads", "/" },
 })
 
 --Mappings

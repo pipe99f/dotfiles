@@ -1,0 +1,16 @@
+#show environment in prompt
+changeps1: False
+
+#activate base environment in shell
+auto_activate_base: false
+
+auto_update_conda: true
+
+show_channel_urls: True
+
+channels:
+  - conda-forge
+  - defaults
+
+#prioriza conda-forge
+channel_priority: strict

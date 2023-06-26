@@ -265,12 +265,12 @@ assign [class="firefox" instance="Navigator"] → 2
 assign [class="Spotify" instance="spotify"] → 1
 assign [class="libreWolf" instance="Navigator"] → 2
 assign [class ="discord" instance="discord"] → 8 
-assign [class="Steam" instance="Steam"] → 9
+assign [class="steam" instance="steamwebhelper"] → 9
 assign [class="csgo_linux64" instance="csgo_linux64"] → 10
-assign [class="dota2" instance="dota2"] → 10
+assign [app_id="org.libretro.RetroArch"] → 10
 
 
-workspace 7 output 'Samsung Electric Company S22F350 H4ZM701012'
+workspace 7 output HDMI-A-1
 
 #Evita que swayidle funcione cuando tengo algún programa en fullscreen
 for_window [class=".*"] inhibit_idle fullscreen
