@@ -14,3 +14,12 @@ channels:
 
 #prioriza conda-forge
 channel_priority: strict
+
+create_default_packages:
+  - conda-tree
+  - ipython
+  - matplotlib
+  - numpy
+  - pandas
+  - scipy
+  - seaborn

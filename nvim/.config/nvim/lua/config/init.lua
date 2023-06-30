@@ -52,8 +52,33 @@ require("lazy").setup({
 	},
 	{
 		"rcarriga/nvim-dap-ui",
+		dependencies = "mfussenegger/nvim-dap",
 		config = function()
-			require("nvim-dap-virtual-text").setup()
+			local dap = require("dap")
+			local dapui = require("dapui")
+			dapui.setup()
+			dap.listeners.after.event_initialized["dapui_config"] = function()
+				dapui.open()
+			end
+			dap.listeners.before.event_terminated["dapui_config"] = function()
+				dapui.close()
+			end
+			dap.listeners.before.event_exited["dapui_config"] = function()
+				dapui.close()
+			end
+		end,
+	},
+	{
+		"mfussenegger/nvim-dap-python",
+		ft = "python",
+		dependencies = {
+			"mfussenegger/nvim-dap",
+			"rcarriga/nvim-dap-ui",
+		},
+		config = function(_, opts)
+			local path = "~/.local/share/nvim/mason/packages/debugpy/venv/bin/python"
+			require("dap-python").setup(path)
+			-- require("core.utils").load_mappings("dap_python")
 		end,
 	},
 	-- "vim-test/vim-test",
@@ -65,9 +90,10 @@ require("lazy").setup({
 	"hrsh7th/cmp-path",
 	"hrsh7th/cmp-cmdline",
 	"hrsh7th/nvim-cmp",
+	"onsails/lspkind.nvim",
 	"saadparwaiz1/cmp_luasnip",
 	"kdheepak/cmp-latex-symbols",
-	"lukas-reineke/cmp-rg",
+	"lukas-reineke/cmp-rg", --sugiere mucha basura
 
 	--telescope
 	{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
@@ -223,8 +249,11 @@ require("lazy").setup({
 	{ "CRAG666/code_runner.nvim", dependencies = "nvim-lua/plenary.nvim" }, -- Idk if this is useful, I think I can do the same thing with autocommands.,
 
 	---Color schemes---
-	"arcticicestudio/nord-vim",
+	-- "arcticicestudio/nord-vim",
 	"rakr/vim-one",
+	"shaunsingh/nord.nvim",
+	"nyoom-engineering/oxocarbon.nvim",
+	{ "dasupradyumna/midnight.nvim", lazy = false, priority = 1000 },
 	{
 		"folke/tokyonight.nvim",
 		lazy = false,
@@ -298,42 +327,36 @@ require("lazy").setup({
 		end,
 	},
 	{
-		"folke/flash.nvim",
-		event = "VeryLazy",
-		---@type Flash.Config
-		opts = {},
-		keys = {
-			{
-				"s",
-				mode = { "n", "x", "o" },
-				function()
-					-- default options: exact mode, multi window, all directions, with a backdrop
-					require("flash").jump()
-				end,
-				desc = "Flash",
-			},
-			{
-				"S",
-				mode = { "n", "o", "x" },
-				function()
-					require("flash").treesitter()
-				end,
-				desc = "Flash Treesitter",
-			},
-			{
-				"r",
-				mode = "o",
-				function()
-					require("flash").remote()
-				end,
-				desc = "Remote Flash",
-			},
-		},
+		"ggandor/leap.nvim",
+		config = function()
+			require("leap").set_default_keymaps()
+		end,
+	},
+	{
+		"ggandor/flit.nvim",
+		config = function()
+			require("flit").setup({
+				keys = { f = "f", F = "F", t = "t", T = "T" },
+				-- A string like "nv", "nvo", "o", etc.
+				labeled_modes = "v",
+				multiline = true,
+				-- Like `leap`s similar argument (call-specific overrides).
+				-- E.g.: opts = { equivalence_classes = {} }
+				opts = {},
+			})
+		end,
 	},
 	{
 		"nvim-pack/nvim-spectre",
 		config = function()
 			require("spectre").setup()
+		end,
+	},
+	{
+		"folke/neodev.nvim",
+		opts = {},
+		config = function()
+			require("neodev").setup({})
 		end,
 	},
 	{

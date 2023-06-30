@@ -77,7 +77,7 @@ require("tokyonight").setup({
 
 -- ui
 -- vim.cmd('colorscheme one')
-cmd("colorscheme tokyonight")
+vim.cmd.colorscheme "midnight"
 opt.laststatus = 3 -- use global statusline
 vim.o.ch = 0 --removes bottom blank space. Cmp doesnt work correctly
 opt.cursorline = true

@@ -88,7 +88,7 @@ bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle 
 bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle
 
-#Brightness. Requires "light"
+#Brightness, requires brightnessctl
 bindsym --locked XF86MonBrightnessUp exec brightnessctl set 5%+
 bindsym --locked XF86MonBrightnessDown exec brightnessctl set 5%- 
 
@@ -356,7 +356,7 @@ bar {
 }
 
 
-exec gammastep
+exec_always gammastep
 exec_always autotiling-rs
 workspace 2; exec firefox;
 workspace 1; exec spotify-launcher;

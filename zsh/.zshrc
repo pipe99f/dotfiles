@@ -75,17 +75,16 @@ eval "$(starship init zsh)"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-    git
-    autojump
-    thefuck
-    vi-mode
-    zsh-autosuggestions
     copypath
     copyfile
-    copybuffer
-    history
-    zsh-syntax-highlighting
+    git
     sudo
+    thefuck
+    vi-mode
+    zoxide
+    zsh-autosuggestions
+    zsh-syntax-highlighting
+    fzf-tab
     )
 
 source $ZSH/oh-my-zsh.sh
@@ -116,10 +115,14 @@ export GTK_THEME=Adwaita-One-Dark
 
 export XDG_CURRENT_DESKTOP=sway
 
+#Spellchecking
+setopt correct
+# export SPROMPT="Correct %R to %r? [Yes, No, Abort, Edit] "
+export SPROMPT="Correct $fg[red]%R$reset_color to $fg[green]%r$reset_color? [Yes, No, Abort, Edit] "
+
 
 #Atuin
 eval "$(atuin init zsh)"
-
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -148,4 +151,7 @@ else
 fi
 unset __conda_setup
 # <<< conda initialize <<<
+
+source $HOME/.config/fzf/config.zsh
+
 

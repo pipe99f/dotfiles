@@ -52,6 +52,18 @@ require("nvim-treesitter.configs").setup({
 		enable = true,
 	},
 
+	incremental_selection = {
+		enable = true,
+
+		keymaps = {
+
+			node_incremental = "v",
+
+			node_decremental = "V",
+
+			scope_incremental = "<c-s>",
+		},
+	},
 	rainbow = {
 		enable = true,
 		-- disable = { "jsx", "cpp" }, list of languages you want to disable the plugin for

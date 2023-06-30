@@ -22,9 +22,6 @@ alias pfolder="cd ~/ve/prog/"
 alias i3exit="sudo i3-msg exit"
 
 
-#montar disco Ce
-alias cemount="udisksctl mount -b /dev/sdb1" 
-
 #nvim as vim
 alias vim="nvim"
 alias vi="nvim"
@@ -35,15 +32,17 @@ alias cemount="sudo mount UUID=987C27C57C279CCE /mnt/ce/"
 #mount ve disk
 alias vemount="sudo mount UUID=EA9898FB9898C809 /mnt/ve/"
 
-#folder de libros 
-alias lifolder="cd ~/ce/Libros/"
-
 #cerrar sesión
 alias userlogout="pkill -KILL -u pipe99g"
 
 #abrir ranger en la carpeta de libros
 alias li="ranger ~/ce/Libros"
 
+#make yay manage only aur
+alias yay="yay --aur"
 
+
+#Zsh spellchecking false positives
+#alias <command>="nocorrect <command>"
 
 

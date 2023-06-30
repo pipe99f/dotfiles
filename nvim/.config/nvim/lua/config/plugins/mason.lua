@@ -21,6 +21,8 @@ local servers = {
 
 local nullPackages = {
   --diagnostics
+  "mypy",
+  "ruff",
   "shellharden",
   "sqlfluff",
 
