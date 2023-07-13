@@ -120,6 +120,8 @@ setopt correct
 # export SPROMPT="Correct %R to %r? [Yes, No, Abort, Edit] "
 export SPROMPT="Correct $fg[red]%R$reset_color to $fg[green]%r$reset_color? [Yes, No, Abort, Edit] "
 
+#Required by tmuxp
+export DISABLE_AUTO_TITLE="true"
 
 #Atuin
 eval "$(atuin init zsh)"

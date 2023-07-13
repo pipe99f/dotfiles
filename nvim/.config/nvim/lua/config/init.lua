@@ -247,6 +247,14 @@ require("lazy").setup({
 	"hkupty/iron.nvim",
 	{ "michaelb/sniprun", build = "bash ./install.sh" },
 	{ "CRAG666/code_runner.nvim", dependencies = "nvim-lua/plenary.nvim" }, -- Idk if this is useful, I think I can do the same thing with autocommands.,
+	{
+		"stevearc/overseer.nvim",
+		opts = {},
+		dependencies = "stevearc/dressing.nvim",
+		config = function()
+			require("overseer").setup()
+		end,
+	},
 
 	---Color schemes---
 	-- "arcticicestudio/nord-vim",

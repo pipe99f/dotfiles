@@ -43,6 +43,7 @@ alias yay="yay --aur"
 
 
 #Zsh spellchecking false positives
+alias tmuxp="nocorrect tmuxp"
 #alias <command>="nocorrect <command>"
 
 
