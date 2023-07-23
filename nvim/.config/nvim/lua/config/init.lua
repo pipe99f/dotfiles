@@ -94,6 +94,22 @@ require("lazy").setup({
 	"saadparwaiz1/cmp_luasnip",
 	"kdheepak/cmp-latex-symbols",
 	"lukas-reineke/cmp-rg", --sugiere mucha basura
+	{
+		"lkhphuc/jupyter-kernel.nvim",
+		opts = {
+			inspect = {
+				-- opts for vim.lsp.util.open_floating_preview
+				window = {
+					max_width = 84,
+				},
+			},
+			-- time to wait for kernel's response in seconds
+			timeout = 0.5,
+		},
+		cmd = { "JupyterAttach", "JupyterInspect", "JupyterExecute" },
+		build = ":UpdateRemotePlugins",
+		keys = { { "<leader>k", "<Cmd>JupyterInspect<CR>", desc = "Inspect object in kernel" } },
+	},
 
 	--telescope
 	{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
@@ -136,7 +152,7 @@ require("lazy").setup({
 				"jmbuhr/otter.nvim",
 				dev = false,
 				config = function()
-					require("otter.config").setup()
+					require("otter").setup()
 				end,
 			},
 		},
@@ -242,17 +258,45 @@ require("lazy").setup({
 	--
 	-- 'aduros/ai.vim',
 
+	---------------------------
 	---building/running code---
+	---------------------------
+
 	-- "jupyter-vim/jupyter-vim",
 	"hkupty/iron.nvim",
 	{ "michaelb/sniprun", build = "bash ./install.sh" },
 	{ "CRAG666/code_runner.nvim", dependencies = "nvim-lua/plenary.nvim" }, -- Idk if this is useful, I think I can do the same thing with autocommands.,
+	{ "milanglacier/yarepl.nvim", config = true },
 	{
 		"stevearc/overseer.nvim",
-		opts = {},
+		opts = {
+			-- Tasks are disposed 5 minutes after running to free resources.
+			-- If you need to close a task inmediatelly:
+			-- press ENTER in the menu you see after compiling on the task you want to close.
+			task_list = {
+				direction = "bottom",
+				min_height = 25,
+				max_height = 25,
+				default_detail = 1,
+				bindings = {
+					["q"] = function()
+						vim.cmd("OverseerClose")
+					end,
+				},
+			},
+		},
 		dependencies = "stevearc/dressing.nvim",
 		config = function()
 			require("overseer").setup()
+		end,
+	},
+
+	{
+		"Zeioth/compiler.nvim",
+		cmd = { "CompilerOpen", "CompilerToggleResults" },
+		dependencies = { "stevearc/overseer.nvim" },
+		config = function(_, opts)
+			require("compiler").setup(opts)
 		end,
 	},
 
@@ -337,7 +381,7 @@ require("lazy").setup({
 	{
 		"ggandor/leap.nvim",
 		config = function()
-			require("leap").set_default_keymaps()
+			require("leap").add_default_mappings(true)
 		end,
 	},
 	{

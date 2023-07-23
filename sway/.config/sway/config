@@ -20,6 +20,7 @@ set $term alacritty
 # on the original workspace that the command was run on.
 #set $menu dmenu_path | dmenu | xargs swaymsg exec --
 set $menu wofi --show=drun --lines=7 --prompt=""
+set $wallpapers_path $HOME/.config/sway/wallpapers
 
 #intl dead keys keyboard
 # input * xkb_layout "us,ru"
@@ -39,11 +40,6 @@ font pango:Arimo Nerd Font 11
 ##Cursor theme
 # seat seat0 xcursor_theme "Sunity-cursors" 30
 
-### Output configuration
-#
-# Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
-
 
 ##monitor settings
 output 'Unknown GFV22CB             ' mode 1920x1080@120Hz
@@ -61,18 +57,6 @@ bindsym $mod+Shift+Escape exec sway output "*" enable | sway output DP-1 res 192
 #
 # You can get the names of your outputs by running: swaymsg -t get_outputs
 
-### Idle configuration
-#
-# Example configuration:
-#
-# exec swayidle -w \
-#          timeout 300 'swaylock -f -c 000000' \
-#          timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
-#          before-sleep 'swaylock -f -c 000000'
-#
-# This will lock your screen after 300 seconds of inactivity, then turn off
-# your displays after another 300 seconds, and turn your screens back on when
-# resumed. It will also lock your screen before your computer goes to sleep.
 
 ### Input configuration
 # Media player controls. Hay que instalar playerctl
@@ -81,8 +65,7 @@ bindsym XF86AudioPause exec playerctl play-pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 
-# Use pactl to adjust volume in PulseAudio.
-# set $refresh_i3status killall -SIGUSR1 i3status
+# Audio keys
 bindsym --locked XF86AudioMute exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
 bindsym --locked XF86AudioLowerVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- -l 1.2
 bindsym --locked XF86AudioRaiseVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+ -l 1.2
@@ -194,7 +177,7 @@ for_window [class = "R_x11" instance = "r_x11"] floating enable , resize set hei
 
 #take screenshots with super+p, requiere slurp y grim
 bindsym --to-code $mod+p exec grim -g "$(slurp)" - | wl-copy
-#bindsym $mod+Shift+p exec grim -g "$(slurp)" /home/pipe99g/Desktop/$(date +'%s_grim.png')
+
 bindsym --to-code $mod+Shift+p exec grim -g "$(slurp)" - | swappy -f -
 
 #exec jupyter qterminal and nvim
@@ -359,10 +342,14 @@ exec_always gammastep
 exec_always autotiling-rs
 workspace 2; exec firefox;
 workspace 1; exec spotify-launcher;
-# output "*" bg /home/pipe99g/.config/sway/revocationwallpaper.jpeg tile
-output "*" bg /home/pipe99g/.config/sway/kriegsplit.jpg fill
+output * bg `find $wallpapers_path -type f | shuf -n 1` fill
+# output "*" bg ~/.config/sway/wallpapers/wallpaper1.jpg fill
 
 # exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
+
+#lock screen when closing lid
+bindswitch --reload --locked lid:on exec swaylock -f -e -i ~/.config/sway/grotesqueimpalement.jpg'
+
 exec swayidle -w \
     timeout 720 'swaylock -f -e -i ~/.config/sway/grotesqueimpalement.jpg' \
     timeout 1500 'systemctl suspend' \

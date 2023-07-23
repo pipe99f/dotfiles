@@ -57,6 +57,10 @@ map("n", "<C-k>", "<C-W>k", { silent = true })
 map("n", "<C-j>", "<C-W>j", { silent = true })
 map("n", "<C-l>", "<C-W>l", { silent = true })
 map("n", "<C-h>", "<C-W>h", { silent = true })
+map("t", "<C-h>", [[<Cmd>wincmd h<CR>]], opts)
+map("t", "<C-j>", [[<Cmd>wincmd j<CR>]], opts)
+map("t", "<C-k>", [[<Cmd>wincmd k<CR>]], opts)
+map("t", "<C-l>", [[<Cmd>wincmd l<CR>]], opts)
 
 --create split window
 map("n", "<leader>vs", ":vsplit<CR>", { silent = false })
@@ -78,9 +82,10 @@ vim.api.nvim_set_keymap("n", "<b", ":BufferLineMovePrev<CR>", { silent = true, n
 -- vim.api.nvim_create_augroup('runcode', {clear = true})
 vim.cmd([[
   augroup runcode
+
   autocmd FileType python map <buffer> <F9> :w<CR>:exec '!python3' shellescape(@%, 1)<CR>
   autocmd FileType python imap <buffer> <F9> <esc>:w<CR>:exec '!python3' shellescape(@%, 1)<CR>
-  autocmd FileType python nnoremap <buffer> <leader>rr :w <CR> :bo :8sp <CR> :term python "%:p" <CR>
+  autocmd FileType python nnoremap <buffer> <leader>rr :w <bar> bo <bar> 8sp <bar> term python "%:p" <CR>
 
   autocmd FileType sh nnoremap <buffer> <leader>rr :w <CR> :bo :8sp <CR> :term  bash "%:p" <CR>
   autocmd FileType zsh nnoremap <buffer> <leader>rr :w <CR> :bo :8sp <CR> :term  bash "%:p" <CR>
@@ -97,6 +102,13 @@ vim.cmd([[
 -----------
 --PLUGINS--
 -----------
+
+-- Compiler
+-- Open compiler
+vim.api.nvim_buf_set_keymap(0, "n", "<F6>", "<cmd>CompilerOpen<cr>", { noremap = true, silent = true })
+
+-- Toggle compiler results
+vim.api.nvim_buf_set_keymap(0, "n", "<S-F6>", "<cmd>CompilerToggleResults<cr>", { noremap = true, silent = true })
 
 --Code runner
 -- vim.keymap.set('n', '<leader>r', ':RunCode<CR>', { noremap = true, silent = false })
@@ -118,8 +130,6 @@ map("n", "<leader>ti", "<cmd>IronRepl<CR>", opts) -- toggle iron REPL
 map("n", "<leader>n", ":NvimTreeToggle<CR>", { silent = false, noremap = true })
 
 -- Toggleterm
--- vim.keymap.set('n', '<A-i>', '<CMD>lua require("FTerm").toggle()<CR>')
--- vim.keymap.set('t', '<A-i>', '<C-\\><C-n><CMD>lua require("FTerm").toggle()<CR>')
 vim.keymap.set("n", "<A-i>", "<CMD>lua _hiddenFloat()<CR>")
 vim.keymap.set("t", "<A-i>", "<C-\\><C-n><CMD>:lua _hiddenFloat()<CR>")
 map("n", "<A-g>", "<cmd>lua _lazygit_toggle()<CR>", { noremap = true, silent = true })

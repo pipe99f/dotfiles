@@ -1,4 +1,3 @@
-
 require("iron.core").setup({
 	config = {
 		-- If iron should expose `<plug>(...)` mappings for the plugins
@@ -7,7 +6,11 @@ require("iron.core").setup({
 		scratch_repl = true,
 		-- Your repl definitions come here
 		repl_definition = {
-			python = require("iron.fts.python").ipython,
+			-- python = require("iron.fts.python").ipython,
+			python = {
+				command = { "jupyter-console" },
+				format = require("iron.fts.common").bracketed_paste,
+			},
 			sh = {
 				command = { "zsh" },
 			},
