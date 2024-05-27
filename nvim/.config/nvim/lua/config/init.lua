@@ -28,7 +28,7 @@ require("lazy").setup({
 	"williamboman/mason-lspconfig.nvim",
 	"jay-babu/mason-nvim-dap.nvim",
 	{ "folke/trouble.nvim" },
-	"jose-elias-alvarez/null-ls.nvim",
+	"nvimtools/none-ls.nvim",
 	{
 		"jay-babu/mason-null-ls.nvim",
 		event = { "BufReadPre", "BufNewFile" },
@@ -53,6 +53,7 @@ require("lazy").setup({
 	{
 		"rcarriga/nvim-dap-ui",
 		dependencies = "mfussenegger/nvim-dap",
+		"nvim-neotest/nvim-nio",
 		config = function()
 			local dap = require("dap")
 			local dapui = require("dapui")
@@ -123,14 +124,19 @@ require("lazy").setup({
 			})
 		end,
 	},
-
-	{
-		"akinsho/bufferline.nvim",
-		version = "*",
-		dependencies = "kyazdani42/nvim-web-devicons",
-	},
-	"kyazdani42/nvim-tree.lua",
+	--comments
 	"numToStr/Comment.nvim",
+	{
+		"folke/todo-comments.nvim",
+		dependencies = "nvim-lua/plenary.nvim",
+	},
+	{
+		"folke/ts-comments.nvim",
+		opts = {},
+		event = "VeryLazy",
+	},
+
+	"kyazdani42/nvim-tree.lua",
 	{ "akinsho/toggleterm.nvim", version = "*", config = true },
 	"ThePrimeagen/vim-be-good",
 
@@ -207,13 +213,15 @@ require("lazy").setup({
 
 	--AI--
 	{
-		"jcdickinson/codeium.nvim",
+		"Exafunction/codeium.nvim",
 		dependencies = {
 			"nvim-lua/plenary.nvim",
 			"hrsh7th/nvim-cmp",
 		},
 		config = function()
-			require("codeium").setup({})
+			require("codeium").setup({
+				enable_chat = true,
+			})
 		end,
 	},
 	-- {
@@ -305,6 +313,9 @@ require("lazy").setup({
 	"rakr/vim-one",
 	"shaunsingh/nord.nvim",
 	"nyoom-engineering/oxocarbon.nvim",
+	"rebelot/kanagawa.nvim",
+	"tiagovla/tokyodark.nvim",
+	{ "catppuccin/nvim", name = "catppuccin", priority = 1000 },
 	{ "dasupradyumna/midnight.nvim", lazy = false, priority = 1000 },
 	{
 		"folke/tokyonight.nvim",
@@ -316,15 +327,20 @@ require("lazy").setup({
 	{ "folke/noice.nvim", dependencies = "MunifTanjim/nui.nvim" },
 	{ "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
 	"nvim-lualine/lualine.nvim",
+	{
+		"akinsho/bufferline.nvim",
+		version = "*",
+		dependencies = "kyazdani42/nvim-web-devicons",
+	},
 	{ "xiyaowong/nvim-transparent", lazy = false },
-	"lukas-reineke/indent-blankline.nvim",
+	{ "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {} },
 	{
 		"karb94/neoscroll.nvim",
 		config = function()
-			require("neoscroll").setup()
+			require("neoscroll").setup({})
 		end,
 	},
-	"HiPhish/nvim-ts-rainbow2",
+	{ "HiPhish/rainbow-delimiters.nvim" },
 	"norcalli/nvim-colorizer.lua",
 	-- {
 	-- 	"HampusHauffman/block.nvim",
@@ -337,9 +353,19 @@ require("lazy").setup({
 	"windwp/nvim-autopairs",
 	"kylechui/nvim-surround",
 	"machakann/vim-sandwich",
-	"windwp/nvim-ts-autotag",
+	{
+		"windwp/nvim-ts-autotag",
+		config = function()
+			require("nvim-ts-autotag").setup()
+		end,
+	},
 	"mattn/emmet-vim",
 	"godlygeek/tabular",
+	{
+		"m4xshen/hardtime.nvim",
+		dependencies = { "MunifTanjim/nui.nvim", "nvim-lua/plenary.nvim" },
+		opts = {},
+	},
 
 	--   'mg979/vim-visual-multi',
 
@@ -410,10 +436,6 @@ require("lazy").setup({
 		config = function()
 			require("neodev").setup({})
 		end,
-	},
-	{
-		"folke/todo-comments.nvim",
-		dependencies = "nvim-lua/plenary.nvim",
 	},
 	{ "kevinhwang91/nvim-ufo", dependencies = "kevinhwang91/promise-async" },
 })

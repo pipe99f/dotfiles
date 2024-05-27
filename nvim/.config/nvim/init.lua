@@ -24,6 +24,27 @@ opt.matchpairs = { "(:)", "{:}", "[:]", "<:>" }
 opt.syntax = "enable"
 opt.history = 500
 
+vim.api.nvim_create_user_command("Russian", function()
+	return vim.cmd("set keymap=russian-jcukenwin")
+end, { bang = true })
+
+vim.api.nvim_create_user_command("Korean", function()
+	return vim.cmd("set keymap=korean")
+end, { bang = true })
+
+vim.api.nvim_create_user_command("Greek", function()
+	return vim.cmd("set keymap=greek_utf-8")
+end, { bang = true })
+
+vim.api.nvim_create_user_command("RMarkdownPreview", function()
+	--It prints a lot of stuff and breaks Nvim's UI, I gotta find how to run it in the background
+	renderCommand = "R -e 'library(rmarkdown); render(\""
+		.. vim.api.nvim_buf_get_name(0)
+		.. '", output_format="html_document")\''
+	os.execute(renderCommand)
+	return
+end, { bang = true })
+
 -- indention
 opt.autoindent = true
 opt.expandtab = true
@@ -41,43 +62,43 @@ opt.wildmenu = true
 
 --tokyo night
 require("tokyonight").setup({
-  -- your configuration comes here
-  -- or leave it empty to use the default settings
-  style = "night", -- The theme comes in three styles, `storm`, a darker variant `night` and `day`
-  transparent = true, -- Enable this to disable setting the background color
-  terminal_colors = true, -- Configure the colors used when opening a `:terminal` in Neovim
-  styles = {
-    -- Style to be applied to different syntax groups
-    -- Value is any valid attr-list value for `:help nvim_set_hl`
-    comments = { italic = true },
-    keywords = { italic = true },
-    functions = {},
-    variables = {},
-    -- Background styles. Can be "dark", "transparent" or "normal"
-    sidebars = "transparent", -- style for sidebars, see below
-    floats = "transparent", -- style for floating windows
-  },
-  sidebars = { "qf", "help" }, -- Set a darker background on sidebar-like windows. For example: `["qf", "vista_kind", "terminal", "packer"]`
-  day_brightness = 0.3, -- Adjusts the brightness of the colors of the **Day** style. Number between 0 and 1, from dull to vibrant colors
-  hide_inactive_statusline = false, -- Enabling this option, will hide inactive statuslines and replace them with a thin border instead. Should work with the standard **StatusLine** and **LuaLine**.
-  dim_inactive = false, -- dims inactive windows
-  lualine_bold = false, -- When `true`, section headers in the lualine theme will be bold
+	-- your configuration comes here
+	-- or leave it empty to use the default settings
+	style = "night", -- The theme comes in three styles, `storm`, a darker variant `night` and `day`
+	transparent = false, -- Enable this to disable setting the background color
+	terminal_colors = true, -- Configure the colors used when opening a `:terminal` in Neovim
+	styles = {
+		-- Style to be applied to different syntax groups
+		-- Value is any valid attr-list value for `:help nvim_set_hl`
+		comments = { italic = true },
+		keywords = { italic = true },
+		functions = {},
+		variables = {},
+		-- Background styles. Can be "dark", "transparent" or "normal"
+		sidebars = "transparent", -- style for sidebars, see below
+		floats = "transparent", -- style for floating windows
+	},
+	sidebars = { "qf", "help" }, -- Set a darker background on sidebar-like windows. For example: `["qf", "vista_kind", "terminal", "packer"]`
+	day_brightness = 0.3, -- Adjusts the brightness of the colors of the **Day** style. Number between 0 and 1, from dull to vibrant colors
+	hide_inactive_statusline = false, -- Enabling this option, will hide inactive statuslines and replace them with a thin border instead. Should work with the standard **StatusLine** and **LuaLine**.
+	dim_inactive = false, -- dims inactive windows
+	lualine_bold = false, -- When `true`, section headers in the lualine theme will be bold
 
-  --- You can override specific color groups to use other groups or a hex color
-  --- function will be called with a ColorScheme table
-  ---@param colors ColorScheme
-  on_colors = function(colors) end,
+	--- You can override specific color groups to use other groups or a hex color
+	--- function will be called with a ColorScheme table
+	---@param colors ColorScheme
+	on_colors = function(colors) end,
 
-  --- You can override specific highlights to use other groups or a hex color
-  --- function will be called with a Highlights and ColorScheme table
-  ---@param highlights Highlights
-  ---@param colors ColorScheme
-  on_highlights = function(highlights, colors) end,
+	--- You can override specific highlights to use other groups or a hex color
+	--- function will be called with a Highlights and ColorScheme table
+	---@param highlights Highlights
+	---@param colors ColorScheme
+	on_highlights = function(highlights, colors) end,
 })
 
 -- ui
 -- vim.cmd('colorscheme one')
-vim.cmd.colorscheme "midnight"
+vim.cmd.colorscheme("catppuccin-mocha")
 opt.laststatus = 3 -- use global statusline
 vim.o.ch = 0 --removes bottom blank space. Cmp doesnt work correctly
 opt.cursorline = true
@@ -98,7 +119,6 @@ opt.hidden = true
 -- opt.textwidth = 200
 -- opt.wrap = true
 
-
 -- folding
 vim.o.foldenable = true
 cmd(":highlight FoldColumn guibg=NONE guifg=#565f89")
@@ -106,7 +126,6 @@ vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
 vim.o.foldcolumn = "0"
 vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
 vim.o.foldlevelstart = 99
-
 
 -- backups
 opt.backup = false
@@ -128,7 +147,7 @@ cmd([[
 
 let g:vimtex_quickfix_mode=0
 
-let g:mkdp_browser = 'chromium' 
+let g:mkdp_browser = 'chromium'
 
 let g:jupytext_fmt = 'py'
 
@@ -145,7 +164,6 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 		vim.highlight.on_yank({ timeout = 500 })
 	end,
 })
-
 
 -- -- sync clipboards because I'm easily confused. No sé qué hace exactamente pero me está confundiendo
 -- vim.api.nvim_create_autocmd("TextYankPost", {
@@ -217,5 +235,5 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 vim.api.nvim_create_autocmd("FileType", {
 	group = "bufcheck",
 	pattern = "tex",
-  command = "VimtexCompile",
+	command = "VimtexCompile",
 })

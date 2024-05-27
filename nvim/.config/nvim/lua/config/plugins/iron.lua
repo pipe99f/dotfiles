@@ -14,6 +14,9 @@ require("iron.core").setup({
 			sh = {
 				command = { "zsh" },
 			},
+			r = {
+				command = { "radian" },
+			},
 		},
 		repl_open_cmd = "60 vs",
 		-- how the REPL window will be opened, the default is opening

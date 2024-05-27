@@ -48,10 +48,6 @@ require("nvim-treesitter.configs").setup({
 		-- additional_vim_regex_highlighting = false,
 	},
 
-	autotag = {
-		enable = true,
-	},
-
 	incremental_selection = {
 		enable = true,
 
@@ -64,24 +60,6 @@ require("nvim-treesitter.configs").setup({
 			scope_incremental = "<c-s>",
 		},
 	},
-	rainbow = {
-		enable = true,
-		-- disable = { "jsx", "cpp" }, list of languages you want to disable the plugin for
-		extended_mode = true, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
-		max_file_lines = nil, -- Do not enable for files with more than n lines, int
-		query = "rainbow-parens",
-		colors = {
-			"#e06c75",
-			"#b08770",
-			"#e5c07b",
-			"#98c379",
-			"#61afef",
-			"#abb2bf",
-			"#c679dd",
-		}, -- table of hex strings
-		-- termcolors = {} -- table of colour name strings
-		strategy = require("ts-rainbow").strategy.global,
-	},
 })
 
 --enable autotag
@@ -89,7 +67,8 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagn
 	underline = true,
 	virtual_text = {
 		spacing = 5,
-		severity_limit = "Warning",
+		severity = { min = vim.diagnostic.severity.WARN },
+		-- min = severity,
 	},
 	update_in_insert = true,
 })

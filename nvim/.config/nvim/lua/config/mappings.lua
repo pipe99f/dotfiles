@@ -19,6 +19,10 @@ map("n", "<leader>cn", ":cnext<cr>zz", opts)
 vim.cmd('map <leader>fn :let @+ = expand("%:t") \\| echo "File name copied: " . @+<CR>')
 vim.cmd('map <leader>fp :let @+ = expand("%:p") \\| echo "File path copied: " . @+<CR>')
 
+-- Insert blank lines
+vim.keymap.set("n", "<leader>o", "o<Esc>")
+vim.keymap.set("n", "<leader>O", "O<Esc>")
+
 -- Rename all string occurrences in the current buffer
 vim.cmd("map re gD:%s/<C-R>///gc<left><left><left>")
 
@@ -85,7 +89,7 @@ vim.cmd([[
 
   autocmd FileType python map <buffer> <F9> :w<CR>:exec '!python3' shellescape(@%, 1)<CR>
   autocmd FileType python imap <buffer> <F9> <esc>:w<CR>:exec '!python3' shellescape(@%, 1)<CR>
-  autocmd FileType python nnoremap <buffer> <leader>rr :w <bar> bo <bar> 8sp <bar> term python "%:p" <CR>
+  autocmd FileType python nnoremap <buffer> <leader>rr :w <bar> bo <bar> 8sp <bar> term python "%:p" <CR><CR>
 
   autocmd FileType sh nnoremap <buffer> <leader>rr :w <CR> :bo :8sp <CR> :term  bash "%:p" <CR>
   autocmd FileType zsh nnoremap <buffer> <leader>rr :w <CR> :bo :8sp <CR> :term  bash "%:p" <CR>

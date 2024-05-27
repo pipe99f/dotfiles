@@ -6,6 +6,7 @@ vim.cmd([[
   let R_objbr_w = 30
   let R_rconsole_width = 0
   let R_rconsole_height = 12
+  let R_assign = 0
 
 ]])
-  -- let R_auto_start = 2
+-- let R_auto_start = 2

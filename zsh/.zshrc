@@ -126,6 +126,9 @@ export DISABLE_AUTO_TITLE="true"
 #Atuin
 eval "$(atuin init zsh)"
 
+#Scripts in path
+export PATH=$PATH:$HOME/dotfiles/scripts/scripts
+
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
