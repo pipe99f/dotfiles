@@ -112,8 +112,10 @@ source $ZSH/oh-my-zsh.sh
 
 #GTK THEME
 export GTK_THEME=Adwaita-One-Dark
-
 export XDG_CURRENT_DESKTOP=sway
+
+#QT
+export QT_QPA_PLATFORMTHEME=qt6ct
 
 #Spellchecking
 setopt correct
@@ -124,7 +126,7 @@ export SPROMPT="Correct $fg[red]%R$reset_color to $fg[green]%r$reset_color? [Yes
 export DISABLE_AUTO_TITLE="true"
 
 #Atuin
-eval "$(atuin init zsh)"
+eval "$(atuin init zsh --disable-up-arrow)"
 
 #Scripts in path
 export PATH=$PATH:$HOME/dotfiles/scripts/scripts

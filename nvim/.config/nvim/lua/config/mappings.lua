@@ -138,9 +138,7 @@ vim.keymap.set("n", "<A-i>", "<CMD>lua _hiddenFloat()<CR>")
 vim.keymap.set("t", "<A-i>", "<C-\\><C-n><CMD>:lua _hiddenFloat()<CR>")
 map("n", "<A-g>", "<cmd>lua _lazygit_toggle()<CR>", { noremap = true, silent = true })
 map("t", "<A-g>", "<C-\\><C-n><cmd>lua _lazygit_toggle()<CR>", { noremap = true, silent = true })
--- map('n', '<A-t>', '<CMD>:ToggleTerm direction=horizontal<CR>',{noremap = true, silent = true})
--- map('t', '<A-t>', '<C-\\><C-n><CMD>:ToggleTerm direction=horizontal<CR>',{noremap = true, silent = true})
--- map('t', '<A-\\>', '<C-\\><C-n><CMD>:ToggleTerm direction=float<CR>')
+-- con alt-\ se abre una terminal en la parte inferior.
 
 --Symbols Outline
 map("n", "<A-o>", ":SymbolsOutline<CR>", { silent = false, noremap = true })

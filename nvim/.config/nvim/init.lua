@@ -18,7 +18,7 @@ cmd([[
 
 -- misc
 opt.backspace = { "eol", "start", "indent" }
-opt.clipboard = "unnamedplus"
+opt.clipboard = vim.env.SSH_TTY and "" or "unnamedplus" -- Sync with system clipboard
 opt.encoding = "utf-8"
 opt.matchpairs = { "(:)", "{:}", "[:]", "<:>" }
 opt.syntax = "enable"
@@ -97,7 +97,6 @@ require("tokyonight").setup({
 })
 
 -- ui
--- vim.cmd('colorscheme one')
 vim.cmd.colorscheme("catppuccin-mocha")
 opt.laststatus = 3 -- use global statusline
 vim.o.ch = 0 --removes bottom blank space. Cmp doesnt work correctly
@@ -149,12 +148,13 @@ let g:vimtex_quickfix_mode=0
 
 let g:mkdp_browser = 'chromium'
 
-let g:jupytext_fmt = 'py'
 
 ]])
 
 -- autocommands
 vim.api.nvim_create_augroup("bufcheck", { clear = true })
+vim.api.nvim_create_augroup("resize_splits", { clear = true })
+vim.api.nvim_create_augroup("close_with_q", { clear = true })
 
 -- highlight yanks
 vim.api.nvim_create_autocmd("TextYankPost", {
@@ -236,4 +236,37 @@ vim.api.nvim_create_autocmd("FileType", {
 	group = "bufcheck",
 	pattern = "tex",
 	command = "VimtexCompile",
+})
+
+-- Close with q
+vim.api.nvim_create_autocmd("FileType", {
+	group = "close_with_q",
+	pattern = {
+		"PlenaryTestPopup",
+		"help",
+		"lspinfo",
+		"notify",
+		"qf",
+		"spectre_panel",
+		"startuptime",
+		"tsplayground",
+		"neotest-output",
+		"checkhealth",
+		"neotest-summary",
+		"neotest-output-panel",
+	},
+	callback = function(event)
+		vim.bo[event.buf].buflisted = false
+		vim.keymap.set("n", "q", "<cmd>close<cr>", { buffer = event.buf, silent = true })
+	end,
+})
+
+-- resize splits if window got resized
+vim.api.nvim_create_autocmd({ "VimResized" }, {
+	group = "resize_splits",
+	callback = function()
+		local current_tab = vim.fn.tabpagenr()
+		vim.cmd("tabdo wincmd =")
+		vim.cmd("tabnext " .. current_tab)
+	end,
 })

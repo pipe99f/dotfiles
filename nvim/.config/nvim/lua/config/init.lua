@@ -40,7 +40,17 @@ require("lazy").setup({
 	{ "glepnir/lspsaga.nvim" },
 	"ray-x/lsp_signature.nvim",
 	{ "simrat39/symbols-outline.nvim" },
-	{ "j-hui/fidget.nvim", version = "legacy" },
+	{
+		"j-hui/fidget.nvim",
+		version = "legacy",
+		config = function()
+			require("fidget").setup({
+				window = {
+					blend = 0,
+				},
+			})
+		end,
+	},
 
 	--Debugging
 	"mfussenegger/nvim-dap",
@@ -129,6 +139,9 @@ require("lazy").setup({
 	{
 		"folke/todo-comments.nvim",
 		dependencies = "nvim-lua/plenary.nvim",
+		config = function()
+			require("todo-comments").setup()
+		end,
 	},
 	{
 		"folke/ts-comments.nvim",
@@ -152,6 +165,7 @@ require("lazy").setup({
 	{
 		"quarto-dev/quarto-nvim",
 		dev = false,
+		ft = { "quarto", "markdown" },
 		dependencies = {
 			{ "hrsh7th/nvim-cmp" },
 			{
@@ -182,13 +196,54 @@ require("lazy").setup({
 	},
 
 	--Jupyter notebook
-	"goerz/jupytext.vim",
+	{
+		"GCBallesteros/jupytext.nvim",
+		config = function()
+			require("jupytext").setup({
+				style = "markdown",
+				output_extension = "md",
+				force_ft = "markdown",
+			})
+		end,
+	},
+
 	{
 		"kiyoon/jupynium.nvim",
 		build = "pip3 install --user .",
 		-- build = "conda run --no-capture-output -n jupynium pip install .",
 		-- enabled = vim.fn.isdirectory(vim.fn.expand "~/miniconda3/envs/jupynium"),
 	},
+	{
+		"benlubas/molten-nvim",
+		version = "^1.0.0", -- use version <2.0.0 to avoid breaking changes
+		dependencies = { "3rd/image.nvim" },
+		build = ":UpdateRemotePlugins",
+		init = function()
+			-- these are examples, not defaults. Please see the readme
+			vim.g.molten_image_provider = "image.nvim"
+			vim.g.molten_output_win_max_height = 20
+		end,
+	},
+	{
+		-- see the image.nvim readme for more information about configuring this plugin
+		"3rd/image.nvim",
+		opts = {
+			backend = "kitty", -- whatever backend you would like to use
+			max_width = 100,
+			max_height = 12,
+			max_height_window_percentage = math.huge,
+			max_width_window_percentage = math.huge,
+			window_overlap_clear_enabled = true, -- toggles images when windows are overlapped
+			window_overlap_clear_ft_ignore = { "cmp_menu", "cmp_docs", "" },
+		},
+	},
+
+	{
+		"willothy/wezterm.nvim",
+		config = true,
+	},
+
+	{ "benlubas/image-save.nvim", cmd = "SaveImage" },
 
 	--Latex
 	"lervag/vimtex",
@@ -351,7 +406,12 @@ require("lazy").setup({
 
 	----typing----
 	"windwp/nvim-autopairs",
-	"kylechui/nvim-surround",
+	{
+		"kylechui/nvim-surround",
+		config = function()
+			require("nvim-surround").setup()
+		end,
+	},
 	"machakann/vim-sandwich",
 	{
 		"windwp/nvim-ts-autotag",
@@ -431,6 +491,13 @@ require("lazy").setup({
 		end,
 	},
 	{
+		"vhyrro/luarocks.nvim",
+		priority = 1001, -- this plugin needs to run before anything else
+		opts = {
+			rocks = { "magick" },
+		},
+	},
+	{
 		"folke/neodev.nvim",
 		opts = {},
 		config = function()
@@ -438,6 +505,9 @@ require("lazy").setup({
 		end,
 	},
 	{ "kevinhwang91/nvim-ufo", dependencies = "kevinhwang91/promise-async" },
+	{
+		"nvimtools/hydra.nvim",
+	},
 })
 
 --Requires
@@ -470,19 +540,9 @@ require("config.plugins.coderunner")
 require("config.plugins.vimtex")
 require("config.plugins.toggleterm")
 require("config.plugins.metals")
+require("config.plugins.molten")
+require("config.plugins.hydra")
 -- require("config.plugins.noice")
-
-require("nvim-surround").setup()
-require("todo-comments").setup()
-require("notify").setup({
-	stages = "slide",
-	background_colour = "#000000",
-})
-require("fidget").setup({
-	window = {
-		blend = 0,
-	},
-})
 
 --Mappings
 require("config.mappings")
