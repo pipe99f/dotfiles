@@ -28,15 +28,9 @@ require("lazy").setup({
 	"williamboman/mason-lspconfig.nvim",
 	"jay-babu/mason-nvim-dap.nvim",
 	{ "folke/trouble.nvim" },
-	"nvimtools/none-ls.nvim",
-	{
-		"jay-babu/mason-null-ls.nvim",
-		event = { "BufReadPre", "BufNewFile" },
-		dependencies = {
-			"williamboman/mason.nvim",
-			"jose-elias-alvarez/null-ls.nvim",
-		},
-	},
+	-- "nvimtools/none-ls.nvim",
+	"mfussenegger/nvim-lint",
+	"WhoIsSethDaniel/mason-tool-installer.nvim",
 	{ "glepnir/lspsaga.nvim" },
 	"ray-x/lsp_signature.nvim",
 	{ "simrat39/symbols-outline.nvim" },
@@ -50,6 +44,14 @@ require("lazy").setup({
 				},
 			})
 		end,
+	},
+
+	--Formatter
+	{
+		"stevearc/conform.nvim",
+		event = { "BufWritePre" },
+		cmd = { "ConformInfo" },
+		opts = {},
 	},
 
 	--Debugging
@@ -92,7 +94,6 @@ require("lazy").setup({
 			-- require("core.utils").load_mappings("dap_python")
 		end,
 	},
-	-- "vim-test/vim-test",
 	"nvim-neotest/neotest",
 
 	--cmp
@@ -517,7 +518,7 @@ require("config.plugins.mason") -- must be always before require('plugins.lspcon
 require("config.plugins.luasnip")
 require("config.plugins.lspconfig")
 require("config.plugins.trouble")
-require("config.plugins.null-ls")
+require("config.plugins.nvim-lint")
 require("config.plugins.lspsaga")
 require("config.plugins.nvim-tree")
 require("config.plugins.lualine")
@@ -542,6 +543,7 @@ require("config.plugins.toggleterm")
 require("config.plugins.metals")
 require("config.plugins.molten")
 require("config.plugins.hydra")
+require("config.plugins.conform")
 -- require("config.plugins.noice")
 
 --Mappings
