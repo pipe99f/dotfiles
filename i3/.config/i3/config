@@ -112,7 +112,7 @@ bar {
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec alacritty
+bindsym $mod+Return exec wezterm
 
 #take screenshots with flameshot
 bindsym $mod+p exec flameshot gui
