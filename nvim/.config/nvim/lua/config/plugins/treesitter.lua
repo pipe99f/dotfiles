@@ -17,6 +17,7 @@ require("nvim-treesitter.configs").setup({
 		"markdown_inline",
 		"python",
 		"r",
+		"rnoweb",
 		"regex",
 		"rust",
 		"scala",

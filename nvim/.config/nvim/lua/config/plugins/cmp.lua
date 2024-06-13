@@ -71,11 +71,12 @@ require("cmp").setup({
 
 	sources = {
 		{ name = "jupyter" },
-		{ name = "nvim_lsp", priority = 100 },
 		{ name = "codeium" },
+		{ name = "cmp_r" },
+		{ name = "nvim_lsp" },
+		{ name = "luasnip" },
 		{ name = "path" },
 		{ name = "buffer" },
-		{ name = "luasnip" },
 		{ name = "jupynium", priority = 1000 },
 		-- { name = "rg" },
 		{ name = "latex_symbols" },
@@ -146,6 +147,7 @@ require("cmp").setup({
 					luasnip = "SNP",
 					path = "PTH",
 					latex_symbols = "LTX",
+					cmp_r = "R",
 				})[entry.source.name]
 				return vim_item
 			end,

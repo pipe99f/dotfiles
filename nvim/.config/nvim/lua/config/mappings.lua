@@ -141,7 +141,7 @@ map("t", "<A-g>", "<C-\\><C-n><cmd>lua _lazygit_toggle()<CR>", { noremap = true,
 -- con alt-\ se abre una terminal en la parte inferior.
 
 --Symbols Outline
-map("n", "<A-o>", ":SymbolsOutline<CR>", { silent = false, noremap = true })
+vim.keymap.set("n", "<A-o>", "<cmd>Outline<CR>", { desc = "Toggle Outline" })
 
 --Spectre
 vim.keymap.set("n", "<leader>S", '<cmd>lua require("spectre").open()<CR>', {

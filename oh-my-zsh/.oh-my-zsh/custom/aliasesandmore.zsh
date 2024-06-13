@@ -1,4 +1,4 @@
-#ALIASES
+# ALIASES
 # alias ll='ls -alF'
 # alias la='ls -A'
 alias ls='exa --icons --git'

@@ -28,30 +28,37 @@ require("lazy").setup({
 	"williamboman/mason-lspconfig.nvim",
 	"jay-babu/mason-nvim-dap.nvim",
 	{ "folke/trouble.nvim" },
-	-- "nvimtools/none-ls.nvim",
-	"mfussenegger/nvim-lint",
+	{
+		"mfussenegger/nvim-lint",
+		event = { "BufReadPre", "BufNewFile" },
+	},
 	"WhoIsSethDaniel/mason-tool-installer.nvim",
 	{ "glepnir/lspsaga.nvim" },
 	"ray-x/lsp_signature.nvim",
-	{ "simrat39/symbols-outline.nvim" },
 	{
-		"j-hui/fidget.nvim",
-		version = "legacy",
-		config = function()
-			require("fidget").setup({
-				window = {
-					blend = 0,
-				},
-			})
-		end,
+		"hedyhli/outline.nvim",
+		lazy = true,
+		cmd = { "Outline", "OutlineOpen" },
+		opts = {
+			-- Your setup opts here
+		},
 	},
+	-- {
+	-- 	"j-hui/fidget.nvim",
+	-- 	opts = {
+	-- 		notification = {
+	-- 			window = {
+	-- 				winblend = 0,
+	-- 			},
+	-- 		},
+	-- 	},
+	-- },
 
 	--Formatter
 	{
 		"stevearc/conform.nvim",
 		event = { "BufWritePre" },
 		cmd = { "ConformInfo" },
-		opts = {},
 	},
 
 	--Debugging
@@ -250,7 +257,14 @@ require("lazy").setup({
 	"lervag/vimtex",
 
 	--Markdown
-	"preservim/vim-markdown",
+	{
+		"MeanderingProgrammer/markdown.nvim",
+		name = "render-markdown", -- Only needed if you have another plugin named markdown.nvim
+		dependencies = { "nvim-treesitter/nvim-treesitter" },
+		config = function()
+			require("render-markdown").setup({})
+		end,
+	},
 	{
 		"iamcco/markdown-preview.nvim",
 		build = function()
@@ -265,7 +279,11 @@ require("lazy").setup({
 	{ "ekickx/clipboard-image.nvim" },
 
 	--R
-	"jalvesaq/Nvim-R",
+	{
+		"R-nvim/R.nvim",
+		lazy = false,
+	},
+	"R-nvim/cmp-r",
 
 	--AI--
 	{
@@ -326,7 +344,6 @@ require("lazy").setup({
 	---building/running code---
 	---------------------------
 
-	-- "jupyter-vim/jupyter-vim",
 	"hkupty/iron.nvim",
 	{ "michaelb/sniprun", build = "bash ./install.sh" },
 	{ "CRAG666/code_runner.nvim", dependencies = "nvim-lua/plenary.nvim" }, -- Idk if this is useful, I think I can do the same thing with autocommands.,
@@ -371,7 +388,16 @@ require("lazy").setup({
 	"nyoom-engineering/oxocarbon.nvim",
 	"rebelot/kanagawa.nvim",
 	"tiagovla/tokyodark.nvim",
-	{ "catppuccin/nvim", name = "catppuccin", priority = 1000 },
+	{
+		"catppuccin/nvim",
+		name = "catppuccin",
+		priority = 1000,
+		-- config = function()
+		-- 	require("catppuccin").setup({
+		-- 		transparent_background = true, -- disables setting the background color.
+		-- 	})
+		-- end,
+	},
 	{ "dasupradyumna/midnight.nvim", lazy = false, priority = 1000 },
 	{
 		"folke/tokyonight.nvim",
@@ -413,15 +439,12 @@ require("lazy").setup({
 			require("nvim-surround").setup()
 		end,
 	},
-	"machakann/vim-sandwich",
 	{
 		"windwp/nvim-ts-autotag",
 		config = function()
 			require("nvim-ts-autotag").setup()
 		end,
 	},
-	"mattn/emmet-vim",
-	"godlygeek/tabular",
 	{
 		"m4xshen/hardtime.nvim",
 		dependencies = { "MunifTanjim/nui.nvim", "nvim-lua/plenary.nvim" },
@@ -444,7 +467,6 @@ require("lazy").setup({
 		"rcarriga/nvim-notify",
 		config = function()
 			require("notify").setup({
-				stages = "slide",
 				background_colour = "#000000",
 			})
 		end,
@@ -531,10 +553,9 @@ require("config.plugins.gitsigns")
 require("config.plugins.comment")
 require("config.plugins.autopairs")
 require("config.plugins.project")
-require("config.plugins.nvimr")
+require("config.plugins.R-nvim")
 require("config.plugins.lsp_signature")
 require("config.plugins.telescope")
-require("config.plugins.symbolsoutline")
 require("config.plugins.ufo")
 require("config.plugins.iron")
 require("config.plugins.coderunner")
