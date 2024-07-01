@@ -44,7 +44,7 @@ vim.keymap.set("v", "J", ":m '>+1<CR>gv==kgvo<esc>=kgvo", { desc = "move highlig
 vim.keymap.set("v", "K", ":m '<-2<CR>gv==jgvo<esc>=jgvo", { desc = "move highlighted text up" })
 
 --fast saving
-map("n", "<leader>w", ":w!<CR>", { silent = false })
+map("n", "<leader>w", "<cmd>silent write!<CR>", { silent = false })
 map("n", "<leader>W", ":wa!<CR>", { silent = false })
 
 -- Quit neovim
@@ -89,7 +89,7 @@ vim.cmd([[
 
   autocmd FileType python map <buffer> <F9> :w<CR>:exec '!python3' shellescape(@%, 1)<CR>
   autocmd FileType python imap <buffer> <F9> <esc>:w<CR>:exec '!python3' shellescape(@%, 1)<CR>
-  autocmd FileType python nnoremap <buffer> <leader>rr :w <bar> bo <bar> 8sp <bar> term python "%:p" <CR><CR>
+  autocmd FileType python nnoremap <buffer> <leader>rr :silent w <bar> bo <bar> 8sp <bar> term python "%:p" <CR><CR>
 
   autocmd FileType sh nnoremap <buffer> <leader>rr :w <CR> :bo :8sp <CR> :term  bash "%:p" <CR>
   autocmd FileType zsh nnoremap <buffer> <leader>rr :w <CR> :bo :8sp <CR> :term  bash "%:p" <CR>

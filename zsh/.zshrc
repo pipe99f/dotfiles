@@ -114,8 +114,8 @@ alias llm='exa --icons --git -labF --sort=modified'
 alias vim="nvim"
 alias vi="nvim"
 
-#abrir ranger en la carpeta de libros
-alias li="ranger ~/ce/Libros"
+#abrir yazi en la carpeta de libros
+alias li="yazi ~/ce/Libros"
 
 #make yay manage only aur
 alias yay="yay --aur"

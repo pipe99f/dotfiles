@@ -1,0 +1,56 @@
+# yazi.toml
+[manager]
+show_hidden = true
+
+[opener]
+archive = [
+	{ run = 'unar "$1"', display_name = "Extract here" },
+]
+edit = [
+	{ run = 'nvim "$@"', block = true },
+]
+play = [
+	{ run = 'mpv "$@"', orphan = true, for = "unix" },
+]
+open = [
+	{ run = 'nohup xdg-open "$@"', desc = "Open" },
+]
+
+[open]
+prepend_rules = [
+	{ mime = "text/*", use = "edit" },
+	{ mime = "image/*", use = "image" },
+	{ mime = "video/*", use = "video" },
+	{ mime = "audio/*", use = "audio" },
+	{ mime = "inode/x-empty", use = "edit" },
+
+	{ name = "*.json", use = "edit" },
+	{ mime = "application/json", use = "edit" },
+	{ mime = "*/javascript", use = "edit" },
+	{ name = "*.html", use = [ "edit" ] },
+
+  { mime = "application/pdf", use = ["open"]},
+  { mime = "application/vnd.amazon.ebook", use = ["open"]},
+  { mime = "application/x-mobipocket-ebook", use = ["open"]},
+  { mime = "application/epub+zip", use = ["open"]},
+  { mime = "image/vnd.djvu", use = ["open"]},
+
+	{ mime = "application/zip", use = "archive" },
+	{ mime = "application/gzip", use = "archive" },
+	{ mime = "application/x-bzip", use = "archive" },
+	{ mime = "application/x-bzip2", use = "archive" },
+	{ mime = "application/x-tar", use = "archive" },
+	{ mime = "application/x-7z-compressed", use = "archive" },
+	{ mime = "application/x-rar", use = "archive" },
+
+	# Multiple openers for a single rule
+	# { name = "*.html", use = [ "open", "edit" ] },
+]
+
+rules = [
+	{ mime = "text/*", use = "edit" },
+	{ mime = "video/*", use = "play" },
+
+	# Multiple openers for a single rule
+	{ name = "*.html", use = [ "open", "edit" ] },
+]

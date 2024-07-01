@@ -34,7 +34,7 @@ require("lazy").setup({
 	},
 	"WhoIsSethDaniel/mason-tool-installer.nvim",
 	{ "glepnir/lspsaga.nvim" },
-	"ray-x/lsp_signature.nvim",
+	{ "ray-x/lsp_signature.nvim", event = "VeryLazy" },
 	{
 		"hedyhli/outline.nvim",
 		lazy = true,
@@ -157,7 +157,37 @@ require("lazy").setup({
 		event = "VeryLazy",
 	},
 
-	"kyazdani42/nvim-tree.lua",
+	{ "kyazdani42/nvim-tree.lua", event = "VeryLazy" },
+	{
+		"mikavilpas/yazi.nvim",
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+		},
+		event = "VeryLazy",
+		keys = {
+			-- 👇 in this section, choose your own keymappings!
+			{
+				"<leader>-",
+				function()
+					require("yazi").yazi()
+				end,
+				desc = "Open the file manager",
+			},
+			{
+				-- Open in the current working directory
+				"<leader>cw",
+				function()
+					require("yazi").yazi(nil, vim.fn.getcwd())
+				end,
+				desc = "Open the file manager in nvim's working directory",
+			},
+		},
+		---@type YaziConfig
+		opts = {
+			open_for_directories = false,
+		},
+	},
+
 	{ "akinsho/toggleterm.nvim", version = "*", config = true },
 	"ThePrimeagen/vim-be-good",
 
@@ -406,9 +436,40 @@ require("lazy").setup({
 	},
 
 	----appearance details----
-	{ "folke/noice.nvim", dependencies = "MunifTanjim/nui.nvim" },
+	{
+		"folke/noice.nvim",
+		event = "VeryLazy",
+		opts = {
+			messages = {
+				-- NOTE: If you enable messages, then the cmdline is enabled automatically.
+				-- This is a current Neovim limitation.
+				enabled = true,
+				view = "mini", -- default view for messages
+				view_error = "mini", -- view for errors
+				view_warn = "mini", -- view for warnings
+			},
+			lsp = {
+				progress = {
+					enabled = false,
+				},
+				signature = {
+					enabled = false,
+				},
+			},
+			dependencies = {
+				-- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+				"MunifTanjim/nui.nvim",
+				"rcarriga/nvim-notify",
+			},
+		},
+	},
 	{ "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
-	"nvim-lualine/lualine.nvim",
+	{
+		"tamton-aquib/staline.nvim",
+		config = function()
+			require("staline").setup()
+		end,
+	},
 	{
 		"akinsho/bufferline.nvim",
 		version = "*",
@@ -543,7 +604,6 @@ require("config.plugins.trouble")
 require("config.plugins.nvim-lint")
 require("config.plugins.lspsaga")
 require("config.plugins.nvim-tree")
-require("config.plugins.lualine")
 require("config.plugins.alpha")
 require("config.plugins.colorizer")
 require("config.plugins.nvim-transparent")
@@ -565,7 +625,6 @@ require("config.plugins.metals")
 require("config.plugins.molten")
 require("config.plugins.hydra")
 require("config.plugins.conform")
--- require("config.plugins.noice")
 
 --Mappings
 require("config.mappings")
