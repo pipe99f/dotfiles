@@ -101,6 +101,9 @@ export PATH=$PATH:$HOME/dotfiles/scripts/scripts
 # Source functions file
 source $HOME/dotfiles/scripts/scripts/functions.zsh
 
+# Zsh-syntax-highlighting theme
+source $HOME/dotfiles/scripts/scripts/catppuccin_macchiato-zsh-syntax-highlighting.zsh
+
 # Aliases
 
 # alias ll='ls -alF'

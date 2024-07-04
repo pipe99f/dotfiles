@@ -147,6 +147,9 @@ exec_always {
     # Exit sway (logs you out of your Wayland session)
     bindsym --to-code $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
 
+    # Toggle control center
+    bindsym $mod+Shift+n exec swaync-client -t -sw
+
 #return to previous workspace
 workspace_auto_back_and_forth yes
 
@@ -332,6 +335,8 @@ bar {
 
 exec_always gammastep
 exec_always autotiling-rs
+exec_always swaync
+
 workspace 2; exec firefox;
 workspace 1; exec spotify-launcher;
 output * bg `find $wallpapers_path -type f | shuf -n 1` fill

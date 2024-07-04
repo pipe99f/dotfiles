@@ -9,6 +9,9 @@ archive = [
 edit = [
 	{ run = 'nvim "$@"', block = true },
 ]
+image = [
+	{ run = 'imv "$@"', orphan = true, for = "unix" },
+]
 play = [
 	{ run = 'mpv "$@"', orphan = true, for = "unix" },
 ]
@@ -20,8 +23,8 @@ open = [
 prepend_rules = [
 	{ mime = "text/*", use = "edit" },
 	{ mime = "image/*", use = "image" },
-	{ mime = "video/*", use = "video" },
-	{ mime = "audio/*", use = "audio" },
+	{ mime = "video/*", use = "play" },
+	{ mime = "audio/*", use = "play" },
 	{ mime = "inode/x-empty", use = "edit" },
 
 	{ name = "*.json", use = "edit" },
