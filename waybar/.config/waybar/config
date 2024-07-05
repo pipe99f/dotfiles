@@ -16,15 +16,15 @@
          "format": "{icon}",
          "format-icons": {
     //         "3": "",
-             "1": "<span font='Arimo Nerd Font 15'>阮</span>", 
+             "1": "<span font='Arimo Nerd Font 13'></span>", 
              "2": "<span font='Arimo Nerd Font 13'></span>",
-             "3": "<span font='Arimo Nerd Font 15'></span>",
-             "4": "<span font='Arimo Nerd Font 15'></span>",
+             "3": "<span font='Arimo Nerd Font 15'>󰈚</span>",
+             "4": "<span font='Arimo Nerd Font 13'></span>",
              "5": "<span font='Arimo Nerd Font 14'></span>",
-             "7": "<span font='Arimo Nerd Font 15'></span>",
-             "8": "<span font='Arimo Nerd Font 15'>ﭮ</span>",
-             "9": "<span font='Arimo Nerd Font 15'></span>",
-             "10": "<span font='Arimo Nerd Font 14'></span>",
+             "7": "<span font='Arimo Nerd Font 14'></span>",
+             "8": "<span font='Arimo Nerd Font 13'></span>",
+             "9": "<span font='Arimo Nerd Font 14'></span>",
+             "10": "<span font='Arimo Nerd Font 13'></span>",
     //         "5": "",
     //         "urgent": "",
     //         "focused": "",
@@ -74,8 +74,8 @@
     "idle_inhibitor": {
         "format": "{icon}",
         "format-icons": {
-            "activated": "﯎",
-            "deactivated": ""
+            "activated": "",
+            "deactivated": "󰈉"
         }
     },
     "tray": {
@@ -136,7 +136,7 @@
     },
     "network": {
         // "interface": "wlp2*", // (Optional) To force the use of this interface
-        "format-ethernet": "ﮣ ",
+        "format-ethernet": "󰚥 ",
         "on-click": "$HOME/.config/sway/scripts/nmcli-wofi",
         "format-wifi": "  {signalStrength}%",
         "format-disconnected": "⚠ Disconnected",

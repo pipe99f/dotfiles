@@ -1,19 +1,19 @@
 * {
-    /* `otf-font-awesome` is required to be installed for icons */
-    font-family: Arimo Nerd Font;
-    font-size: 14px;
+  /* `otf-font-awesome` is required to be installed for icons */
+  font-family: Arimo Nerd Font;
+  font-size: 14px;
 }
 
 window#waybar {
-    background-color: rgba(59, 66, 82, 0.5);
-    border-bottom: 3px solid rgba(100, 114, 125, 0.6);
-    color: #cacaca;
-    transition-property: background-color;
-    transition-duration: .5s;
+  background-color: rgba(59, 66, 82, 0.5);
+  border-bottom: 3px solid rgba(100, 114, 125, 0.6);
+  color: #cacaca;
+  transition-property: background-color;
+  transition-duration: 0.5s;
 }
 
 window#waybar.hidden {
-    opacity: 0.2;
+  opacity: 0.2;
 }
 
 /*
@@ -26,43 +26,43 @@ window#waybar.solo {
 */
 
 window#waybar.termite {
-    background-color: #3F3F3F;
+  background-color: #3f3f3f;
 }
 
 window#waybar.chromium {
-    background-color: #000000;
-    border: none;
+  background-color: #000000;
+  border: none;
 }
 
 #workspaces button {
-    padding: 0 5px;
-    background-color: transparent;
-    color: #bababa;
-    /* Use box-shadow instead of border so the text isn't offset */
-    box-shadow: inset 0 -3px transparent;
-    /* Avoid rounded borders under each workspace name */
-    border: none;
-    border-radius: 0;
+  padding: 0 5px;
+  background-color: transparent;
+  color: #bababa;
+  /* Use box-shadow instead of border so the text isn't offset */
+  box-shadow: inset 0 -3px transparent;
+  /* Avoid rounded borders under each workspace name */
+  border: none;
+  border-radius: 0;
 }
 
 /* https://github.com/Alexays/Waybar/wiki/FAQ#the-workspace-buttons-have-a-strange-hover-effect */
 #workspaces button:hover {
-    background: rgba(59, 66, 82, 0.5);
-    box-shadow: inset 0 -3px #bababa;
+  background: rgba(59, 66, 82, 0.5);
+  box-shadow: inset 0 -3px #bababa;
 }
 
 #workspaces button.focused {
-    background-color: #46566a;
-    box-shadow: inset 0 -3px #bbbbbb;
+  background-color: #46566a;
+  box-shadow: inset 0 -3px #bbbbbb;
 }
 
 #workspaces button.urgent {
-    background-color: #eb4d4b;
+  background-color: #eb4d4b;
 }
 
 #mode {
-    background-color: transparent;
-    border-bottom: 3px solid #ffffff;
+  background-color: transparent;
+  border-bottom: 3px solid #ffffff;
 }
 
 #clock,
@@ -80,178 +80,182 @@ window#waybar.chromium {
 #mode,
 #idle_inhibitor,
 #mpd {
-    padding: 0 5px;
-    color: #cacaca;
+  padding: 0 5px;
+  color: #cacaca;
 }
 
 #window,
 #workspaces {
-    margin: 0 4px;
+  margin: 0 4px;
 }
 
 /* If workspaces is the leftmost module, omit left margin */
 .modules-left > widget:first-child > #workspaces {
-    margin-left: 0;
+  margin-left: 0;
 }
 
 /* If workspaces is the rightmost module, omit right margin */
 .modules-right > widget:last-child > #workspaces {
-    margin-right: 0;
+  margin-right: 0;
 }
 
 #clock {
-    background-color: transparent;
+  background-color: transparent;
 }
 
 #battery {
-    background-color: transparent;
-    color: #cacaca;
+  background-color: transparent;
+  color: #cacaca;
 }
 
-#battery.charging, #battery.plugged {
-    color: #cacaca;
-    background-color: transparent;
+#battery.charging,
+#battery.plugged {
+  color: #cacaca;
+  background-color: transparent;
 }
 
 @keyframes blink {
-    to {
-        background-color: transparent;
-        color: #000000;
-    }
+  to {
+    background-color: transparent;
+    color: #000000;
+  }
 }
 
 #battery.critical:not(.charging) {
-    background-color: transparent;
-    color: #ffffff;
-    animation-name: blink;
-    animation-duration: 0.5s;
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
-    animation-direction: alternate;
+  background-color: transparent;
+  color: #ffffff;
+  animation-name: blink;
+  animation-duration: 0.5s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
 }
 
 label:focus {
-    background-color: #000000;
+  background-color: #000000;
 }
 
 #cpu {
-    background-color: transparent;
+  background-color: transparent;
 }
 
 #custom-pacman {
-    background-color: transparent;
+  background-color: transparent;
 }
 
 #memory {
-    background-color: transparent;
+  background-color: transparent;
 }
 
 #disk {
-    background-color: transparent;
+  background-color: transparent;
 }
 
 #backlight {
-    background-color: transparent;
+  background-color: transparent;
 }
 
 #network {
-    background-color: transparent;
+  background-color: transparent;
 }
 
 #network.disconnected {
-    background-color: transparent;
+  background-color: transparent;
 }
 
 #pulseaudio {
-    background-color: transparent;
+  background-color: transparent;
 }
 
 #pulseaudio.muted {
-    background-color: transparent;
+  background-color: transparent;
 }
 
 #custom-media {
-    background-color: transparent;
-    color: #2a5c45;
-    min-width: 100px;
+  background-color: transparent;
+  color: #2a5c45;
+  min-width: 100px;
 }
 
 #custom-media.custom-spotify {
-    background-color: transparent;
+  background-color: transparent;
 }
 
 #custom-media.custom-vlc {
-    background-color: transparent;
+  background-color: transparent;
 }
 
 #temperature {
-    background-color: transparent;
+  background-color: transparent;
 }
 
 #temperature.critical {
-    background-color: transparent;
+  background-color: transparent;
 }
 
 #tray {
-    background-color: transparent;
+  background-color: transparent;
 }
 
 #tray > .passive {
-    -gtk-icon-effect: dim;
+  -gtk-icon-effect: dim;
 }
 
 #tray > .needs-attention {
-    -gtk-icon-effect: highlight;
-    background-color: transparent;
+  -gtk-icon-effect: highlight;
+  background-color: transparent;
 }
 
 #idle_inhibitor {
-    background-color: transparent;
+  background-color: transparent;
 }
 
 #idle_inhibitor.activated {
-    background-color: #46566a;
-    box-shadow: inset 0 -3px #bbbbbb;
+  background-color: #46566a;
+  box-shadow: inset 0 -3px #bbbbbb;
 }
 
 #mpd {
-    background-color: transparent;
-    color: #2a5c45;
+  background-color: transparent;
+  color: #2a5c45;
 }
 
 #mpd.disconnected {
-    background-color: transparent;
+  background-color: transparent;
 }
 
 #mpd.stopped {
-    background-color: transparent;
+  background-color: transparent;
 }
 
 #mpd.paused {
-    background-color: transparent;
+  background-color: transparent;
 }
 
 #language {
-    background: transparent;
-    color: #740864;
-    padding: 0 5px;
-    margin: 0 5px;
-    min-width: 16px;
+  background: transparent;
+  color: #740864;
+  padding: 0 5px;
+  margin: 0 5px;
+  min-width: 16px;
 }
 
 #keyboard-state {
-    background: transparent;
-    color: #000000;
-    padding: 0 0px;
-    margin: 0 5px;
-    min-width: 16px;
+  background: transparent;
+  color: #000000;
+  padding: 0 0px;
+  margin: 0 5px;
+  min-width: 16px;
 }
 
-#keyboard-state > label{
-    padding: 0 5px;
+#keyboard-state > label {
+  padding: 0 5px;
 }
 
 #keyboard-state > label.locked {
-    background: rgba(0, 0, 0, 0.2);
+  background: rgba(0, 0, 0, 0.2);
 }
- 
+
+#custom-notification {
+  font-family: "Arimo Nerd Font";
+}
