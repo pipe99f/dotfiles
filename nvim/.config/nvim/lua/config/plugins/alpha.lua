@@ -3,14 +3,14 @@ local dashboard = require("alpha.themes.dashboard")
 
 -- Set header
 dashboard.section.header.val = {
-    "                                                     ",
-    "  ███╗   ██╗███████╗ ██████╗ ██╗   ██╗██╗███╗   ███╗ ",
-    "  ████╗  ██║██╔════╝██╔═══██╗██║   ██║██║████╗ ████║ ",
-    "  ██╔██╗ ██║█████╗  ██║   ██║██║   ██║██║██╔████╔██║ ",
-    "  ██║╚██╗██║██╔══╝  ██║   ██║╚██╗ ██╔╝██║██║╚██╔╝██║ ",
-    "  ██║ ╚████║███████╗╚██████╔╝ ╚████╔╝ ██║██║ ╚═╝ ██║ ",
-    "  ╚═╝  ╚═══╝╚══════╝ ╚═════╝   ╚═══╝  ╚═╝╚═╝     ╚═╝ ",
-    "                                                     ",
+	"                                                     ",
+	"  ███╗   ██╗███████╗ ██████╗ ██╗   ██╗██╗███╗   ███╗ ",
+	"  ████╗  ██║██╔════╝██╔═══██╗██║   ██║██║████╗ ████║ ",
+	"  ██╔██╗ ██║█████╗  ██║   ██║██║   ██║██║██╔████╔██║ ",
+	"  ██║╚██╗██║██╔══╝  ██║   ██║╚██╗ ██╔╝██║██║╚██╔╝██║ ",
+	"  ██║ ╚████║███████╗╚██████╔╝ ╚████╔╝ ██║██║ ╚═╝ ██║ ",
+	"  ╚═╝  ╚═══╝╚══════╝ ╚═════╝   ╚═══╝  ╚═╝╚═╝     ╚═╝ ",
+	"                                                     ",
 }
 
 -- Set header
@@ -37,14 +37,14 @@ dashboard.section.header.val = {
 -- }
 --
 
-    -- Set menu
+-- Set menu
 dashboard.section.buttons.val = {
-    dashboard.button( "e", "  > New file" , ":ene <BAR> startinsert <CR>"),
-    dashboard.button( "f", "  > Find file", ":Telescope find_files<CR>"),
-    dashboard.button( "r", "  > Recent"   , ":Telescope oldfiles<CR>"),
-    dashboard.button("t", "  > Find Text", ":Telescope live_grep <CR>"),
-    dashboard.button( "s", "  > Settings" , ":e $MYVIMRC | :cd %:p:h | split . | wincmd k | pwd<CR>"),
-    dashboard.button( "q", "  > Quit NVIM", ":qa<CR>"),
+	dashboard.button("e", "  > New file", ":ene <BAR> startinsert <CR>"),
+	dashboard.button("f", "󰈞  > Find file", ":Telescope find_files<CR>"),
+	dashboard.button("r", "  > Recent", ":Telescope oldfiles<CR>"),
+	dashboard.button("t", "  > Find Text", ":Telescope live_grep <CR>"),
+	dashboard.button("s", "  > Settings", ":e $MYVIMRC | :cd %:p:h | split . | wincmd k | pwd<CR>"),
+	dashboard.button("q", "  > Quit NVIM", ":qa<CR>"),
 }
 
 -- Set footer
@@ -60,7 +60,7 @@ dashboard.section.buttons.val = {
 --       }
 --   end)
 --   ```
--- local fortune = require("alpha.fortune") 
+-- local fortune = require("alpha.fortune")
 -- dashboard.section.footer.val = fortune()
 
 -- Send config to alpha
