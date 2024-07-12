@@ -1,7 +1,7 @@
 vim.opt.termguicolors = true -- must run before colorizer
 vim.g.mapleader = " " -- must run before lazy.nvim
+vim.loader.enable() --fast loading
 
--- require("impatient") --must run before any plugin
 require("config")
 
 local cmd = vim.cmd --most part taken from CosmicNvim
@@ -155,6 +155,7 @@ let g:mkdp_browser = 'chromium'
 vim.api.nvim_create_augroup("bufcheck", { clear = true })
 vim.api.nvim_create_augroup("resize_splits", { clear = true })
 vim.api.nvim_create_augroup("close_with_q", { clear = true })
+vim.api.nvim_create_augroup("Make", { clear = true })
 
 -- highlight yanks
 vim.api.nvim_create_autocmd("TextYankPost", {
@@ -231,7 +232,6 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 })
 
 -- Compile when opening a tex file
-
 vim.api.nvim_create_autocmd("FileType", {
 	group = "bufcheck",
 	pattern = "tex",
@@ -289,4 +289,12 @@ vim.api.nvim_create_autocmd("BufWritePost", {
 -- 	group = vim.api.nvim_create_augroup("cmdheight_0_on_cmdlineleave", { clear = true }),
 -- 	desc = "Hide cmdline when not typing a command",
 -- 	command = ":set cmdheight=0",
+-- })
+
+-- MAKE
+-- vim.api.nvim_create_autocmd("BufEnter", {
+-- 	group = vim.api.nvim_create_augroup("hide_message_after_write", { clear = true }),
+-- 	pattern = { "*.c" },
+-- 	-- command = "set makeprg=gcc % -o %<",
+-- 	command = "let &makeprg = 'gcc % -o %<'",
 -- })

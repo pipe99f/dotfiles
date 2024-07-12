@@ -1,0 +1,10 @@
+#!/bin/bash
+
+#requires chdman (mame-tools package in arch)
+for cueFile in *.cue; do
+  gameName="$(basename "$cueFile" .cue)"
+  echo "Converting ${gameName}..."
+  chdman createcd -i "$cueFile" -o "${gameName}.chd"
+done
+
+echo "All done."

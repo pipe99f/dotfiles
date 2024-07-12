@@ -84,24 +84,24 @@ vim.api.nvim_set_keymap("n", "<b", ":BufferLineMovePrev<CR>", { silent = true, n
 -- autocmd('FileType', {pattern = 'python',  })
 
 -- vim.api.nvim_create_augroup('runcode', {clear = true})
-vim.cmd([[
-  augroup runcode
-
-  autocmd FileType python map <buffer> <F9> :w<CR>:exec '!python3' shellescape(@%, 1)<CR>
-  autocmd FileType python imap <buffer> <F9> <esc>:w<CR>:exec '!python3' shellescape(@%, 1)<CR>
-  autocmd FileType python nnoremap <buffer> <leader>rr :silent w <bar> bo <bar> 8sp <bar> term python "%:p" <CR><CR>
-
-  autocmd FileType sh nnoremap <buffer> <leader>rr :w <CR> :bo :8sp <CR> :term  bash "%:p" <CR>
-  autocmd FileType zsh nnoremap <buffer> <leader>rr :w <CR> :bo :8sp <CR> :term  bash "%:p" <CR>
-
-  autocmd FileType javascript nnoremap <buffer> <leader>rr :w <CR> :bo :8sp <CR> :term  node "%:p" <CR>
-
-  autocmd FileType lua nnoremap <buffer> <leader>rr :w :bo :8sp <CR> :term lua "%:p" <CR>
-
-  autocmd FileType cpp nnoremap <buffer> <leader>rr :w <CR> :make %< && ./%< <cr>
-  autocmd FileType cpp nnoremap <buffer> <leader>ru :w <CR> :!gcc % && ./%< <CR>
-  augroup END
-]])
+-- vim.cmd([[
+--   augroup runcode
+--
+--   autocmd FileType python map <buffer> <F9> :w<CR>:exec '!python3' shellescape(@%, 1)<CR>
+--   autocmd FileType python imap <buffer> <F9> <esc>:w<CR>:exec '!python3' shellescape(@%, 1)<CR>
+--   autocmd FileType python nnoremap <buffer> <leader>rr :silent w <bar> bo <bar> 8sp <bar> term python "%:p" <CR><CR>
+--
+--   autocmd FileType sh nnoremap <buffer> <leader>rr :w <CR> :bo :8sp <CR> :term  bash "%:p" <CR>
+--   autocmd FileType zsh nnoremap <buffer> <leader>rr :w <CR> :bo :8sp <CR> :term  bash "%:p" <CR>
+--
+--   autocmd FileType javascript nnoremap <buffer> <leader>rr :w <CR> :bo :8sp <CR> :term  node "%:p" <CR>
+--
+--   autocmd FileType lua nnoremap <buffer> <leader>rr :w :bo :8sp <CR> :term lua "%:p" <CR>
+--
+--   autocmd FileType cpp nnoremap <buffer> <leader>rr :w <CR> :make %< && ./%< <cr>
+--   autocmd FileType cpp nnoremap <buffer> <leader>ru :w <CR> :!gcc % && ./%< <CR>
+--   augroup END
+-- ]])
 
 -----------
 --PLUGINS--
@@ -115,13 +115,13 @@ vim.api.nvim_buf_set_keymap(0, "n", "<F6>", "<cmd>CompilerOpen<cr>", { noremap =
 vim.api.nvim_buf_set_keymap(0, "n", "<S-F6>", "<cmd>CompilerToggleResults<cr>", { noremap = true, silent = true })
 
 --Code runner
--- vim.keymap.set('n', '<leader>r', ':RunCode<CR>', { noremap = true, silent = false })
--- vim.keymap.set('n', '<leader>rf', ':RunFile<CR>', { noremap = true, silent = false })
--- vim.keymap.set('n', '<leader>rft', ':RunFile tab<CR>', { noremap = true, silent = false })
--- vim.keymap.set('n', '<leader>rp', ':RunProject<CR>', { noremap = true, silent = false })
--- vim.keymap.set('n', '<leader>rc', ':RunClose<CR>', { noremap = true, silent = false })
--- vim.keymap.set('n', '<leader>crf', ':CRFiletype<CR>', { noremap = true, silent = false })
--- vim.keymap.set('n', '<leader>crp', ':CRProjects<CR>', { noremap = true, silent = false })
+vim.keymap.set("n", "<leader>r", ":RunCode<CR>", { noremap = true, silent = false })
+vim.keymap.set("n", "<leader>rf", ":RunFile<CR>", { noremap = true, silent = false })
+vim.keymap.set("n", "<leader>rft", ":RunFile tab<CR>", { noremap = true, silent = false })
+vim.keymap.set("n", "<leader>rp", ":RunProject<CR>", { noremap = true, silent = false })
+vim.keymap.set("n", "<leader>rc", ":RunClose<CR>", { noremap = true, silent = false })
+vim.keymap.set("n", "<leader>crf", ":CRFiletype<CR>", { noremap = true, silent = false })
+vim.keymap.set("n", "<leader>crp", ":CRProjects<CR>", { noremap = true, silent = false })
 
 --DAP
 vim.keymap.set("n", "<leader>db", "<CMD>DapToggleBreakpoint<CR>")

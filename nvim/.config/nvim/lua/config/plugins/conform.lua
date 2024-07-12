@@ -10,14 +10,14 @@ require("conform").setup({
 	},
 
 	formatters_by_ft = {
-		c = { "uncrustify" },
-		cpp = { "uncrustify" },
+		c = { "clang-format" },
+		cpp = { "clang-format" },
 		css = { "prettierd" },
 		go = { "goimports", "gofumpt" },
 		html = { "prettierd" },
 		json = { "prettierd" },
 		lua = { "stylua" },
-		markdown = { "markdownlint" },
+		markdown = { "prettierd", "markdownlint" },
 		-- r = { "styler" },
 		r = { "rprettify" },
 		rust = { "rustfmt" },

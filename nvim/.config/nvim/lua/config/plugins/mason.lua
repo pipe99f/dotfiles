@@ -26,6 +26,7 @@ local tools = {
 	"yamllint",
 
 	--formatting
+	"clang-format",
 	"gofumpt",
 	"goimports",
 	"jupytext",

@@ -13,20 +13,20 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
 
-	--Snippets
-	"L3MON4D3/LuaSnip",
-	--vscode-like
-	"rafamadriz/friendly-snippets",
-	--snipmate-like (el plugin de snipmate no incluye ningún snippet)
-	"honza/vim-snippets",
-	"evesdropper/luasnip-latex-snippets.nvim",
+	-----------
+	----LSP----
+	-----------
 
-	--LSP
 	"neovim/nvim-lspconfig",
-	{ "scalameta/nvim-metals", dependencies = { "nvim-lua/plenary.nvim" } },
+	{ "VonHeikemen/lsp-zero.nvim", branch = "v3.x" },
+
+	-- LSP Installers
 	"williamboman/mason.nvim",
 	"williamboman/mason-lspconfig.nvim",
-	"jay-babu/mason-nvim-dap.nvim",
+
+	-- LSP Language Plugins
+	{ "scalameta/nvim-metals" },
+
 	{ "folke/trouble.nvim" },
 	{
 		"mfussenegger/nvim-lint",
@@ -34,7 +34,7 @@ require("lazy").setup({
 	},
 	"WhoIsSethDaniel/mason-tool-installer.nvim",
 	{ "glepnir/lspsaga.nvim" },
-	{ "ray-x/lsp_signature.nvim", event = "VeryLazy" },
+	{ "ray-x/lsp_signature.nvim", event = "InsertEnter" },
 	{
 		"hedyhli/outline.nvim",
 		lazy = true,
@@ -61,8 +61,12 @@ require("lazy").setup({
 		cmd = { "ConformInfo" },
 	},
 
-	--Debugging
+	-----------------
+	----Debugging----
+	-----------------
+
 	"mfussenegger/nvim-dap",
+	"jay-babu/mason-nvim-dap.nvim",
 	{
 		"theHamsta/nvim-dap-virtual-text",
 		config = function()
@@ -103,16 +107,26 @@ require("lazy").setup({
 	},
 	"nvim-neotest/neotest",
 
-	--cmp
-	"hrsh7th/cmp-nvim-lsp",
-	"hrsh7th/cmp-buffer",
-	"hrsh7th/cmp-path",
-	"hrsh7th/cmp-cmdline",
-	"hrsh7th/nvim-cmp",
+	-----------
+	----cmp----
+	-----------
+
+	{
+		"hrsh7th/nvim-cmp",
+		event = "InsertEnter",
+		dependencies = {
+			"hrsh7th/cmp-nvim-lsp",
+			"hrsh7th/cmp-buffer",
+			"hrsh7th/cmp-path",
+			"hrsh7th/cmp-cmdline",
+			"kdheepak/cmp-latex-symbols",
+			"lukas-reineke/cmp-rg", --sugiere mucha basura
+			"saadparwaiz1/cmp_luasnip",
+			"R-nvim/cmp-r",
+			-- "Exafunction/codeium.nvim",
+		},
+	},
 	"onsails/lspkind.nvim",
-	"saadparwaiz1/cmp_luasnip",
-	"kdheepak/cmp-latex-symbols",
-	"lukas-reineke/cmp-rg", --sugiere mucha basura
 	{
 		"lkhphuc/jupyter-kernel.nvim",
 		opts = {
@@ -130,26 +144,50 @@ require("lazy").setup({
 		keys = { { "<leader>k", "<Cmd>JupyterInspect<CR>", desc = "Inspect object in kernel" } },
 	},
 
+	----------------
+	----Snippets----
+	----------------
+
+	{
+		"L3MON4D3/LuaSnip",
+		dependencies = {
+			{ --vscode-like
+				"rafamadriz/friendly-snippets",
+				config = function()
+					require("luasnip.loaders.from_vscode").lazy_load()
+				end,
+			},
+			{ --snipmate-like (el plugin de snipmate no incluye ningún snippet)
+				"honza/vim-snippets",
+				config = function()
+					require("luasnip.loaders.from_snipmate").lazy_load()
+				end,
+			},
+			"evesdropper/luasnip-latex-snippets.nvim",
+		},
+	},
+
 	--telescope
 	{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
-	"nvim-lua/plenary.nvim",
 	"nvim-telescope/telescope.nvim",
 	{ "nvim-telescope/telescope-frecency.nvim", dependencies = { "tami5/sqlite.lua" } },
-	{
-		"rmagatti/session-lens",
-		config = function()
-			require("session-lens").setup({ --[[your custom config--]]
-			})
-		end,
-	},
+
 	--comments
-	"numToStr/Comment.nvim",
+	{ "numToStr/Comment.nvim", event = "VeryLazy" },
 	{
 		"folke/todo-comments.nvim",
-		dependencies = "nvim-lua/plenary.nvim",
-		config = function()
-			require("todo-comments").setup()
-		end,
+		cmd = { "TodoTrouble", "TodoTelescope" },
+		event = "VeryLazy",
+		opts = {},
+  -- stylua: ignore
+  keys = {
+    { "]t", function() require("todo-comments").jump_next() end, desc = "Next Todo Comment" },
+    { "[t", function() require("todo-comments").jump_prev() end, desc = "Previous Todo Comment" },
+    { "<leader>xt", "<cmd>Trouble todo toggle<cr>", desc = "Todo (Trouble)" },
+    { "<leader>xT", "<cmd>Trouble todo toggle filter = {tag = {TODO,FIX,FIXME}}<cr>", desc = "Todo/Fix/Fixme (Trouble)" },
+    { "<leader>st", "<cmd>TodoTelescope<cr>", desc = "Todo" },
+    { "<leader>sT", "<cmd>TodoTelescope keywords=TODO,FIX,FIXME<cr>", desc = "Todo/Fix/Fixme" },
+  },
 	},
 	{
 		"folke/ts-comments.nvim",
@@ -160,9 +198,6 @@ require("lazy").setup({
 	{ "kyazdani42/nvim-tree.lua", event = "VeryLazy" },
 	{
 		"mikavilpas/yazi.nvim",
-		dependencies = {
-			"nvim-lua/plenary.nvim",
-		},
 		event = "VeryLazy",
 		keys = {
 			-- 👇 in this section, choose your own keymappings!
@@ -191,7 +226,9 @@ require("lazy").setup({
 	{ "akinsho/toggleterm.nvim", version = "*", config = true },
 	"ThePrimeagen/vim-be-good",
 
+	-------------
 	----MODES----
+	-------------
 	--Docker
 	-- ("dgrbrady/nvim-docker"),
 
@@ -205,7 +242,6 @@ require("lazy").setup({
 		dev = false,
 		ft = { "quarto", "markdown" },
 		dependencies = {
-			{ "hrsh7th/nvim-cmp" },
 			{
 				"jmbuhr/otter.nvim",
 				dev = false,
@@ -284,7 +320,7 @@ require("lazy").setup({
 	{ "benlubas/image-save.nvim", cmd = "SaveImage" },
 
 	--Latex
-	"lervag/vimtex",
+	{ "lervag/vimtex", ft = "tex" },
 
 	--Markdown
 	{
@@ -294,40 +330,76 @@ require("lazy").setup({
 		config = function()
 			require("render-markdown").setup({})
 		end,
+		ft = { "markdown", "rmd", "pandoc.markdown" },
 	},
 	{
 		"iamcco/markdown-preview.nvim",
 		build = function()
 			vim.fn["mkdp#util#install"]()
 		end,
-		setup = function()
-			vim.g.mkdp_filetypes = { "markdown" }
-		end,
 		ft = { "markdown", "rmd", "pandoc.markdown" },
-		cmd = { "MarkdownPreview" },
+		cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
 	},
 	{ "ekickx/clipboard-image.nvim" },
 
 	--R
 	{
 		"R-nvim/R.nvim",
+		ft = "r",
 		lazy = false,
 	},
-	"R-nvim/cmp-r",
 
-	--AI--
+	-- CP
 	{
-		"Exafunction/codeium.nvim",
-		dependencies = {
-			"nvim-lua/plenary.nvim",
-			"hrsh7th/nvim-cmp",
-		},
+		"kawre/leetcode.nvim",
+		opts = {},
+	},
+	{
+		"xeluxee/competitest.nvim",
+		dependencies = "MunifTanjim/nui.nvim",
 		config = function()
-			require("codeium").setup({
-				enable_chat = true,
-			})
+			require("competitest").setup()
 		end,
 	},
+
+	-- Quickfix
+	{ "kevinhwang91/nvim-bqf", ft = "qf" },
+
+	-- Neovim config
+	{
+		"folke/lazydev.nvim",
+		ft = "lua", -- only load on lua files
+		opts = {
+			library = {
+				-- See the configuration section for more details
+				-- Load luvit types when the `vim.uv` word is found
+				{ path = "luvit-meta/library", words = { "vim%.uv" } },
+			},
+		},
+	},
+	{ "Bilal2453/luvit-meta", lazy = true }, -- optional `vim.uv` typings
+
+	--------
+	---AI---
+	--------
+	{
+		"Exafunction/codeium.nvim",
+		opts = {
+			enable_chat = true,
+		},
+		build = ":Codeium Auth",
+	},
+	-- {
+	-- 	"Exafunction/codeium.nvim",
+	-- 	dependencies = {
+	-- 		"nvim-lua/plenary.nvim",
+	-- 	},
+	-- 	config = function()
+	-- 		require("codeium").setup({
+	-- 			enable_chat = true,
+	-- 		})
+	-- 	end,
+	-- },
 	-- {
 	--     "dpayne/CodeGPT.nvim",
 	--     dependencies = {
@@ -370,49 +442,37 @@ require("lazy").setup({
 	--
 	-- 'aduros/ai.vim',
 
-	---------------------------
-	---building/running code---
-	---------------------------
+	----------------------------
+	---compiling/running code---
+	----------------------------
 
 	"hkupty/iron.nvim",
 	{ "michaelb/sniprun", build = "bash ./install.sh" },
 	{ "CRAG666/code_runner.nvim", dependencies = "nvim-lua/plenary.nvim" }, -- Idk if this is useful, I think I can do the same thing with autocommands.,
-	{ "milanglacier/yarepl.nvim", config = true },
+	{ "milanglacier/yarepl.nvim", config = true }, -- data science use case
 	{
+		"Zeioth/compiler.nvim",
+		cmd = { "CompilerOpen", "CompilerToggleResults", "CompilerRedo" },
+		dependencies = { "stevearc/overseer.nvim", "nvim-telescope/telescope.nvim" },
+		opts = {},
+	},
+	{ -- The task runner we use
 		"stevearc/overseer.nvim",
 		opts = {
-			-- Tasks are disposed 5 minutes after running to free resources.
-			-- If you need to close a task inmediatelly:
-			-- press ENTER in the menu you see after compiling on the task you want to close.
+			strategy = "toggleterm",
 			task_list = {
 				direction = "bottom",
 				min_height = 25,
 				max_height = 25,
 				default_detail = 1,
-				bindings = {
-					["q"] = function()
-						vim.cmd("OverseerClose")
-					end,
-				},
 			},
 		},
-		dependencies = "stevearc/dressing.nvim",
-		config = function()
-			require("overseer").setup()
-		end,
 	},
 
-	{
-		"Zeioth/compiler.nvim",
-		cmd = { "CompilerOpen", "CompilerToggleResults" },
-		dependencies = { "stevearc/overseer.nvim" },
-		config = function(_, opts)
-			require("compiler").setup(opts)
-		end,
-	},
-
+	-------------------
 	---Color schemes---
-	-- "arcticicestudio/nord-vim",
+	-------------------
+
 	"rakr/vim-one",
 	"shaunsingh/nord.nvim",
 	"nyoom-engineering/oxocarbon.nvim",
@@ -435,7 +495,11 @@ require("lazy").setup({
 		priority = 1000,
 	},
 
+	--------------------------
 	----appearance details----
+	--------------------------
+
+	{ "nvim-tree/nvim-web-devicons", lazy = true },
 	{
 		"folke/noice.nvim",
 		event = "VeryLazy",
@@ -473,9 +537,21 @@ require("lazy").setup({
 	{
 		"akinsho/bufferline.nvim",
 		version = "*",
-		dependencies = "kyazdani42/nvim-web-devicons",
+		dependencies = "nvim-tree/nvim-web-devicons",
 	},
-	{ "xiyaowong/nvim-transparent", lazy = false },
+	{
+		"xiyaowong/nvim-transparent",
+		config = function()
+			require("transparent").setup({ -- Optional, you don't have to run setup.
+				extra_groups = {
+					"NormalFloat", -- plugins which have float panel such as Lazy, Mason, LspInfo
+					"NvimTreeNormal", -- NvimTree
+				},
+			})
+			require("transparent").clear_prefix("BufferLine")
+		end,
+		opts = {},
+	},
 	{ "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {} },
 	{
 		"karb94/neoscroll.nvim",
@@ -484,7 +560,18 @@ require("lazy").setup({
 		end,
 	},
 	{ "HiPhish/rainbow-delimiters.nvim" },
-	"norcalli/nvim-colorizer.lua",
+	{
+		"norcalli/nvim-colorizer.lua",
+		event = "VeryLazy",
+	},
+	{
+		"rcarriga/nvim-notify",
+		config = function()
+			require("notify").setup({
+				background_colour = "#000000",
+			})
+		end,
+	},
 	-- {
 	-- 	"HampusHauffman/block.nvim",
 	-- 	config = function()
@@ -492,8 +579,18 @@ require("lazy").setup({
 	-- 	end,
 	-- },
 
+	--------------
 	----typing----
-	"windwp/nvim-autopairs",
+	--------------
+
+	{
+		"windwp/nvim-autopairs",
+		event = "InsertEnter",
+		config = true,
+		opts = {
+			fast_wrap = {},
+		},
+	},
 	{
 		"kylechui/nvim-surround",
 		config = function()
@@ -511,43 +608,21 @@ require("lazy").setup({
 		dependencies = { "MunifTanjim/nui.nvim", "nvim-lua/plenary.nvim" },
 		opts = {},
 	},
+	{
+		"Wansmer/treesj",
+		keys = {
+			{ "J", "<cmd>TSJToggle<cr>", desc = "Join Toggle" },
+		},
+		opts = { use_default_keymaps = false, max_join_length = 150 },
+	},
 
 	--   'mg979/vim-visual-multi',
 
-	----Others----
-	"ahmedkhalf/project.nvim",
-	"goolord/alpha-nvim",
-	{
-		"lewis6991/spellsitter.nvim",
-		config = function()
-			require("spellsitter").setup()
-		end,
-	},
-	"lewis6991/impatient.nvim",
-	{
-		"rcarriga/nvim-notify",
-		config = function()
-			require("notify").setup({
-				background_colour = "#000000",
-			})
-		end,
-	},
-	{
-		"rmagatti/auto-session",
-		config = function()
-			require("auto-session").setup({
-				log_level = "error",
-				auto_session_enable_last_session = false,
-				auto_session_suppress_dirs = { "~/", "~/Projects", "~/Downloads", "/" },
-			})
-		end,
-	},
-	{
-		"bennypowers/nvim-regexplainer",
-		config = function()
-			require("regexplainer").setup()
-		end,
-	},
+	-----------------------------
+	----Efficient keybindings----
+	-----------------------------
+
+	{ "nvimtools/hydra.nvim" },
 	{
 		"ggandor/leap.nvim",
 		config = function()
@@ -568,11 +643,48 @@ require("lazy").setup({
 			})
 		end,
 	},
+
+	--------------
+	----Others----
+	--------------
+	{ "nvim-lua/plenary.nvim", lazy = true },
+	"goolord/alpha-nvim",
+	{
+		"ahmedkhalf/project.nvim",
+		opts = {
+			-- manual_mode = true,
+		},
+		event = "VeryLazy",
+		config = function(_, opts)
+			require("project_nvim").setup(opts)
+			require("telescope").load_extension("projects")
+		end,
+	},
+	{
+		"rmagatti/auto-session",
+		config = function()
+			require("auto-session").setup({
+				log_level = "error",
+				auto_session_enable_last_session = false,
+				auto_session_suppress_dirs = { "~/", "~/Projects", "~/Downloads", "/" },
+			})
+		end,
+	},
+	{
+		"bennypowers/nvim-regexplainer",
+		config = function()
+			require("regexplainer").setup()
+		end,
+	},
 	{
 		"nvim-pack/nvim-spectre",
 		config = function()
 			require("spectre").setup()
 		end,
+	},
+	{
+		"LintaoAmons/scratch.nvim",
+		event = "VeryLazy",
 	},
 	{
 		"vhyrro/luarocks.nvim",
@@ -581,38 +693,22 @@ require("lazy").setup({
 			rocks = { "magick" },
 		},
 	},
-	{
-		"folke/neodev.nvim",
-		opts = {},
-		config = function()
-			require("neodev").setup({})
-		end,
-	},
 	{ "kevinhwang91/nvim-ufo", dependencies = "kevinhwang91/promise-async" },
-	{
-		"nvimtools/hydra.nvim",
-	},
 })
 
 --Requires
 require("config.plugins.treesitter")
 require("config.plugins.cmp")
 require("config.plugins.mason") -- must be always before require('plugins.lspconfig')
-require("config.plugins.luasnip")
 require("config.plugins.lspconfig")
 require("config.plugins.trouble")
 require("config.plugins.nvim-lint")
 require("config.plugins.lspsaga")
 require("config.plugins.nvim-tree")
 require("config.plugins.alpha")
-require("config.plugins.colorizer")
-require("config.plugins.nvim-transparent")
 require("config.plugins.blankline")
 require("config.plugins.bufferline")
 require("config.plugins.gitsigns")
-require("config.plugins.comment")
-require("config.plugins.autopairs")
-require("config.plugins.project")
 require("config.plugins.R-nvim")
 require("config.plugins.lsp_signature")
 require("config.plugins.telescope")

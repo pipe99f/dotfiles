@@ -92,17 +92,19 @@ eval "$(atuin init zsh --disable-up-arrow)"
 source <(fzf --zsh)
 source $HOME/.config/fzf/config.zsh
 
-# Zoxide (replaces cd)
-eval "$(zoxide init --cmd cd zsh)"
-
-#Scripts path
+# PATH
 export PATH=$PATH:$HOME/dotfiles/scripts/scripts
+export PATH=$PATH:$HOME/.config/emacs/bin
 
 # Source functions file
 source $HOME/dotfiles/scripts/scripts/functions.zsh
 
+# Zoxide (replaces cd)
+eval "$(zoxide init --cmd cd zsh)"
+
 # Zsh-syntax-highlighting theme
 source $HOME/dotfiles/scripts/scripts/catppuccin_macchiato-zsh-syntax-highlighting.zsh
+
 
 # Aliases
 

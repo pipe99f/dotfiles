@@ -1,0 +1,8 @@
+#!/bin/bash
+# Move files in subdirectories to the current directory
+for d in */; do
+  mv "$d"* .
+  rm -r "$d"
+done
+
+# rm -r */

@@ -73,6 +73,7 @@ require("cmp").setup({
 		{ name = "jupyter" },
 		{ name = "codeium" },
 		{ name = "cmp_r" },
+		{ name = "lazydev", group_index = 0 },
 		{ name = "nvim_lsp" },
 		{ name = "luasnip" },
 		{ name = "path" },
