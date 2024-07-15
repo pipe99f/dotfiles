@@ -1,40 +1,15 @@
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
-	vim.fn.system({
-		"git",
-		"clone",
-		"--filter=blob:none",
-		"https://github.com/folke/lazy.nvim.git",
-		"--branch=stable", -- latest stable release
-		lazypath,
-	})
-end
-vim.opt.rtp:prepend(lazypath)
-
-require("lazy").setup({
+return {
 
 	-----------
 	----LSP----
 	-----------
 
-	"neovim/nvim-lspconfig",
-	{ "VonHeikemen/lsp-zero.nvim", branch = "v3.x" },
-
 	-- LSP Installers
-	"williamboman/mason.nvim",
-	"williamboman/mason-lspconfig.nvim",
 
 	-- LSP Language Plugins
-	{ "scalameta/nvim-metals" },
+	-- "WhoIsSethDaniel/mason-tool-installer.nvim",
+	-- "jay-babu/mason-nvim-dap.nvim",
 
-	{ "folke/trouble.nvim" },
-	{
-		"mfussenegger/nvim-lint",
-		event = { "BufReadPre", "BufNewFile" },
-	},
-	"WhoIsSethDaniel/mason-tool-installer.nvim",
-	{ "glepnir/lspsaga.nvim" },
-	{ "ray-x/lsp_signature.nvim", event = "InsertEnter" },
 	{
 		"hedyhli/outline.nvim",
 		lazy = true,
@@ -54,19 +29,37 @@ require("lazy").setup({
 	-- 	},
 	-- },
 
-	--Formatter
-	{
-		"stevearc/conform.nvim",
-		event = { "BufWritePre" },
-		cmd = { "ConformInfo" },
-	},
-
 	-----------------
 	----Debugging----
 	-----------------
 
-	"mfussenegger/nvim-dap",
-	"jay-babu/mason-nvim-dap.nvim",
+	{
+		"mfussenegger/nvim-dap",
+		config = function(self, opts)
+			-- Debug settings if you're using nvim-dap
+			local dap = require("dap")
+
+			dap.configurations.scala = {
+				{
+					type = "scala",
+					request = "launch",
+					name = "RunOrTest",
+					metals = {
+						runType = "runOrTestFile",
+						--args = { "firstArg", "secondArg", "thirdArg" }, -- here just as an example
+					},
+				},
+				{
+					type = "scala",
+					request = "launch",
+					name = "Test Target",
+					metals = {
+						runType = "testTarget",
+					},
+				},
+			}
+		end,
+	},
 	{
 		"theHamsta/nvim-dap-virtual-text",
 		config = function()
@@ -111,21 +104,6 @@ require("lazy").setup({
 	----cmp----
 	-----------
 
-	{
-		"hrsh7th/nvim-cmp",
-		event = "InsertEnter",
-		dependencies = {
-			"hrsh7th/cmp-nvim-lsp",
-			"hrsh7th/cmp-buffer",
-			"hrsh7th/cmp-path",
-			"hrsh7th/cmp-cmdline",
-			"kdheepak/cmp-latex-symbols",
-			"lukas-reineke/cmp-rg", --sugiere mucha basura
-			"saadparwaiz1/cmp_luasnip",
-			"R-nvim/cmp-r",
-			-- "Exafunction/codeium.nvim",
-		},
-	},
 	"onsails/lspkind.nvim",
 	{
 		"lkhphuc/jupyter-kernel.nvim",
@@ -169,7 +147,6 @@ require("lazy").setup({
 
 	--telescope
 	{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
-	"nvim-telescope/telescope.nvim",
 	{ "nvim-telescope/telescope-frecency.nvim", dependencies = { "tami5/sqlite.lua" } },
 
 	--comments
@@ -195,7 +172,6 @@ require("lazy").setup({
 		event = "VeryLazy",
 	},
 
-	{ "kyazdani42/nvim-tree.lua", event = "VeryLazy" },
 	{
 		"mikavilpas/yazi.nvim",
 		event = "VeryLazy",
@@ -223,7 +199,6 @@ require("lazy").setup({
 		},
 	},
 
-	{ "akinsho/toggleterm.nvim", version = "*", config = true },
 	"ThePrimeagen/vim-be-good",
 
 	-------------
@@ -234,7 +209,6 @@ require("lazy").setup({
 
 	--Git
 	"https://github.com/mattn/vim-gist",
-	"lewis6991/gitsigns.nvim",
 
 	--Quarto
 	{
@@ -288,17 +262,6 @@ require("lazy").setup({
 		-- enabled = vim.fn.isdirectory(vim.fn.expand "~/miniconda3/envs/jupynium"),
 	},
 	{
-		"benlubas/molten-nvim",
-		version = "^1.0.0", -- use version <2.0.0 to avoid breaking changes
-		dependencies = { "3rd/image.nvim" },
-		build = ":UpdateRemotePlugins",
-		init = function()
-			-- these are examples, not defaults. Please see the readme
-			vim.g.molten_image_provider = "image.nvim"
-			vim.g.molten_output_win_max_height = 20
-		end,
-	},
-	{
 		-- see the image.nvim readme for more information about configuring this plugin
 		"3rd/image.nvim",
 		opts = {
@@ -320,7 +283,6 @@ require("lazy").setup({
 	{ "benlubas/image-save.nvim", cmd = "SaveImage" },
 
 	--Latex
-	{ "lervag/vimtex", ft = "tex" },
 
 	--Markdown
 	{
@@ -339,15 +301,11 @@ require("lazy").setup({
 		end,
 		ft = { "markdown", "rmd", "pandoc.markdown" },
 		cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+		config = function()
+			vim.cmd([[let g:mkdp_browser = 'chromium']])
+		end,
 	},
 	{ "ekickx/clipboard-image.nvim" },
-
-	--R
-	{
-		"R-nvim/R.nvim",
-		ft = "r",
-		lazy = false,
-	},
 
 	-- CP
 	{
@@ -389,17 +347,6 @@ require("lazy").setup({
 		},
 		build = ":Codeium Auth",
 	},
-	-- {
-	-- 	"Exafunction/codeium.nvim",
-	-- 	dependencies = {
-	-- 		"nvim-lua/plenary.nvim",
-	-- 	},
-	-- 	config = function()
-	-- 		require("codeium").setup({
-	-- 			enable_chat = true,
-	-- 		})
-	-- 	end,
-	-- },
 	-- {
 	--     "dpayne/CodeGPT.nvim",
 	--     dependencies = {
@@ -446,9 +393,7 @@ require("lazy").setup({
 	---compiling/running code---
 	----------------------------
 
-	"hkupty/iron.nvim",
 	{ "michaelb/sniprun", build = "bash ./install.sh" },
-	{ "CRAG666/code_runner.nvim", dependencies = "nvim-lua/plenary.nvim" }, -- Idk if this is useful, I think I can do the same thing with autocommands.,
 	{ "milanglacier/yarepl.nvim", config = true }, -- data science use case
 	{
 		"Zeioth/compiler.nvim",
@@ -467,32 +412,6 @@ require("lazy").setup({
 				default_detail = 1,
 			},
 		},
-	},
-
-	-------------------
-	---Color schemes---
-	-------------------
-
-	"rakr/vim-one",
-	"shaunsingh/nord.nvim",
-	"nyoom-engineering/oxocarbon.nvim",
-	"rebelot/kanagawa.nvim",
-	"tiagovla/tokyodark.nvim",
-	{
-		"catppuccin/nvim",
-		name = "catppuccin",
-		priority = 1000,
-		-- config = function()
-		-- 	require("catppuccin").setup({
-		-- 		transparent_background = true, -- disables setting the background color.
-		-- 	})
-		-- end,
-	},
-	{ "dasupradyumna/midnight.nvim", lazy = false, priority = 1000 },
-	{
-		"folke/tokyonight.nvim",
-		lazy = false,
-		priority = 1000,
 	},
 
 	--------------------------
@@ -521,23 +440,20 @@ require("lazy").setup({
 				},
 			},
 			dependencies = {
-				-- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
 				"MunifTanjim/nui.nvim",
 				"rcarriga/nvim-notify",
 			},
 		},
 	},
-	{ "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
+	{
+		"nvim-treesitter/nvim-treesitter-context",
+		cmd = { "TSContextEnable", "TSContesxtToggle" },
+	},
 	{
 		"tamton-aquib/staline.nvim",
 		config = function()
 			require("staline").setup()
 		end,
-	},
-	{
-		"akinsho/bufferline.nvim",
-		version = "*",
-		dependencies = "nvim-tree/nvim-web-devicons",
 	},
 	{
 		"xiyaowong/nvim-transparent",
@@ -552,7 +468,6 @@ require("lazy").setup({
 		end,
 		opts = {},
 	},
-	{ "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {} },
 	{
 		"karb94/neoscroll.nvim",
 		config = function()
@@ -563,6 +478,9 @@ require("lazy").setup({
 	{
 		"norcalli/nvim-colorizer.lua",
 		event = "VeryLazy",
+		config = function()
+			require("colorizer").setup()
+		end,
 	},
 	{
 		"rcarriga/nvim-notify",
@@ -622,7 +540,6 @@ require("lazy").setup({
 	----Efficient keybindings----
 	-----------------------------
 
-	{ "nvimtools/hydra.nvim" },
 	{
 		"ggandor/leap.nvim",
 		config = function()
@@ -648,7 +565,6 @@ require("lazy").setup({
 	----Others----
 	--------------
 	{ "nvim-lua/plenary.nvim", lazy = true },
-	"goolord/alpha-nvim",
 	{
 		"ahmedkhalf/project.nvim",
 		opts = {
@@ -693,34 +609,4 @@ require("lazy").setup({
 			rocks = { "magick" },
 		},
 	},
-	{ "kevinhwang91/nvim-ufo", dependencies = "kevinhwang91/promise-async" },
-})
-
---Requires
-require("config.plugins.treesitter")
-require("config.plugins.cmp")
-require("config.plugins.mason") -- must be always before require('plugins.lspconfig')
-require("config.plugins.lspconfig")
-require("config.plugins.trouble")
-require("config.plugins.nvim-lint")
-require("config.plugins.lspsaga")
-require("config.plugins.nvim-tree")
-require("config.plugins.alpha")
-require("config.plugins.blankline")
-require("config.plugins.bufferline")
-require("config.plugins.gitsigns")
-require("config.plugins.R-nvim")
-require("config.plugins.lsp_signature")
-require("config.plugins.telescope")
-require("config.plugins.ufo")
-require("config.plugins.iron")
-require("config.plugins.coderunner")
-require("config.plugins.vimtex")
-require("config.plugins.toggleterm")
-require("config.plugins.metals")
-require("config.plugins.molten")
-require("config.plugins.hydra")
-require("config.plugins.conform")
-
---Mappings
-require("config.mappings")
+}
