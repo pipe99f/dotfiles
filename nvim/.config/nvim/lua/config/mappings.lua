@@ -1,6 +1,5 @@
 local map = vim.api.nvim_set_keymap
 local opts = { noremap = true, silent = true }
-local autocmd = vim.api.nvim_create_autocmd
 
 -----------
 --GENERAL--
@@ -8,7 +7,8 @@ local autocmd = vim.api.nvim_create_autocmd
 
 vim.g.mapleader = " "
 
--- Quickfix mappings map('n', '<leader>ck', ':cexpr []<cr>', opts)
+-- Quickfix mappings
+map("n", "<leader>ck", ":cexpr []<cr>", opts)
 map("n", "<leader>cc", ":cclose <cr>", opts)
 map("n", "<leader>co", ":copen <cr>", opts)
 map("n", "<leader>cf", ":cfdo %s/", opts)

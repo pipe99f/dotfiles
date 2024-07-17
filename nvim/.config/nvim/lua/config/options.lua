@@ -1,10 +1,8 @@
-local cmd = vim.cmd --most part taken from CosmicNvim
 local opt = vim.opt
 local g = vim.g
-local fn = vim.fn
 local indent = 2
 
-cmd([[
+vim.cmd([[
       filetype on
       filetype plugin on
       filetype indent on
@@ -36,7 +34,7 @@ opt.wildmenu = true
 -- ui
 vim.cmd.colorscheme("catppuccin-mocha")
 opt.laststatus = 3 -- use global statusline
-vim.o.ch = 1 --removes bottom blank space. Makes statusline flicker
+vim.o.ch = 0 --removes bottom blank space. Makes statusline flicker
 opt.cursorline = true
 opt.lazyredraw = true
 opt.list = true
@@ -57,7 +55,7 @@ opt.hidden = true
 
 -- folding
 vim.o.foldenable = true
--- cmd(":highlight FoldColumn guibg=NONE guifg=#565f89")
+-- vim.cmd(":highlight FoldColumn guibg=NONE guifg=#565f89")
 vim.api.nvim_set_hl(0, "FoldColumn", { fg = "#565f89", bg = "NONE" })
 vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
 vim.o.foldcolumn = "0"

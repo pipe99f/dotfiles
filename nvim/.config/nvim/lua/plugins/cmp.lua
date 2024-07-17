@@ -1,16 +1,17 @@
 return {
-
 	"hrsh7th/nvim-cmp",
 	event = "InsertEnter",
 	dependencies = {
 		"hrsh7th/cmp-nvim-lsp",
+		"saadparwaiz1/cmp_luasnip",
 		"hrsh7th/cmp-buffer",
-		"hrsh7th/cmp-path",
+		"hrsh7th/cmp-nvim-lsp-document-symbol",
+		{ url = "https://codeberg.org/FelipeLema/cmp-async-path" },
 		"hrsh7th/cmp-cmdline",
 		"kdheepak/cmp-latex-symbols",
-		"lukas-reineke/cmp-rg", --sugiere mucha basura
-		"saadparwaiz1/cmp_luasnip",
+		"hrsh7th/cmp-omni",
 		"R-nvim/cmp-r",
+		"petertriho/cmp-git",
 		-- "Exafunction/codeium.nvim",
 	},
 	config = function()
@@ -87,18 +88,21 @@ return {
 
 			sources = {
 				{ name = "jupyter" },
+				{ name = "luasnip" },
 				{ name = "codeium" },
 				{ name = "cmp_r" },
 				{ name = "lazydev", group_index = 0 },
 				{ name = "nvim_lsp" },
-				{ name = "luasnip" },
-				{ name = "path" },
-				{ name = "buffer" },
-				{ name = "jupynium", priority = 1000 },
-				-- { name = "rg" },
-				{ name = "latex_symbols" },
 				{ name = "otter" },
-				{ name = "zsh" },
+				{ name = "buffer" },
+				{ name = "async_path" },
+				{
+					name = "omni",
+					option = { disable_omnifuncs = { "v:lua.vim.lsp.omnifunc" } },
+				},
+				{ name = "git" },
+				{ name = "jupynium", priority = 1000 },
+				{ name = "latex_symbols" },
 			},
 
 			sorting = {
@@ -146,7 +150,6 @@ return {
 			},
 
 			formatting = {
-
 				format = require("lspkind").cmp_format({
 					mode = "symbol", -- show only symbol annotations
 					maxwidth = 23, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
@@ -162,9 +165,11 @@ return {
 							buffer = "BUF",
 							nvim_lsp = "LSP",
 							luasnip = "SNP",
-							path = "PTH",
+							async_path = "PTH",
 							latex_symbols = "LTX",
 							cmp_r = "R",
+							git = "GIT",
+							omni = "omni",
 						})[entry.source.name]
 						return vim_item
 					end,
@@ -184,6 +189,7 @@ return {
 		require("cmp").setup.cmdline("/", {
 			mapping = cmp.mapping.preset.cmdline(),
 			sources = {
+				{ name = "nvim_lsp_document_symbol" },
 				{ name = "buffer" },
 			},
 		})

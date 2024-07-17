@@ -21,6 +21,12 @@ open = [
 
 [open]
 prepend_rules = [
+  { mime = "application/pdf", use = ["open"]},
+  { mime = "application/vnd.amazon.ebook", use = ["open"]},
+  { mime = "application/x-mobipocket-ebook", use = ["open"]},
+  { mime = "application/epub+zip", use = ["open"]},
+  { name = "*.djvu", use = "open"},
+
 	{ mime = "text/*", use = "edit" },
 	{ mime = "image/*", use = "image" },
 	{ mime = "video/*", use = "play" },
@@ -32,11 +38,6 @@ prepend_rules = [
 	{ mime = "*/javascript", use = "edit" },
 	{ name = "*.html", use = [ "edit" ] },
 
-  { mime = "application/pdf", use = ["open"]},
-  { mime = "application/vnd.amazon.ebook", use = ["open"]},
-  { mime = "application/x-mobipocket-ebook", use = ["open"]},
-  { mime = "application/epub+zip", use = ["open"]},
-  { mime = "image/vnd.djvu", use = ["open"]},
 
 	{ mime = "application/zip", use = "archive" },
 	{ mime = "application/gzip", use = "archive" },

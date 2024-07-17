@@ -13,13 +13,6 @@ return {
 			},
 		}
 
-		--Está en la sección de autocommands
-		-- vim.api.nvim_create_autocmd("FileType", {
-		-- 	group = "bufcheck",
-		-- 	pattern = "tex",
-		--   command = "VimtexCompile",
-		-- })
-
 		vim.g.vimtex_view_method = "zathura"
 		vim.g.vimtex_fold_enabled = true
 		vim.g.vimtex_quickfix_mode = 0

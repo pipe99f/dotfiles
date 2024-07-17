@@ -35,6 +35,14 @@ return {
 
 	{
 		"mfussenegger/nvim-dap",
+		dependencies = {
+			"rcarriga/nvim-dap-ui",
+			-- virtual text for the debugger
+			{
+				"theHamsta/nvim-dap-virtual-text",
+				opts = {},
+			},
+		},
 		config = function(self, opts)
 			-- Debug settings if you're using nvim-dap
 			local dap = require("dap")
@@ -88,10 +96,6 @@ return {
 	{
 		"mfussenegger/nvim-dap-python",
 		ft = "python",
-		dependencies = {
-			"mfussenegger/nvim-dap",
-			"rcarriga/nvim-dap-ui",
-		},
 		config = function(_, opts)
 			local path = "~/.local/share/nvim/mason/packages/debugpy/venv/bin/python"
 			require("dap-python").setup(path)
@@ -104,7 +108,7 @@ return {
 	----cmp----
 	-----------
 
-	"onsails/lspkind.nvim",
+	{ "onsails/lspkind.nvim", event = "VeryLazy" },
 	{
 		"lkhphuc/jupyter-kernel.nvim",
 		opts = {
@@ -128,6 +132,7 @@ return {
 
 	{
 		"L3MON4D3/LuaSnip",
+		event = "InsertEnter",
 		dependencies = {
 			{ --vscode-like
 				"rafamadriz/friendly-snippets",
@@ -144,10 +149,6 @@ return {
 			"evesdropper/luasnip-latex-snippets.nvim",
 		},
 	},
-
-	--telescope
-	{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
-	{ "nvim-telescope/telescope-frecency.nvim", dependencies = { "tami5/sqlite.lua" } },
 
 	--comments
 	{ "numToStr/Comment.nvim", event = "VeryLazy" },
@@ -199,7 +200,7 @@ return {
 		},
 	},
 
-	"ThePrimeagen/vim-be-good",
+	{ "ThePrimeagen/vim-be-good", cmd = "VimBeGood" },
 
 	-------------
 	----MODES----
@@ -208,7 +209,14 @@ return {
 	-- ("dgrbrady/nvim-docker"),
 
 	--Git
-	"https://github.com/mattn/vim-gist",
+	{
+		"NeogitOrg/neogit",
+		dependencies = {
+			"sindrets/diffview.nvim", -- optional - Diff integration
+		},
+		cmd = { "Neogit" },
+		config = true,
+	},
 
 	--Quarto
 	{
@@ -273,16 +281,36 @@ return {
 			window_overlap_clear_enabled = true, -- toggles images when windows are overlapped
 			window_overlap_clear_ft_ignore = { "cmp_menu", "cmp_docs", "" },
 		},
-	},
-
-	{
-		"willothy/wezterm.nvim",
-		config = true,
+		config = function()
+			-- require("image").setup()
+			package.path = package.path .. ";" .. vim.fn.expand("$HOME") .. "/.luarocks/share/lua/5.1/?/init.lua"
+			package.path = package.path .. ";" .. vim.fn.expand("$HOME") .. "/.luarocks/share/lua/5.1/?.lua"
+		end,
 	},
 
 	{ "benlubas/image-save.nvim", cmd = "SaveImage" },
 
 	--Latex
+	{
+		"lervag/vimtex",
+		ft = "tex",
+		config = function()
+			vim.g.vimtex_compiler_latexmk = {
+				build_dir = ".out",
+				options = {
+					"-shell-escape",
+					"-verbose",
+					"-file-line-error",
+					"-interaction=nonstopmode",
+					"-synctex=1",
+				},
+			}
+
+			vim.g.vimtex_view_method = "zathura"
+			vim.g.vimtex_fold_enabled = true
+			vim.g.vimtex_quickfix_mode = 0
+		end,
+	},
 
 	--Markdown
 	{
@@ -305,15 +333,41 @@ return {
 			vim.cmd([[let g:mkdp_browser = 'chromium']])
 		end,
 	},
-	{ "ekickx/clipboard-image.nvim" },
+
+	-- Org mode
+	{
+		"nvim-neorg/neorg",
+		lazy = false, -- Disable lazy loading as some `lazy.nvim` distributions set `lazy = true` by default
+		version = "*", -- Pin Neorg to the latest stable release
+		opts = {
+			load = {
+				["core.defaults"] = {},
+				["core.concealer"] = {},
+				["core.dirman"] = {
+					config = {
+						workspaces = {
+							general = "~/neorg",
+							-- my_other_notes = "~/work/notes",
+						},
+						index = "index.norg",
+					},
+					["core.integrations.telescope"] = {},
+				},
+			},
+			dependencies = { { "nvim-lua/plenary.nvim" }, { "nvim-neorg/neorg-telescope" } },
+			config = true,
+		},
+	},
 
 	-- CP
 	{
 		"kawre/leetcode.nvim",
+		cmd = "Leet", --launching from the terminal with "nvim leetcode.nvim" doesnt work
 		opts = {},
 	},
 	{
 		"xeluxee/competitest.nvim",
+		cmd = "CompetiTest",
 		dependencies = "MunifTanjim/nui.nvim",
 		config = function()
 			require("competitest").setup()
@@ -342,8 +396,9 @@ return {
 	--------
 	{
 		"Exafunction/codeium.nvim",
+		event = "InsertEnter",
 		opts = {
-			enable_chat = true,
+			-- enable_chat = true,
 		},
 		build = ":Codeium Auth",
 	},
@@ -393,7 +448,7 @@ return {
 	---compiling/running code---
 	----------------------------
 
-	{ "michaelb/sniprun", build = "bash ./install.sh" },
+	{ "michaelb/sniprun", build = "bash ./install.sh", cmd = "SnipRun" },
 	{ "milanglacier/yarepl.nvim", config = true }, -- data science use case
 	{
 		"Zeioth/compiler.nvim",
@@ -403,6 +458,7 @@ return {
 	},
 	{ -- The task runner we use
 		"stevearc/overseer.nvim",
+		cmd = { "OverseerBuild", "OverseerRun" },
 		opts = {
 			strategy = "toggleterm",
 			task_list = {
@@ -418,33 +474,33 @@ return {
 	----appearance details----
 	--------------------------
 
-	{ "nvim-tree/nvim-web-devicons", lazy = true },
-	{
-		"folke/noice.nvim",
-		event = "VeryLazy",
-		opts = {
-			messages = {
-				-- NOTE: If you enable messages, then the cmdline is enabled automatically.
-				-- This is a current Neovim limitation.
-				enabled = true,
-				view = "mini", -- default view for messages
-				view_error = "mini", -- view for errors
-				view_warn = "mini", -- view for warnings
-			},
-			lsp = {
-				progress = {
-					enabled = false,
-				},
-				signature = {
-					enabled = false,
-				},
-			},
-			dependencies = {
-				"MunifTanjim/nui.nvim",
-				"rcarriga/nvim-notify",
-			},
-		},
-	},
+	{ "nvim-tree/nvim-web-devicons" },
+	-- {
+	-- 	"folke/noice.nvim",
+	-- 	event = "VeryLazy",
+	-- 	opts = {
+	-- 		messages = {
+	-- 			-- NOTE: If you enable messages, then the cmdline is enabled automatically.
+	-- 			-- This is a current Neovim limitation.
+	-- 			enabled = true,
+	-- 			view = "mini", -- default view for messages
+	-- 			view_error = "mini", -- view for errors
+	-- 			view_warn = "mini", -- view for warnings
+	-- 		},
+	-- 		lsp = {
+	-- 			progress = {
+	-- 				enabled = false,
+	-- 			},
+	-- 			signature = {
+	-- 				enabled = false,
+	-- 			},
+	-- 		},
+	-- 		dependencies = {
+	-- 			"MunifTanjim/nui.nvim",
+	-- 			"rcarriga/nvim-notify",
+	-- 		},
+	-- 	},
+	-- },
 	{
 		"nvim-treesitter/nvim-treesitter-context",
 		cmd = { "TSContextEnable", "TSContesxtToggle" },
@@ -511,12 +567,14 @@ return {
 	},
 	{
 		"kylechui/nvim-surround",
+		event = "VeryLazy",
 		config = function()
 			require("nvim-surround").setup()
 		end,
 	},
 	{
 		"windwp/nvim-ts-autotag",
+		ft = { "html", "typescript", "javascript", "markdown" },
 		config = function()
 			require("nvim-ts-autotag").setup()
 		end,
@@ -542,12 +600,14 @@ return {
 
 	{
 		"ggandor/leap.nvim",
+		event = "VeryLazy",
 		config = function()
 			require("leap").add_default_mappings(true)
 		end,
 	},
 	{
 		"ggandor/flit.nvim",
+		event = "VeryLazy",
 		config = function()
 			require("flit").setup({
 				keys = { f = "f", F = "F", t = "t", T = "T" },
@@ -573,27 +633,23 @@ return {
 		event = "VeryLazy",
 		config = function(_, opts)
 			require("project_nvim").setup(opts)
-			require("telescope").load_extension("projects")
 		end,
 	},
 	{
 		"rmagatti/auto-session",
+		-- event = "VeryLazy",
 		config = function()
 			require("auto-session").setup({
 				log_level = "error",
-				auto_session_enable_last_session = false,
+				auto_save_enabled = true,
+				auto_restore_enabled = true,
 				auto_session_suppress_dirs = { "~/", "~/Projects", "~/Downloads", "/" },
 			})
 		end,
 	},
 	{
-		"bennypowers/nvim-regexplainer",
-		config = function()
-			require("regexplainer").setup()
-		end,
-	},
-	{
 		"nvim-pack/nvim-spectre",
+		cmd = "Spectre",
 		config = function()
 			require("spectre").setup()
 		end,
@@ -602,11 +658,5 @@ return {
 		"LintaoAmons/scratch.nvim",
 		event = "VeryLazy",
 	},
-	{
-		"vhyrro/luarocks.nvim",
-		priority = 1001, -- this plugin needs to run before anything else
-		opts = {
-			rocks = { "magick" },
-		},
-	},
+	{ "ekickx/clipboard-image.nvim" },
 }

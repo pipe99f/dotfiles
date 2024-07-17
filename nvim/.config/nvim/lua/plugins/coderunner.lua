@@ -1,6 +1,7 @@
 return {
 	"CRAG666/code_runner.nvim",
 	dependencies = "nvim-lua/plenary.nvim",
+	cmd = { "RunCode", "RunFile", "RunProject" },
 	config = function()
 		require("code_runner").setup({
 			-- put here the commands by filetype
