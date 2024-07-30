@@ -94,7 +94,6 @@ source $HOME/.config/fzf/config.zsh
 
 # PATH
 export PATH=$PATH:$HOME/dotfiles/scripts/scripts
-export PATH=$PATH:$HOME/.config/emacs/bin
 
 # Source functions file
 source $HOME/dotfiles/scripts/scripts/functions.zsh

@@ -3,6 +3,10 @@ vim.api.nvim_create_user_command("Russian", function()
 	return vim.cmd("set keymap=russian-jcukenwin")
 end, { bang = true })
 
+vim.api.nvim_create_user_command("English", function()
+	return vim.cmd("set keymap=")
+end, { bang = true })
+
 vim.api.nvim_create_user_command("Korean", function()
 	return vim.cmd("set keymap=korean")
 end, { bang = true })
@@ -19,3 +23,16 @@ vim.api.nvim_create_user_command("RMarkdownPreview", function()
 	os.execute(renderCommand)
 	return
 end, { bang = true })
+
+-- Config file for the current session
+local function session_config()
+	local session = vim.v.this_session
+	if session == "" then
+		return
+	end
+
+	local path = vim.fn.fnamemodify(session, ":r")
+	vim.cmd({ cmd = "edit", args = { path .. "x.vim" } })
+end
+
+vim.api.nvim_create_user_command("SessionConfig", session_config, {})

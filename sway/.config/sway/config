@@ -337,7 +337,6 @@ exec_always gammastep
 exec_always autotiling-rs
 exec_always swaync
 
-exec emacs --daemon
 workspace 2; exec firefox;
 workspace 1; exec spotify-launcher;
 output * bg `find $wallpapers_path -type f | shuf -n 1` fill

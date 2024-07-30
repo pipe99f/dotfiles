@@ -79,7 +79,9 @@ vim.api.nvim_set_keymap("n", "<Tab>", ":BufferLineCycleNext<CR>", { silent = fal
 vim.api.nvim_set_keymap("n", "<S-Tab>", ":BufferLineCyclePrev<CR>", { silent = false, noremap = true })
 vim.api.nvim_set_keymap("n", ">b", ":BufferLineMoveNext<CR>", { silent = true, noremap = true })
 vim.api.nvim_set_keymap("n", "<b", ":BufferLineMovePrev<CR>", { silent = true, noremap = true })
-
+vim.keymap.set("n", "<Space>bd", function() -- Delete buffers properly when using multiple windows
+	vim.api.nvim_command("bp|sp|bn|bd")
+end)
 --running code
 -- autocmd('FileType', {pattern = 'python',  })
 

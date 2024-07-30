@@ -4,12 +4,6 @@ return {
 	----LSP----
 	-----------
 
-	-- LSP Installers
-
-	-- LSP Language Plugins
-	-- "WhoIsSethDaniel/mason-tool-installer.nvim",
-	-- "jay-babu/mason-nvim-dap.nvim",
-
 	{
 		"hedyhli/outline.nvim",
 		lazy = true,
@@ -208,6 +202,14 @@ return {
 	--Docker
 	-- ("dgrbrady/nvim-docker"),
 
+	-- Kubernetes
+	{
+		"ramilito/kubectl.nvim",
+		config = function()
+			require("kubectl").setup()
+		end,
+	},
+
 	--Git
 	{
 		"NeogitOrg/neogit",
@@ -216,6 +218,10 @@ return {
 		},
 		cmd = { "Neogit" },
 		config = true,
+	},
+
+	{
+		"isakbm/gitgraph.nvim",
 	},
 
 	--Quarto
@@ -314,13 +320,14 @@ return {
 
 	--Markdown
 	{
-		"MeanderingProgrammer/markdown.nvim",
-		name = "render-markdown", -- Only needed if you have another plugin named markdown.nvim
-		dependencies = { "nvim-treesitter/nvim-treesitter" },
-		config = function()
-			require("render-markdown").setup({})
-		end,
+		"OXY2DEV/markview.nvim",
 		ft = { "markdown", "rmd", "pandoc.markdown" },
+		-- dependencies = {
+		-- 	-- You may not need this if you don't lazy load
+		-- 	-- Or if the parsers are in your $RUNTIMEPATH
+		-- 	"nvim-treesitter/nvim-treesitter",
+		-- 	"nvim-tree/nvim-web-devicons",
+		-- },
 	},
 	{
 		"iamcco/markdown-preview.nvim",
