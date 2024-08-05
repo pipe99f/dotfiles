@@ -167,6 +167,14 @@ for_window [class = "R_x11" instance = "r_x11"] floating enable , resize set hei
 
 # for_window [app_id = "python3" title = "Jupyter QtConsole"] floating disable
 
+# Tells which windows use xwayland
+for_window [shell="xwayland"] title_format "[XWayland] %title"
+
+# Clipman 
+# Make copy buffers last after an app is closed
+exec wl-paste -t text --watch clipman store
+exec wl-paste -p -t text --watch clipman store -P --histpath="~/.local/share/clipman-primary.json"
+bindsym $mod+c exec clipman pick -t wofi
 
 #screen recording
 
@@ -238,13 +246,15 @@ exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DE
     bindsym $mod+0 [workspace="0"] move workspace to output current; workspace number 10
     
 #opening some apps in certain workspace, usar xprop para determinar el instance(primero) y el class(segundo) para wayland se usa "swaymsg -t get_tree"
-assign [app_id="firefox"] → 2
 assign [class="Spotify" instance="spotify"] → 1
-assign [class="libreWolf" instance="Navigator"] → 2
+assign [app_id="firefox"] → 2
+# assign [app_id="LibreWolf"] → 2
 assign [class ="discord" instance="discord"] → 8 
+assign [class ="vesktop" instance="vesktop"] → 8 
 assign [class="steam" instance="steamwebhelper"] → 9
-assign [class="csgo_linux64" instance="csgo_linux64"] → 10
 assign [app_id="org.libretro.RetroArch"] → 10
+# PCSX2
+assign [class ="AppRun.wrapped" instance="AppRun.wrapped"] → 10 
 
 
 workspace 7 output HDMI-A-1
@@ -332,6 +342,9 @@ bar {
     }
 }
 
+# Fix mouse in wine apps
+exec_always xrandr --output XWAYLAND0 --primary
+
 
 exec_always gammastep
 exec_always autotiling-rs
@@ -342,7 +355,6 @@ workspace 1; exec spotify-launcher;
 output * bg `find $wallpapers_path -type f | shuf -n 1` fill
 # output "*" bg ~/.config/sway/wallpapers/wallpaper1.jpg fill
 
-# exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
 
 #lock screen when closing lid
 bindswitch --reload --locked lid:on exec swaylock -f -e -i ~/.config/sway/grotesqueimpalement.jpg'

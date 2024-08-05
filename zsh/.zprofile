@@ -5,6 +5,7 @@ export CLUTTER_BACKEND="wayland"
 export SDL_VIDEODRIVER="wayland"
 export XDG_SESSION_TYPE="wayland"
 export XDG_CURRENT_DESKTOP="sway"
+export XDG_SESSION_DESKTOP="sway"
 # removes window outlines and stuff
 export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
 # java fix
