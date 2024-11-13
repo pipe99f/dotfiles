@@ -1,0 +1,82 @@
+#!/usr/bin/env python3
+
+import argparse
+from io import BytesIO
+
+import requests
+from bs4 import BeautifulSoup
+from PIL import Image
+
+
+def is_blank_image(img):
+    """Check if an image is blank by verifying if it's 1x1 pixel in size."""
+    return img.size == (1, 1)
+
+
+def download_sheet_music_images(url):
+    """Download images from the given URL and return them as a list of PIL images."""
+    response = requests.get(url)
+    soup = BeautifulSoup(response.content, "html.parser")
+
+    # Locate the div with id "partitura"
+    partitura_div = soup.find("div", id="partitura")
+    if not partitura_div:
+        print("No sheet music found on this page.")
+        return []
+
+    # Find all the divs with class "cajita_gris2" inside the partitura div
+    cajita_gris2_div = partitura_div.find("div", class_="cajita_gris2")
+    if not cajita_gris2_div:
+        print("No sheet music images found in 'cajita_gris2' div.")
+        return []
+
+    # Find all images within unnamed divs in the "cajita_gris2" div
+    images = []
+    for i, unnamed_div in enumerate(cajita_gris2_div.find_all("div", recursive=False)):
+        img_tag = unnamed_div.find("img")
+        if img_tag:
+            img_url = img_tag["src"]
+            img_response = requests.get(img_url)
+            img = Image.open(BytesIO(img_response.content))
+
+            # Check if the image is blank (1x1 pixel)
+            if is_blank_image(img):
+                print(f"Skipping 1x1 blank image {i+1}")
+                continue
+
+            # Append the image to the list
+            images.append(img.convert("RGB"))  # Convert to RGB for PDF compatibility
+            print(f"Downloaded image {i+1}")
+
+    return images
+
+
+def create_pdf(images, output_pdf):
+    """Combine images into a single PDF."""
+    if images:
+        images[0].save(output_pdf, save_all=True, append_images=images[1:])
+        print(f"PDF created successfully: {output_pdf}")
+
+
+def get_pdf_name_from_url(url):
+    """Extract the last part of the URL to use as the PDF name."""
+    # Split the URL by slashes and get the last non-empty part
+    pdf_name = url.rstrip("/").split("/")[-1] + ".pdf"
+    return pdf_name
+
+
+# Main function
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(
+        description="Download and convert sheet music from TodoTango to PDF."
+    )
+    parser.add_argument("url", help="URL of the TodoTango sheet music page")
+    args = parser.parse_args()
+
+    # Get PDF name based on URL
+    pdf_name = get_pdf_name_from_url(args.url)
+
+    # Download images and create PDF
+    images = download_sheet_music_images(args.url)
+    if images:
+        create_pdf(images, pdf_name)

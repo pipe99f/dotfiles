@@ -10,8 +10,12 @@ return {
 				scratch_repl = true,
 				-- Your repl definitions come here
 				repl_definition = {
-					-- python = require("iron.fts.python").ipython,
-					python = {
+					python = require("iron.fts.python").ipython,
+					-- python = {
+					-- 	command = { "jupyter-console" },
+					-- 	format = require("iron.fts.common").bracketed_paste,
+					-- },
+					quarto = {
 						command = { "jupyter-console" },
 						format = require("iron.fts.common").bracketed_paste,
 					},
@@ -22,7 +26,8 @@ return {
 						command = { "radian" },
 					},
 				},
-				repl_open_cmd = "60 vs",
+				repl_open_cmd = "botright 11 split",
+				-- repl_open_cmd = "60 vs",
 				-- how the REPL window will be opened, the default is opening
 				-- a float window of height 40 at the bottom.
 			},

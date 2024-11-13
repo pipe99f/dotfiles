@@ -48,7 +48,7 @@ output 'Unknown GFV22CB             ' adaptive_sync on
 # output HDMI-A-1 disable
 
 # bindsym $mod+Shift+Escape exec sway output "*" enable | sway output DP-1 res 1920x1080 pos 0 0 | sway output HDMI-A-1 resolution 1920x1080 position 0 1080
-bindsym $mod+Shift+Escape exec wezterm start --class floatterm  bash $HOME/.config/sway/scripts/output.sh
+bindsym $mod+Shift+Escape exec $HOME/.config/sway/scripts/output.sh
 
 
 ### Input configuration
@@ -148,10 +148,8 @@ exec_always {
     bindsym --to-code $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
 
     # Toggle control center
-    bindsym $mod+Shift+n exec swaync-client -t -sw
+    bindsym --to-code $mod+Shift+n exec swaync-client -t -sw
 
-#return to previous workspace
-workspace_auto_back_and_forth yes
 
 
 # default floating windows
@@ -162,7 +160,7 @@ for_window [window_type = "dialog"] floating enable
 for_window [window_role = "task_dialog"] floating enable
 for_window [window_type = "menu"] floating enable
 for_window [app_id = "floating"] floating enable
-for_window [app_id = "python3" title = "Figure 1"] floating enable , resize set height 300 , resize set width 380, exec $HOME/.config/sway/scripts/toprightfloat.sh
+for_window [class = "Matplotlib" title = "Figure 1"] floating enable , resize set height 300 , resize set width 380, exec $HOME/.config/sway/scripts/toprightfloat.sh
 for_window [class = "R_x11" instance = "r_x11"] floating enable , resize set height 300 , resize set width 380, exec $HOME/.config/sway/scripts/toprightfloat.sh
 
 # for_window [app_id = "python3" title = "Jupyter QtConsole"] floating disable
@@ -174,7 +172,7 @@ for_window [shell="xwayland"] title_format "[XWayland] %title"
 # Make copy buffers last after an app is closed
 exec wl-paste -t text --watch clipman store
 exec wl-paste -p -t text --watch clipman store -P --histpath="~/.local/share/clipman-primary.json"
-bindsym $mod+c exec clipman pick -t wofi
+bindsym --to-code $mod+c exec clipman pick -t wofi
 
 #screen recording
 
@@ -234,23 +232,29 @@ exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DE
     bindsym $mod+Shift+0 move container to workspace number 10
     # Note: workspaces can have any name you want, not just numbers.
     # We just use 1-10 as the default.
-    bindsym $mod+1 [workspace="1"] move workspace to output current; workspace number 1
-    bindsym $mod+2 [workspace="2"] move workspace to output current; workspace number 2
-    bindsym $mod+3 [workspace="3"] move workspace to output current; workspace number 3
-    bindsym $mod+4 [workspace="4"] move workspace to output current; workspace number 4
-    bindsym $mod+5 [workspace="5"] move workspace to output current; workspace number 5
-    bindsym $mod+6 [workspace="6"] move workspace to output current; workspace number 6
-    bindsym $mod+7 [workspace="7"] move workspace to output current; workspace number 7
-    bindsym $mod+8 [workspace="8"] move workspace to output current; workspace number 8
-    bindsym $mod+9 [workspace="9"] move workspace to output current; workspace number 9
-    bindsym $mod+0 [workspace="0"] move workspace to output current; workspace number 10
+    bindsym --to-code $mod+1 [workspace="1"] move workspace to output current; workspace number 1
+    bindsym --to-code $mod+2 [workspace="2"] move workspace to output current; workspace number 2
+    bindsym --to-code $mod+3 [workspace="3"] move workspace to output current; workspace number 3
+    bindsym --to-code $mod+4 [workspace="4"] move workspace to output current; workspace number 4
+    bindsym --to-code $mod+5 [workspace="5"] move workspace to output current; workspace number 5
+    bindsym --to-code $mod+6 [workspace="6"] move workspace to output current; workspace number 6
+    bindsym --to-code $mod+7 [workspace="7"] move workspace to output current; workspace number 7
+    bindsym --to-code $mod+8 [workspace="8"] move workspace to output current; workspace number 8
+    bindsym --to-code $mod+9 [workspace="9"] move workspace to output current; workspace number 9
+    bindsym --to-code $mod+0 [workspace="0"] move workspace to output current; workspace number 10
     
+
+#return to previous workspace
+workspace_auto_back_and_forth yes
+bindsym Mod1+Tab workspace back_and_forth
+
 #opening some apps in certain workspace, usar xprop para determinar el instance(primero) y el class(segundo) para wayland se usa "swaymsg -t get_tree"
 assign [class="Spotify" instance="spotify"] → 1
 assign [app_id="firefox"] → 2
 # assign [app_id="LibreWolf"] → 2
-assign [class ="discord" instance="discord"] → 8 
-assign [class ="vesktop" instance="vesktop"] → 8 
+assign [class ="com.bitwig.BitwigStudio"] → 6
+assign [class ="discord" instance="discord"] → 8
+assign [class ="vesktop" instance="vesktop"] → 8
 assign [class="steam" instance="steamwebhelper"] → 9
 assign [app_id="org.libretro.RetroArch"] → 10
 # PCSX2

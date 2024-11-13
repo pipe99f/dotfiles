@@ -23,7 +23,7 @@ return {
 			"sqlls",
 			"lua_ls",
 			"texlab",
-			"tsserver",
+			"ts_ls",
 		}
 
 		local tools = {

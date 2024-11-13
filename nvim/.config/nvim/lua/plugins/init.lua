@@ -208,6 +208,9 @@ return {
 		config = function()
 			require("kubectl").setup()
 		end,
+		keys = {
+			{ "<leader>K", '<cmd>lua require("kubectl").toggle()<cr>', desc = "Toggle kubectl" },
+		},
 	},
 
 	--Git
@@ -281,8 +284,18 @@ return {
 						enabled = true,
 					},
 				},
+				codeRunner = {
+					enabled = true,
+					default_method = "molten",
+				},
 			})
 		end,
+	},
+	{ -- preview equations
+		"jbyuki/nabla.nvim",
+		keys = {
+			{ "<leader>qm", ':lua require"nabla".toggle_virt()<cr>', desc = "toggle [m]ath equations" },
+		},
 	},
 
 	--Jupyter notebook
@@ -366,7 +379,7 @@ return {
 		ft = { "markdown", "rmd", "pandoc.markdown" },
 		cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
 		config = function()
-			vim.cmd([[let g:mkdp_browser = 'chromium']])
+			vim.cmd([[let g:mkdp_browser = 'firefox']])
 		end,
 	},
 

@@ -1,6 +1,6 @@
 return {
 	"R-nvim/R.nvim",
-	ft = "r",
+	ft = { "r", "rmd" },
 	lazy = false,
 	config = function()
 		local opts = {

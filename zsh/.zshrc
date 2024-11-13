@@ -67,9 +67,6 @@ setopt hist_save_no_dups
 setopt hist_ignore_dups
 setopt hist_find_no_dups
 
-#default programs
-# export MAIL:thunderbird
-
 #GTK THEME
 export GTK_THEME=Adwaita-One-Dark
 export XDG_CURRENT_DESKTOP=sway
@@ -91,6 +88,9 @@ eval "$(atuin init zsh --disable-up-arrow)"
 # FZF
 source <(fzf --zsh)
 source $HOME/.config/fzf/config.zsh
+
+# Matplotlib
+export MPLBACKEND=tkagg
 
 # PATH
 export PATH=$PATH:$HOME/dotfiles/scripts/scripts
