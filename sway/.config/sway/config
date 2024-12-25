@@ -354,8 +354,8 @@ exec_always gammastep
 exec_always autotiling-rs
 exec_always swaync
 
-workspace 2; exec firefox;
-workspace 1; exec spotify-launcher;
+exec firefox
+exec spotify-launcher
 output * bg `find $wallpapers_path -type f | shuf -n 1` fill
 # output "*" bg ~/.config/sway/wallpapers/wallpaper1.jpg fill
 
