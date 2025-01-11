@@ -2,13 +2,13 @@ return {
 	"benlubas/molten-nvim",
 	version = "^1.0.0", -- use version <2.0.0 to avoid breaking changes
 	dependencies = {
-		"3rd/image.nvim",
+		-- "3rd/image.nvim",
 		{ "willothy/wezterm.nvim", config = true },
 	},
 	build = ":UpdateRemotePlugins",
 	init = function()
 		-- these are examples, not defaults. Please see the readme
-		vim.g.molten_image_provider = "image.nvim"
+		vim.g.molten_image_provider = "wezterm"
 		vim.g.molten_output_win_max_height = 20
 	end,
 	config = function()
@@ -16,11 +16,11 @@ return {
 
 		-- I find auto open annoying, keep in mind setting this option will require setting
 		-- a keybind for `:noautocmd MoltenEnterOutput` to open the output again
-		vim.g.molten_auto_open_output = false
+		vim.g.molten_auto_open_output = false -- must be false when using wezterm
 
 		-- this guide will be using image.nvim
 		-- Don't forget to setup and install the plugin if you want to view image outputs
-		vim.g.molten_image_provider = "image.nvim"
+		vim.g.molten_image_provider = "wezterm" -- can't use under tmux session
 
 		-- optional, I like wrapping. works for virt text and the output window
 		vim.g.molten_wrap_output = true
@@ -33,6 +33,20 @@ return {
 		vim.g.molten_virt_lines_off_by_1 = true
 
 		-- Molten mappings
+		vim.keymap.set("n", "<localleader>si", ":MoltenInit<CR>", { silent = true, desc = "Initialize the plugin" })
+		vim.keymap.set("n", "<localleader>sl", ":MoltenEvaluateLine<CR>", { silent = true, desc = "evaluate line" })
+		vim.keymap.set(
+			"n",
+			"<localleader>ss",
+			":MoltenReevaluateCell<CR>",
+			{ silent = true, desc = "re-evaluate cell" }
+		)
+		vim.keymap.set(
+			"v",
+			"<localleader>s",
+			":<C-u>MoltenEvaluateVisual<CR>gv",
+			{ silent = true, desc = "evaluate visual selection" }
+		)
 		vim.keymap.set(
 			"n",
 			"<localleader>e",
@@ -45,15 +59,8 @@ return {
 			":noautocmd MoltenEnterOutput<CR>",
 			{ desc = "open output window", silent = true }
 		)
-		vim.keymap.set("n", "<localleader>r", ":MoltenReevaluateCell<CR>", { desc = "re-eval cell", silent = true })
-		vim.keymap.set(
-			"v",
-			"<localleader>r",
-			":<C-u>MoltenEvaluateVisual<CR>gv",
-			{ desc = "execute visual selection", silent = true }
-		)
 		vim.keymap.set("n", "<localleader>oh", ":MoltenHideOutput<CR>", { desc = "close output window", silent = true })
-		vim.keymap.set("n", "<localleader>md", ":MoltenDelete<CR>", { desc = "delete Molten cell", silent = true })
+		vim.keymap.set("n", "<localleader>sw", ":MoltenDelete<CR>", { desc = "delete Molten cell", silent = true })
 
 		-- if you work with html outputs:
 		vim.keymap.set(
@@ -65,12 +72,12 @@ return {
 
 		-- Quarto mappings
 		local runner = require("quarto.runner")
-		vim.keymap.set("n", "<localleader>rc", runner.run_cell, { desc = "run cell", silent = true })
-		vim.keymap.set("n", "<localleader>ra", runner.run_above, { desc = "run cell and above", silent = true })
-		vim.keymap.set("n", "<localleader>rA", runner.run_all, { desc = "run all cells", silent = true })
-		vim.keymap.set("n", "<localleader>rl", runner.run_line, { desc = "run line", silent = true })
-		vim.keymap.set("v", "<localleader>r", runner.run_range, { desc = "run visual range", silent = true })
-		vim.keymap.set("n", "<localleader>RA", function()
+		vim.keymap.set("n", "<localleader>sr", runner.run_cell, { desc = "run cell", silent = true })
+		vim.keymap.set("n", "<localleader>sa", runner.run_above, { desc = "run cell and above", silent = true })
+		vim.keymap.set("n", "<localleader>sA", runner.run_all, { desc = "run all cells", silent = true })
+		vim.keymap.set("n", "<localleader>sl", runner.run_line, { desc = "run line", silent = true })
+		vim.keymap.set("v", "<localleader>s", runner.run_range, { desc = "run visual range", silent = true })
+		vim.keymap.set("n", "<localleader>sA", function()
 			runner.run_all(true)
 		end, { desc = "run all cells of all languages", silent = true })
 

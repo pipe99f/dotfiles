@@ -90,7 +90,7 @@ source <(fzf --zsh)
 source $HOME/.config/fzf/config.zsh
 
 # Matplotlib
-export MPLBACKEND=tkagg
+# export MPLBACKEND=tkagg # It is used to avoid compatibility problems with matplotlib plots in wayland. Same effect is achieved in a python script using "matplotlib.use('tkagg')". webagg is also good
 
 # PATH
 export PATH=$PATH:$HOME/dotfiles/scripts/scripts

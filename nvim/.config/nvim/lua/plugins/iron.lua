@@ -10,11 +10,11 @@ return {
 				scratch_repl = true,
 				-- Your repl definitions come here
 				repl_definition = {
-					python = require("iron.fts.python").ipython,
-					-- python = {
-					-- 	command = { "jupyter-console" },
-					-- 	format = require("iron.fts.common").bracketed_paste,
-					-- },
+					-- python = require("iron.fts.python").ipython,
+					python = {
+						command = { "jupyter-console" },
+						format = require("iron.fts.common").bracketed_paste,
+					},
 					quarto = {
 						command = { "jupyter-console" },
 						format = require("iron.fts.common").bracketed_paste,

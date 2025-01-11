@@ -29,6 +29,8 @@ return {
 
 	{
 		"mfussenegger/nvim-dap",
+		-- these dependencies will only be loaded when dap loads
+		-- dependencies are always lazy-loaded unless specified otherwise
 		dependencies = {
 			"rcarriga/nvim-dap-ui",
 			-- virtual text for the debugger
@@ -317,24 +319,19 @@ return {
 		-- build = "conda run --no-capture-output -n jupynium pip install .",
 		-- enabled = vim.fn.isdirectory(vim.fn.expand "~/miniconda3/envs/jupynium"),
 	},
-	{
-		-- see the image.nvim readme for more information about configuring this plugin
-		"3rd/image.nvim",
-		opts = {
-			backend = "kitty", -- whatever backend you would like to use
-			max_width = 100,
-			max_height = 12,
-			max_height_window_percentage = math.huge,
-			max_width_window_percentage = math.huge,
-			window_overlap_clear_enabled = true, -- toggles images when windows are overlapped
-			window_overlap_clear_ft_ignore = { "cmp_menu", "cmp_docs", "" },
-		},
-		config = function()
-			-- require("image").setup()
-			package.path = package.path .. ";" .. vim.fn.expand("$HOME") .. "/.luarocks/share/lua/5.1/?/init.lua"
-			package.path = package.path .. ";" .. vim.fn.expand("$HOME") .. "/.luarocks/share/lua/5.1/?.lua"
-		end,
-	},
+	-- {
+	-- 	-- see the image.nvim readme for more information about configuring this plugin
+	-- 	"3rd/image.nvim",
+	-- 	opts = {
+	-- 		backend = "kitty", -- whatever backend you would like to use
+	-- 		max_width = 100,
+	-- 		max_height = 12,
+	-- 		max_height_window_percentage = math.huge,
+	-- 		max_width_window_percentage = math.huge,
+	-- 		window_overlap_clear_enabled = true, -- toggles images when windows are overlapped
+	-- 		window_overlap_clear_ft_ignore = { "cmp_menu", "cmp_docs", "" },
+	-- 	},
+	-- },
 
 	{ "benlubas/image-save.nvim", cmd = "SaveImage" },
 
@@ -362,15 +359,22 @@ return {
 
 	--Markdown
 	{
-		"OXY2DEV/markview.nvim",
-		ft = { "markdown", "rmd", "pandoc.markdown" },
-		-- dependencies = {
-		-- 	-- You may not need this if you don't lazy load
-		-- 	-- Or if the parsers are in your $RUNTIMEPATH
-		-- 	"nvim-treesitter/nvim-treesitter",
-		-- 	"nvim-tree/nvim-web-devicons",
-		-- },
+		"MeanderingProgrammer/render-markdown.nvim",
+		ft = { "markdown", "rmd", "pandoc.markdown", "codecompanion", "Avante" },
+		opts = {
+			file_types = { "markdown", "Avante", "codecompanion" },
+		},
 	},
+	-- {
+	-- 	"OXY2DEV/markview.nvim",
+	-- 	ft = { "markdown", "rmd", "pandoc.markdown" },
+	-- 	-- dependencies = {
+	-- 	-- 	-- You may not need this if you don't lazy load
+	-- 	-- 	-- Or if the parsers are in your $RUNTIMEPATH
+	-- 	-- 	"nvim-treesitter/nvim-treesitter",
+	-- 	-- 	"nvim-tree/nvim-web-devicons",
+	-- 	-- },
+	-- },
 	{
 		"iamcco/markdown-preview.nvim",
 		build = function()
@@ -451,47 +455,93 @@ return {
 		},
 		build = ":Codeium Auth",
 	},
-	-- {
-	--     "dpayne/CodeGPT.nvim",
-	--     dependencies = {
-	--       'nvim-lua/plenary.nvim',
-	--       'MunifTanjim/nui.nvim',
-	--     },
-	--     config = function()
-	--         require("codegpt.config")
-	--     end
-	-- },
-	-- {
-	-- 	"dense-analysis/neural",
-	-- 	config = function()
-	-- 		require("neural").setup({
-	-- 			open_ai = {
-	-- 				api_key = "<YOUR OPENAI API SECRET KEY>",
-	-- 			},
-	-- 		})
-	-- 	end,
-	-- 	dependencies = {
-	-- 		"MunifTanjim/nui.nvim",
-	-- 		"ElPiloto/significant.nvim",
-	-- 	},
-	-- },
-	--
-	-- {
-	-- 	"jackMort/ChatGPT.nvim",
-	-- 	event = "VeryLazy",
-	-- 	config = function()
-	-- 		require("chatgpt").setup({
-	-- 			-- optional configuration
-	-- 		})
-	-- 	end,
-	-- 	dependencies = {
-	-- 		"MunifTanjim/nui.nvim",
-	-- 		"nvim-lua/plenary.nvim",
-	-- 		"nvim-telescope/telescope.nvim",
-	-- 	},
-	-- },
-	--
-	-- 'aduros/ai.vim',
+	{
+		"olimorris/codecompanion.nvim",
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			"nvim-treesitter/nvim-treesitter",
+			{ "MeanderingProgrammer/render-markdown.nvim", ft = { "markdown", "codecompanion" } },
+		},
+		config = function()
+			require("codecompanion").setup({
+				adapters = {
+					-- ollama = function()
+					-- 	return require("codecompanion.adapters").extend("openai_compatible", {
+					-- 		env = {
+					-- 			url = "https://api.deepseek.com", -- optional: default value is ollama url http://127.0.0.1:11434
+					-- 			api_key = "DEEPSEEK_API_KEY", -- optional: if your endpoint is authenticated
+					-- 			-- chat_url = "/v1/chat/completions", -- optional: default value, override if different
+					-- 		},
+					-- 		schema = {
+					-- 			model = {
+					-- 				default = "deepseek-chat",
+					-- 			},
+					-- 		},
+					-- 	})
+					-- end,
+				},
+			})
+		end,
+	},
+	{
+		"zbirenbaum/copilot.lua",
+		cmd = "Copilot",
+		-- event = "InsertEnter",
+		config = function()
+			require("copilot").setup({})
+		end,
+	},
+	{
+		"yetone/avante.nvim",
+		event = "VeryLazy",
+		lazy = false,
+		version = false, -- set this to "*" if you want to always pull the latest change, false to update on release
+		opts = {
+			-- add any opts here
+			auto_suggestions_provider = "copilot", -- Since auto-suggestions are a high-frequency operation and therefore expensive, it is recommended to specify an inexpensive provider or even a free provider: copilot
+			provider = "deepseek",
+			vendors = {
+				deepseek = {
+					__inherited_from = "openai",
+					api_key_name = "DEEPSEEK_API_KEY",
+					endpoint = "https://api.deepseek.com",
+					model = "deepseek-chat",
+					timeout = 30000, -- Timeout in milliseconds
+					temperature = 0,
+					max_tokens = 4096,
+				},
+			},
+		},
+		-- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
+		build = "make",
+		-- build = "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false" -- for windows
+		dependencies = {
+			"stevearc/dressing.nvim",
+			"nvim-lua/plenary.nvim",
+			"MunifTanjim/nui.nvim",
+			--- The below dependencies are optional,
+			"hrsh7th/nvim-cmp", -- autocompletion for avante commands and mentions
+			"nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons
+			-- "zbirenbaum/copilot.lua", -- for providers='copilot'
+			{
+				-- support for image pasting
+				"HakonHarnes/img-clip.nvim",
+				event = "VeryLazy",
+				opts = {
+					-- recommended settings
+					default = {
+						embed_image_as_base64 = false,
+						prompt_for_file_name = false,
+						drag_and_drop = {
+							insert_mode = true,
+						},
+						-- required for Windows users
+						use_absolute_path = true,
+					},
+				},
+			},
+		},
+	},
 
 	----------------------------
 	---compiling/running code---
@@ -499,6 +549,37 @@ return {
 
 	{ "michaelb/sniprun", build = "bash ./install.sh", cmd = "SnipRun" },
 	{ "milanglacier/yarepl.nvim", config = true }, -- data science use case
+	{
+		"GCBallesteros/NotebookNavigator.nvim",
+		keys = {
+			{
+				"]h",
+				function()
+					require("notebook-navigator").move_cell("d")
+				end,
+			},
+			{
+				"[h",
+				function()
+					require("notebook-navigator").move_cell("u")
+				end,
+			},
+			{ "<leader>X", "<cmd>lua require('notebook-navigator').run_cell()<cr>" },
+			{ "<leader>x", "<cmd>lua require('notebook-navigator').run_and_move()<cr>" },
+		},
+		dependencies = {
+			-- "echasnovski/mini.comment",
+			"hkupty/iron.nvim", -- repl provider
+			-- "akinsho/toggleterm.nvim", -- alternative repl provider
+			-- "benlubas/molten-nvim", -- alternative repl provider
+			"anuvyklack/hydra.nvim",
+		},
+		event = "VeryLazy",
+		config = function()
+			local nn = require("notebook-navigator")
+			nn.setup({ activate_hydra_keys = "<leader>h", repl_provider = "iron" })
+		end,
+	},
 	{
 		"Zeioth/compiler.nvim",
 		cmd = { "CompilerOpen", "CompilerToggleResults", "CompilerRedo" },
@@ -628,11 +709,11 @@ return {
 			require("nvim-ts-autotag").setup()
 		end,
 	},
-	{
-		"m4xshen/hardtime.nvim",
-		dependencies = { "MunifTanjim/nui.nvim", "nvim-lua/plenary.nvim" },
-		opts = {},
-	},
+	-- {
+	-- 	"m4xshen/hardtime.nvim",
+	-- 	dependencies = { "MunifTanjim/nui.nvim", "nvim-lua/plenary.nvim" },
+	-- 	opts = {},
+	-- },
 	{
 		"Wansmer/treesj",
 		keys = {

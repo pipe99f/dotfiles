@@ -167,6 +167,7 @@ return {
 							luasnip = "SNP",
 							async_path = "PTH",
 							latex_symbols = "LTX",
+							jupyter = "JUP",
 							cmp_r = "R",
 							git = "GIT",
 							omni = "omni",
