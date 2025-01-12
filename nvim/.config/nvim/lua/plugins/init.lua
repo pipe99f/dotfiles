@@ -23,83 +23,6 @@ return {
 	-- 	},
 	-- },
 
-	-----------------
-	----Debugging----
-	-----------------
-
-	{
-		"mfussenegger/nvim-dap",
-		-- these dependencies will only be loaded when dap loads
-		-- dependencies are always lazy-loaded unless specified otherwise
-		dependencies = {
-			"rcarriga/nvim-dap-ui",
-			-- virtual text for the debugger
-			{
-				"theHamsta/nvim-dap-virtual-text",
-				opts = {},
-			},
-		},
-		config = function(self, opts)
-			-- Debug settings if you're using nvim-dap
-			local dap = require("dap")
-
-			dap.configurations.scala = {
-				{
-					type = "scala",
-					request = "launch",
-					name = "RunOrTest",
-					metals = {
-						runType = "runOrTestFile",
-						--args = { "firstArg", "secondArg", "thirdArg" }, -- here just as an example
-					},
-				},
-				{
-					type = "scala",
-					request = "launch",
-					name = "Test Target",
-					metals = {
-						runType = "testTarget",
-					},
-				},
-			}
-		end,
-	},
-	{
-		"theHamsta/nvim-dap-virtual-text",
-		config = function()
-			require("nvim-dap-virtual-text").setup()
-		end,
-	},
-	{
-		"rcarriga/nvim-dap-ui",
-		dependencies = "mfussenegger/nvim-dap",
-		"nvim-neotest/nvim-nio",
-		config = function()
-			local dap = require("dap")
-			local dapui = require("dapui")
-			dapui.setup()
-			dap.listeners.after.event_initialized["dapui_config"] = function()
-				dapui.open()
-			end
-			dap.listeners.before.event_terminated["dapui_config"] = function()
-				dapui.close()
-			end
-			dap.listeners.before.event_exited["dapui_config"] = function()
-				dapui.close()
-			end
-		end,
-	},
-	{
-		"mfussenegger/nvim-dap-python",
-		ft = "python",
-		config = function(_, opts)
-			local path = "~/.local/share/nvim/mason/packages/debugpy/venv/bin/python"
-			require("dap-python").setup(path)
-			-- require("core.utils").load_mappings("dap_python")
-		end,
-	},
-	"nvim-neotest/neotest",
-
 	-----------
 	----cmp----
 	-----------
@@ -129,6 +52,8 @@ return {
 	{
 		"L3MON4D3/LuaSnip",
 		event = "InsertEnter",
+
+		-- these dependencies will only be loaded when luasnip loads
 		dependencies = {
 			{ --vscode-like
 				"rafamadriz/friendly-snippets",
@@ -171,7 +96,7 @@ return {
 
 	{
 		"mikavilpas/yazi.nvim",
-		event = "VeryLazy",
+		-- event = "VeryLazy",
 		keys = {
 			-- 👇 in this section, choose your own keymappings!
 			{
@@ -311,7 +236,6 @@ return {
 			})
 		end,
 	},
-
 	{
 		"kiyoon/jupynium.nvim",
 		build = "pip3 install --user .",
@@ -390,7 +314,8 @@ return {
 	-- Org mode
 	{
 		"nvim-neorg/neorg",
-		lazy = false, -- Disable lazy loading as some `lazy.nvim` distributions set `lazy = true` by default
+		-- lazy = false, -- Disable lazy loading as some `lazy.nvim` distributions set `lazy = true` by default
+		ft = "norg",
 		version = "*", -- Pin Neorg to the latest stable release
 		opts = {
 			load = {
@@ -444,111 +369,16 @@ return {
 	},
 	{ "Bilal2453/luvit-meta", lazy = true }, -- optional `vim.uv` typings
 
-	--------
-	---AI---
-	--------
-	{
-		"Exafunction/codeium.nvim",
-		event = "InsertEnter",
-		opts = {
-			-- enable_chat = true,
-		},
-		build = ":Codeium Auth",
-	},
-	{
-		"olimorris/codecompanion.nvim",
-		dependencies = {
-			"nvim-lua/plenary.nvim",
-			"nvim-treesitter/nvim-treesitter",
-			{ "MeanderingProgrammer/render-markdown.nvim", ft = { "markdown", "codecompanion" } },
-		},
-		config = function()
-			require("codecompanion").setup({
-				adapters = {
-					-- ollama = function()
-					-- 	return require("codecompanion.adapters").extend("openai_compatible", {
-					-- 		env = {
-					-- 			url = "https://api.deepseek.com", -- optional: default value is ollama url http://127.0.0.1:11434
-					-- 			api_key = "DEEPSEEK_API_KEY", -- optional: if your endpoint is authenticated
-					-- 			-- chat_url = "/v1/chat/completions", -- optional: default value, override if different
-					-- 		},
-					-- 		schema = {
-					-- 			model = {
-					-- 				default = "deepseek-chat",
-					-- 			},
-					-- 		},
-					-- 	})
-					-- end,
-				},
-			})
-		end,
-	},
-	{
-		"zbirenbaum/copilot.lua",
-		cmd = "Copilot",
-		-- event = "InsertEnter",
-		config = function()
-			require("copilot").setup({})
-		end,
-	},
-	{
-		"yetone/avante.nvim",
-		event = "VeryLazy",
-		lazy = false,
-		version = false, -- set this to "*" if you want to always pull the latest change, false to update on release
-		opts = {
-			-- add any opts here
-			auto_suggestions_provider = "copilot", -- Since auto-suggestions are a high-frequency operation and therefore expensive, it is recommended to specify an inexpensive provider or even a free provider: copilot
-			provider = "deepseek",
-			vendors = {
-				deepseek = {
-					__inherited_from = "openai",
-					api_key_name = "DEEPSEEK_API_KEY",
-					endpoint = "https://api.deepseek.com",
-					model = "deepseek-chat",
-					timeout = 30000, -- Timeout in milliseconds
-					temperature = 0,
-					max_tokens = 4096,
-				},
-			},
-		},
-		-- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
-		build = "make",
-		-- build = "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false" -- for windows
-		dependencies = {
-			"stevearc/dressing.nvim",
-			"nvim-lua/plenary.nvim",
-			"MunifTanjim/nui.nvim",
-			--- The below dependencies are optional,
-			"hrsh7th/nvim-cmp", -- autocompletion for avante commands and mentions
-			"nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons
-			-- "zbirenbaum/copilot.lua", -- for providers='copilot'
-			{
-				-- support for image pasting
-				"HakonHarnes/img-clip.nvim",
-				event = "VeryLazy",
-				opts = {
-					-- recommended settings
-					default = {
-						embed_image_as_base64 = false,
-						prompt_for_file_name = false,
-						drag_and_drop = {
-							insert_mode = true,
-						},
-						-- required for Windows users
-						use_absolute_path = true,
-					},
-				},
-			},
-		},
-	},
-
 	----------------------------
 	---compiling/running code---
 	----------------------------
 
 	{ "michaelb/sniprun", build = "bash ./install.sh", cmd = "SnipRun" },
-	{ "milanglacier/yarepl.nvim", config = true }, -- data science use case
+	{
+		"milanglacier/yarepl.nvim",
+		cmd = "REPLStart",
+		config = true,
+	}, -- data science use case
 	{
 		"GCBallesteros/NotebookNavigator.nvim",
 		keys = {
@@ -654,12 +484,12 @@ return {
 		end,
 		opts = {},
 	},
-	{
-		"karb94/neoscroll.nvim",
-		config = function()
-			require("neoscroll").setup({})
-		end,
-	},
+	-- {
+	-- 	"karb94/neoscroll.nvim",
+	-- 	config = function()
+	-- 		require("neoscroll").setup({})
+	-- 	end,
+	-- },
 	{ "HiPhish/rainbow-delimiters.nvim" },
 	{
 		"norcalli/nvim-colorizer.lua",
@@ -709,11 +539,6 @@ return {
 			require("nvim-ts-autotag").setup()
 		end,
 	},
-	-- {
-	-- 	"m4xshen/hardtime.nvim",
-	-- 	dependencies = { "MunifTanjim/nui.nvim", "nvim-lua/plenary.nvim" },
-	-- 	opts = {},
-	-- },
 	{
 		"Wansmer/treesj",
 		keys = {
@@ -722,39 +547,52 @@ return {
 		opts = { use_default_keymaps = false, max_join_length = 150 },
 	},
 
-	--   'mg979/vim-visual-multi',
-
 	-----------------------------
 	----Efficient keybindings----
 	-----------------------------
 
 	{
-		"ggandor/leap.nvim",
-		event = "VeryLazy",
-		config = function()
-			require("leap").add_default_mappings(true)
-		end,
+		"folke/flash.nvim",
+		-- event = "VeryLazy",
+		vscode = true,
+		---@type Flash.Config
+		opts = {},
+  -- stylua: ignore
+  keys = {
+    { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
+    { "S", mode = { "n", "o", "x" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
+    { "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
+    { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
+    { "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
+  },
 	},
-	{
-		"ggandor/flit.nvim",
-		event = "VeryLazy",
-		config = function()
-			require("flit").setup({
-				keys = { f = "f", F = "F", t = "t", T = "T" },
-				-- A string like "nv", "nvo", "o", etc.
-				labeled_modes = "v",
-				multiline = true,
-				-- Like `leap`s similar argument (call-specific overrides).
-				-- E.g.: opts = { equivalence_classes = {} }
-				opts = {},
-			})
-		end,
-	},
+	-- {
+	-- 	"ggandor/leap.nvim",
+	-- 	event = "VeryLazy",
+	-- 	config = function()
+	-- 		require("leap").add_default_mappings(true)
+	-- 	end,
+	-- },
+	-- {
+	-- 	"ggandor/flit.nvim",
+	-- 	event = "VeryLazy",
+	-- 	config = function()
+	-- 		require("flit").setup({
+	-- 			keys = { f = "f", F = "F", t = "t", T = "T" },
+	-- 			-- A string like "nv", "nvo", "o", etc.
+	-- 			labeled_modes = "v",
+	-- 			multiline = true,
+	-- 			-- Like `leap`s similar argument (call-specific overrides).
+	-- 			-- E.g.: opts = { equivalence_classes = {} }
+	-- 			opts = {},
+	-- 		})
+	-- 	end,
+	-- },
 
 	--------------
 	----Others----
 	--------------
-	{ "nvim-lua/plenary.nvim", lazy = true },
+	-- { "nvim-lua/plenary.nvim", lazy = true },
 	{
 		"ahmedkhalf/project.nvim",
 		opts = {
@@ -784,9 +622,38 @@ return {
 			require("spectre").setup()
 		end,
 	},
-	{
+	{ -- Create scratch buffer
 		"LintaoAmons/scratch.nvim",
-		event = "VeryLazy",
+		cmd = "Scratch",
+		-- event = "VeryLazy",
 	},
-	{ "ekickx/clipboard-image.nvim" },
+	{
+		"folke/snacks.nvim",
+		priority = 1000,
+		lazy = false,
+		---@type snacks.Config
+		opts = {
+			-- your configuration comes here
+			-- or leave it empty to use the default settings
+			-- refer to the configuration section below
+			bigfile = { enabled = true },
+			bufdelete = { enabled = true }, -- idk how it improves <leader>bd keybinding
+			gitbrowse = { enabled = true },
+			input = { enabled = true },
+			notifier = { enabled = true },
+			quickfile = { enabled = true },
+			scroll = { enabled = true },
+			-- statuscolumn = { enabled = true },
+			words = { enabled = true }, -- highlights variables
+		},
+    -- stylua: ignore
+    keys = {
+      { "<leader>nh",  function() Snacks.notifier.show_history() end, desc = "Notification History" },
+      { "<leader>bd", function() Snacks.bufdelete() end, desc = "Delete Buffer" },
+    { "<leader>gB", function() Snacks.gitbrowse() end, desc = "Git Browse", mode = { "n", "v" } },
+    -- Check lua use case in repo docs, same thing could be done with more languages
+    { "<leader>.",  function() Snacks.scratch() end, desc = "Toggle Scratch Buffer" },
+    { "<leader>S",  function() Snacks.scratch.select() end, desc = "Select Scratch Buffer" },
+	  },
+	},
 }

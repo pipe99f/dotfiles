@@ -1,6 +1,5 @@
 return {
 
-	{ "rakr/vim-one" },
 	{ "shaunsingh/nord.nvim" },
 	{ "nyoom-engineering/oxocarbon.nvim" },
 	{ "rebelot/kanagawa.nvim" },
@@ -13,11 +12,23 @@ return {
 		opts = {
 			integrations = {
 				leap = true,
+				lsp_saga = true,
 				mason = true,
+				native_lsp = {
+					enabled = true,
+					underlines = {
+						errors = { "undercurl" },
+						hints = { "undercurl" },
+						warnings = { "undercurl" },
+						information = { "undercurl" },
+					},
+				},
 				neotest = true,
 				noice = true,
 				notify = true,
+				lsp_trouble = true,
 				overseer = true,
+				snacks = true,
 			},
 		},
 	},

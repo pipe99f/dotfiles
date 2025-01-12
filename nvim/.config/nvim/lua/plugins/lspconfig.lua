@@ -12,7 +12,7 @@ return {
 			"p00f/clangd_extensions.nvim",
 			"glepnir/lspsaga.nvim",
 			"mrcjkb/rustaceanvim",
-			"scalameta/nvim-metals",
+			-- "scalameta/nvim-metals",
 		},
 		config = function()
 			local lsp_zero = require("lsp-zero")

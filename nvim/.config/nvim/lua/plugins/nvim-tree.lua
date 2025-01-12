@@ -1,6 +1,6 @@
 return {
 	"kyazdani42/nvim-tree.lua",
-	event = "VeryLazy",
+	cmd = "NvimTreeToggle",
 	config = function()
 		local function on_attach(bufnr)
 			local api = require("nvim-tree.api")

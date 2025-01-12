@@ -9,7 +9,7 @@ return {
 			desc = "httpgd",
 		},
 	},
-	lazy = false,
+	-- lazy = false,
 	config = function()
 		local opts = {
 			R_args = { "--quiet", "--no-save" },

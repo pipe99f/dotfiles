@@ -1,6 +1,7 @@
 return {
-
 	"hkupty/iron.nvim",
+	cmd = "IronSend",
+	event = "VeryLazy",
 	config = function()
 		require("iron.core").setup({
 			config = {

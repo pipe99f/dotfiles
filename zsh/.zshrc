@@ -103,6 +103,7 @@ eval "$(zoxide init --cmd cd zsh)"
 
 # Zsh-syntax-highlighting theme
 source $HOME/dotfiles/scripts/scripts/catppuccin_macchiato-zsh-syntax-highlighting.zsh
+source $HOME/.priv
 
 
 # Aliases

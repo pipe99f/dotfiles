@@ -1,4 +1,5 @@
 return {
+	event = "VeryLazy",
 	"jake-stewart/multicursor.nvim",
 	branch = "1.0",
 	config = function()
@@ -23,9 +24,9 @@ return {
 		end)
 
 		-- Add or skip adding a new cursor by matching word/selection
-		set({ "n", "v" }, "<leader>n", function()
-			mc.matchAddCursor(1)
-		end)
+		-- set({ "n", "v" }, "<leader>n", function()
+		-- 	mc.matchAddCursor(1)
+		-- end)
 		set({ "n", "v" }, "<leader>s", function()
 			mc.matchSkipCursor(1)
 		end)
@@ -58,7 +59,7 @@ return {
 		set("n", "<c-leftmouse>", mc.handleMouse)
 
 		-- Easy way to add and remove cursors using the main cursor.
-		set({ "n", "v" }, "<c-q>", mc.toggleCursor)
+		set({ "n", "v" }, "<c-m>", mc.toggleCursor)
 
 		-- Clone every cursor and disable the originals.
 		set({ "n", "v" }, "<leader><c-q>", mc.duplicateCursors)

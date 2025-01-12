@@ -16,14 +16,14 @@ channels:
 channel_priority: strict
 
 create_default_packages:
-  - cairosvg
   - conda-tree
   - ipython
   - jupyter
   - matplotlib
   - numpy
+  - opencv
   - pandas
-  - pyperclip
   - plotly
+  - pymupdf
   - scipy
   - seaborn

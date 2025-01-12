@@ -1,6 +1,6 @@
 return {
-
 	"nvimtools/hydra.nvim",
+	event = "VeryLazy",
 	config = function()
 		local function keys(str)
 			return function()
