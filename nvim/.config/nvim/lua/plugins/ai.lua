@@ -74,27 +74,28 @@ return {
 		},
 		config = function()
 			require("codecompanion").setup({
-				strategies = {
-					chat = { adapter = "ollama" },
-					inline = { adapter = "copilot" },
-				},
-
-				adapters = { -- default seems to be copilot
-					ollama = function()
-						return require("codecompanion.adapters").extend("openai_compatible", {
-							env = {
-								url = "https://api.deepseek.com", -- optional: default value is ollama url http://127.0.0.1:11434
-								api_key = "DEEPSEEK_API_KEY", -- optional: if your endpoint is authenticated
-								-- chat_url = "/v1/chat/completions", -- optional: default value, override if different
-							},
-							schema = {
-								model = {
-									default = "deepseek-chat",
-								},
-							},
-						})
-					end,
-				},
+				-- Can't find a way to setup deekseek
+				-- 	strategies = {
+				-- 		chat = { adapter = "ollama" },
+				-- 		inline = { adapter = "copilot" },
+				-- 	},
+				--
+				-- 	adapters = { -- default seems to be copilot
+				-- 		ollama = function()
+				-- 			return require("codecompanion.adapters").extend("openai_compatible", {
+				-- 				env = {
+				-- 					url = "https://api.deepseek.com", -- optional: default value is ollama url http://127.0.0.1:11434
+				-- 					api_key = "DEEPSEEK_API_KEY", -- optional: if your endpoint is authenticated
+				-- 					-- chat_url = "/v1/chat/completions", -- optional: default value, override if different
+				-- 				},
+				-- 				schema = {
+				-- 					model = {
+				-- 						default = "deepseek-chat",
+				-- 					},
+				-- 				},
+				-- 			})
+				-- 		end,
+				-- 	},
 			})
 		end,
 	},

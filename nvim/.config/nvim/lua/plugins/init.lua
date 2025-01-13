@@ -71,29 +71,6 @@ return {
 		},
 	},
 
-	--comments
-	{ "numToStr/Comment.nvim", event = "VeryLazy" },
-	{
-		"folke/todo-comments.nvim",
-		cmd = { "TodoTrouble", "TodoTelescope" },
-		event = "VeryLazy",
-		opts = {},
-  -- stylua: ignore
-  keys = {
-    { "]t", function() require("todo-comments").jump_next() end, desc = "Next Todo Comment" },
-    { "[t", function() require("todo-comments").jump_prev() end, desc = "Previous Todo Comment" },
-    { "<leader>xt", "<cmd>Trouble todo toggle<cr>", desc = "Todo (Trouble)" },
-    { "<leader>xT", "<cmd>Trouble todo toggle filter = {tag = {TODO,FIX,FIXME}}<cr>", desc = "Todo/Fix/Fixme (Trouble)" },
-    { "<leader>st", "<cmd>TodoTelescope<cr>", desc = "Todo" },
-    { "<leader>sT", "<cmd>TodoTelescope keywords=TODO,FIX,FIXME<cr>", desc = "Todo/Fix/Fixme" },
-  },
-	},
-	{
-		"folke/ts-comments.nvim",
-		opts = {},
-		event = "VeryLazy",
-	},
-
 	{
 		"mikavilpas/yazi.nvim",
 		-- event = "VeryLazy",
@@ -336,6 +313,42 @@ return {
 			config = true,
 		},
 	},
+	{
+		"nvim-orgmode/orgmode",
+		-- event = "VeryLazy",
+		ft = { "org" },
+		dependencies = { "akinsho/org-bullets.nvim", "chipsenkbeil/org-roam.nvim" },
+		config = function()
+			-- Setup orgmode
+			require("orgmode").setup({
+				org_agenda_files = "~/orgfiles/**/*",
+				org_default_notes_file = "~/orgfiles/refile.org",
+			})
+
+			-- NOTE: If you are using nvim-treesitter with ~ensure_installed = "all"~ option
+			-- add ~org~ to ignore_install
+			-- require('nvim-treesitter.configs').setup({
+			--   ensure_installed = 'all',
+			--   ignore_install = { 'org' },
+			-- })
+		end,
+	},
+	{
+		"chipsenkbeil/org-roam.nvim",
+		ft = "org",
+		tag = "0.1.1",
+		config = function()
+			require("org-roam").setup({
+				directory = "~/org_roam_files",
+				-- optional
+				org_files = {
+					"~/another_org_dir",
+					"~/some/folder/*.org",
+					"~/a/single/org_file.org",
+				},
+			})
+		end,
+	},
 
 	-- CP
 	{
@@ -463,12 +476,20 @@ return {
 	-- },
 	{
 		"nvim-treesitter/nvim-treesitter-context",
-		cmd = { "TSContextEnable", "TSContesxtToggle" },
+		cmd = { "TSContextEnable", "TSContextToggle" },
 	},
 	{
 		"tamton-aquib/staline.nvim",
 		config = function()
-			require("staline").setup()
+			require("staline").setup({
+				sections = {
+					-- left = { "  ", "mode", " ", "branch", " ", "lsp" },
+					mid = { "lsp", { "StalineFile", "file_name" }, require("doing").status },
+				},
+				-- defaults = {
+				-- 	true_colors = true,
+				-- },
+			})
 		end,
 	},
 	{
@@ -484,12 +505,6 @@ return {
 		end,
 		opts = {},
 	},
-	-- {
-	-- 	"karb94/neoscroll.nvim",
-	-- 	config = function()
-	-- 		require("neoscroll").setup({})
-	-- 	end,
-	-- },
 	{ "HiPhish/rainbow-delimiters.nvim" },
 	{
 		"norcalli/nvim-colorizer.lua",
@@ -513,9 +528,9 @@ return {
 	-- 	end,
 	-- },
 
-	--------------
-	----typing----
-	--------------
+	------------------
+	----Efficiency----
+	------------------
 
 	{
 		"windwp/nvim-autopairs",
@@ -547,10 +562,6 @@ return {
 		opts = { use_default_keymaps = false, max_join_length = 150 },
 	},
 
-	-----------------------------
-	----Efficient keybindings----
-	-----------------------------
-
 	{
 		"folke/flash.nvim",
 		-- event = "VeryLazy",
@@ -558,36 +569,78 @@ return {
 		---@type Flash.Config
 		opts = {},
   -- stylua: ignore
-  keys = {
-    { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
-    { "S", mode = { "n", "o", "x" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
-    { "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
-    { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
-    { "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
-  },
+    keys = {
+      { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
+      { "S", mode = { "n", "o", "x" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
+      { "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
+      { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
+      { "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
+    },
 	},
-	-- {
-	-- 	"ggandor/leap.nvim",
-	-- 	event = "VeryLazy",
-	-- 	config = function()
-	-- 		require("leap").add_default_mappings(true)
-	-- 	end,
-	-- },
-	-- {
-	-- 	"ggandor/flit.nvim",
-	-- 	event = "VeryLazy",
-	-- 	config = function()
-	-- 		require("flit").setup({
-	-- 			keys = { f = "f", F = "F", t = "t", T = "T" },
-	-- 			-- A string like "nv", "nvo", "o", etc.
-	-- 			labeled_modes = "v",
-	-- 			multiline = true,
-	-- 			-- Like `leap`s similar argument (call-specific overrides).
-	-- 			-- E.g.: opts = { equivalence_classes = {} }
-	-- 			opts = {},
-	-- 		})
-	-- 	end,
-	-- },
+
+	--comments
+	{ "numToStr/Comment.nvim", event = "VeryLazy" },
+	{
+		"folke/todo-comments.nvim",
+		cmd = { "TodoTrouble", "TodoTelescope" },
+		event = "VeryLazy",
+		opts = {},
+  -- stylua: ignore
+    keys = {
+      { "]t", function() require("todo-comments").jump_next() end, desc = "Next Todo Comment" },
+      { "[t", function() require("todo-comments").jump_prev() end, desc = "Previous Todo Comment" },
+      { "<leader>xt", "<cmd>Trouble todo toggle<cr>", desc = "Todo (Trouble)" },
+      { "<leader>xT", "<cmd>Trouble todo toggle filter = {tag = {TODO,FIX,FIXME}}<cr>", desc = "Todo/Fix/Fixme (Trouble)" },
+      { "<leader>st", "<cmd>TodoTelescope<cr>", desc = "Todo" },
+      { "<leader>sT", "<cmd>TodoTelescope keywords=TODO,FIX,FIXME<cr>", desc = "Todo/Fix/Fixme" },
+    },
+	},
+	{
+		"folke/ts-comments.nvim",
+		opts = {},
+		event = "VeryLazy",
+	},
+
+	{
+		"nvim-focus/focus.nvim",
+		version = false,
+		events = "VeryLazy",
+		config = function()
+			require("focus").setup()
+		end,
+	},
+	{
+		"aaronik/treewalker.nvim",
+
+		-- The following options are the defaults.
+		-- Treewalker aims for sane defaults, so these are each individually optional,
+		-- and setup() does not need to be called, so the whole opts block is optional as well.
+		opts = {
+			-- Whether to briefly highlight the node after jumping to it
+			highlight = true,
+
+			-- How long should above highlight last (in ms)
+			highlight_duration = 250,
+
+			-- The color of the above highlight. Must be a valid vim highlight group.
+			-- (see :h highlight-group for options)
+			highlight_group = "CursorLine",
+		},
+		config = function()
+			-- TODO: Hacer que los keymaps funcionen con hydra
+			-- movement
+			vim.keymap.set({ "n", "v" }, "<M-k>", "<cmd>Treewalker Up<cr>", { silent = true })
+			vim.keymap.set({ "n", "v" }, "<M-j>", "<cmd>Treewalker Down<cr>", { silent = true })
+			vim.keymap.set({ "n", "v" }, "<M-l>", "<cmd>Treewalker Right<cr>", { silent = true })
+			vim.keymap.set({ "n", "v" }, "<M-h>", "<cmd>Treewalker Left<cr>", { silent = true })
+
+			-- swapping
+			vim.keymap.set("n", "<M-S-j>", "<cmd>Treewalker SwapDown<cr>", { silent = true })
+			vim.keymap.set("n", "<M-S-k>", "<cmd>Treewalker SwapUp<cr>", { silent = true })
+			vim.keymap.set("n", "<M-S-l>", "<cmd>Treewalker SwapRight<CR>", { silent = true })
+			vim.keymap.set("n", "<M-S-h>", "<cmd>Treewalker SwapLeft<CR>", { silent = true })
+		end,
+	},
 
 	--------------
 	----Others----
@@ -650,10 +703,21 @@ return {
     keys = {
       { "<leader>nh",  function() Snacks.notifier.show_history() end, desc = "Notification History" },
       { "<leader>bd", function() Snacks.bufdelete() end, desc = "Delete Buffer" },
-    { "<leader>gB", function() Snacks.gitbrowse() end, desc = "Git Browse", mode = { "n", "v" } },
+      { "<leader>gB", function() Snacks.gitbrowse() end, desc = "Git Browse", mode = { "n", "v" } },
     -- Check lua use case in repo docs, same thing could be done with more languages
-    { "<leader>.",  function() Snacks.scratch() end, desc = "Toggle Scratch Buffer" },
-    { "<leader>S",  function() Snacks.scratch.select() end, desc = "Select Scratch Buffer" },
+      { "<leader>.",  function() Snacks.scratch() end, desc = "Toggle Scratch Buffer" },
+      { "<leader>S",  function() Snacks.scratch.select() end, desc = "Select Scratch Buffer" },
 	  },
+	},
+
+	{ -- Don't forget what I'm doing
+		"Hashino/doing.nvim",
+		event = "VeryLazy",
+		cmd = "Do",
+		-- keys = {
+		--   { "<leader>da", function() require("doing").add() end, {}, },
+		--   { "<leader>dn", function() require("doing").done() end, {}, },
+		--   { "<leader>de", function() require("doing").edit() end, {}, },
+		-- },
 	},
 }

@@ -24,6 +24,5 @@ create_default_packages:
   - opencv
   - pandas
   - plotly
-  - pymupdf
   - scipy
   - seaborn
