@@ -47,19 +47,20 @@ vim.api.nvim_create_autocmd("FileType", {
 	end,
 })
 
--- save folds
-vim.api.nvim_create_autocmd("BufWinLeave", {
-	group = "bufcheck",
-	pattern = { "*.*" },
-	command = "mkview!",
-})
+-- -- WARN: conflicts with yazi and bufferline
+-- -- save folds
+-- vim.api.nvim_create_autocmd("BufWinLeave", {
+-- 	group = "bufcheck",
+-- 	pattern = { "*.*" },
+-- 	command = "mkview!",
+-- })
 
--- load folds
-vim.api.nvim_create_autocmd("BufWinEnter", {
-	group = "bufcheck",
-	pattern = { "*.*" },
-	command = "if &ft !=# 'help' | silent! loadview | endif",
-})
+-- -- load folds
+-- vim.api.nvim_create_autocmd("BufWinEnter", {
+-- 	group = "bufcheck",
+-- 	pattern = { "*.*" },
+-- 	command = "if &ft !=# 'help' | silent! loadview | endif",
+-- })
 
 -- Return to last edit position when opening files
 vim.api.nvim_create_autocmd("BufReadPost", {

@@ -484,7 +484,7 @@ return {
 			require("staline").setup({
 				sections = {
 					-- left = { "  ", "mode", " ", "branch", " ", "lsp" },
-					mid = { "lsp", { "StalineFile", "file_name" }, require("doing").status },
+					mid = { "lsp", require("doing").status },
 				},
 				-- defaults = {
 				-- 	true_colors = true,
@@ -692,7 +692,7 @@ return {
 			bigfile = { enabled = true },
 			bufdelete = { enabled = true }, -- idk how it improves <leader>bd keybinding
 			gitbrowse = { enabled = true },
-			input = { enabled = true },
+			-- input = { enabled = true },
 			notifier = { enabled = true },
 			quickfile = { enabled = true },
 			scroll = { enabled = true },

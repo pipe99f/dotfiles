@@ -2,7 +2,9 @@ return {
 	"nvim-telescope/telescope.nvim",
 	cmd = "Telescope",
 	dependencies = {
-		{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+
+    -- stylua: ignore
+    { 'nvim-telescope/telescope-fzf-native.nvim', build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release' },
 		{ "nvim-telescope/telescope-frecency.nvim", dependencies = { "tami5/sqlite.lua" } },
 	},
 	config = function()
