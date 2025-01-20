@@ -30,7 +30,7 @@ vim.cmd("map re gD:%s/<C-R>///gc<left><left><left>")
 vim.keymap.set("i", "<C-h>", "<C-w>")
 
 --Enter in normal mode deletes word
-vim.keymap.set("n", "<cr>", "ciw")
+-- vim.keymap.set("n", "<cr>", "ciw")
 
 --avoid placing cursor at the beginning when yanking in visual mode
 vim.keymap.set("v", "y", "may`a")

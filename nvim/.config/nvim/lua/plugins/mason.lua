@@ -27,9 +27,10 @@ return {
 			}
 
 			local tools = {
-				--diagnostics
+				--diagnostics/linter
 				"htmlhint",
 				"ruff",
+				"sqlfluff",
 				"yamllint",
 
 				--formatting
@@ -57,6 +58,7 @@ return {
 
 			require("mason-lspconfig").setup({
 				ensure_installed = servers,
+				automatic_installation = true,
 			})
 
 			require("mason-nvim-dap").setup({

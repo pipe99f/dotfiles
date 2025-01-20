@@ -91,6 +91,7 @@ return {
 				{ name = "luasnip" },
 				{ name = "codeium" },
 				{ name = "cmp_r" },
+				{ name = "cmp-dbee" },
 				{ name = "lazydev", group_index = 0 },
 				{ name = "nvim_lsp" },
 				{ name = "otter" },

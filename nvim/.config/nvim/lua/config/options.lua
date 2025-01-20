@@ -47,11 +47,11 @@ opt.showmode = false
 opt.sidescrolloff = 3 -- Lines to scroll horizontally
 opt.signcolumn = "yes"
 opt.splitbelow = true -- Open new split below
-opt.splitright = true -- Open new split to the right
+-- opt.splitright = true -- Open new split to the right
 opt.hidden = true
 -- opt.linebreak = true
 -- opt.textwidth = 200
--- opt.wrap = true
+opt.wrap = false
 
 -- folding
 vim.o.foldenable = true

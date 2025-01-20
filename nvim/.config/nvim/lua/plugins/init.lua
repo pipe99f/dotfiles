@@ -215,9 +215,9 @@ return {
 	},
 	{
 		"kiyoon/jupynium.nvim",
-		build = "pip3 install --user .",
+		-- build = "pip3 install --user .",
 		cmd = "JupyniumStartAndAttachToServer",
-		-- build = "conda run --no-capture-output -n jupynium pip install .",
+		build = "conda run --no-capture-output -n ds pip install .",
 		-- enabled = vim.fn.isdirectory(vim.fn.expand "~/miniconda3/envs/jupynium"),
 	},
 	-- {
@@ -350,6 +350,35 @@ return {
 		end,
 	},
 
+	-- SQL
+	-- { "pope/vim-dadbod" },
+	-- { "kristijanhusak/vim-dadbod-ui" },
+	-- { "kristijanhusak/vim-dadbod-completion" },
+	{
+		"kndndrj/nvim-dbee",
+		ft = "sql",
+		dependencies = {
+			"MunifTanjim/nui.nvim",
+		},
+		build = function()
+			-- Install tries to automatically detect the install method.
+			-- if it fails, try calling it with one of these parameters:
+			--    "curl", "wget", "bitsadmin", "go"
+			require("dbee").install()
+		end,
+		config = function()
+			require("dbee").setup(--[[optional config]])
+		end,
+	},
+	{
+		"MattiasMTS/cmp-dbee",
+		dependencies = {
+			{ "kndndrj/nvim-dbee" },
+		},
+		ft = "sql", -- optional but good to have
+		opts = {}, -- needed
+	},
+
 	-- CP
 	{
 		"kawre/leetcode.nvim",
@@ -367,6 +396,13 @@ return {
 
 	-- Quickfix
 	{ "kevinhwang91/nvim-bqf", ft = "qf" },
+	-- {
+	-- 	"stevearc/quicker.nvim",
+	-- 	event = "FileType qf",
+	-- 	---@module "quicker"
+	-- 	---@type quicker.SetupOptions
+	-- 	opts = {},
+	-- },
 
 	-- Neovim config
 	{

@@ -2,4 +2,4 @@ dialect = "uk"
 sync_frequency = "2h"
 style = "compact"
 inline_height = 17
-filter_mode_shell_up_key_binding = "directory" # or global, host, directory, etc
+filter_mode = "global"
