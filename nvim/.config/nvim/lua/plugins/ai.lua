@@ -40,7 +40,7 @@ return {
 			{
 				-- support for image pasting
 				"HakonHarnes/img-clip.nvim",
-				event = "VeryLazy",
+				-- event = "VeryLazy",
 				keys = {
 					-- suggested keymap
 					{ "<leader>p", "<cmd>PasteImage<cr>", desc = "Paste image from system clipboard" },

@@ -1,8 +1,9 @@
 return {
 	"benlubas/molten-nvim",
 	version = "^1.0.0", -- use version <2.0.0 to avoid breaking changes
+	ft = { "python", "quarto", "markdown" },
 	dependencies = {
-		-- "3rd/image.nvim",
+		"3rd/image.nvim",
 		{ "willothy/wezterm.nvim", config = true },
 	},
 	build = ":UpdateRemotePlugins",
@@ -20,7 +21,8 @@ return {
 
 		-- this guide will be using image.nvim
 		-- Don't forget to setup and install the plugin if you want to view image outputs
-		vim.g.molten_image_provider = "wezterm" -- can't use under tmux session
+		-- vim.g.molten_image_provider = "wezterm" -- can't use under tmux session
+		vim.g.molten_image_provider = "image.nvim" -- can't use under tmux session
 
 		-- optional, I like wrapping. works for virt text and the output window
 		vim.g.molten_wrap_output = true
@@ -43,13 +45,13 @@ return {
 		)
 		vim.keymap.set(
 			"v",
-			"<localleader>s",
+			"<localleader>sc",
 			":<C-u>MoltenEvaluateVisual<CR>gv",
 			{ silent = true, desc = "evaluate visual selection" }
 		)
 		vim.keymap.set(
 			"n",
-			"<localleader>e",
+			"<localleader>sc",
 			":MoltenEvaluateOperator<CR>",
 			{ desc = "evaluate operator", silent = true }
 		)
@@ -69,17 +71,6 @@ return {
 			":MoltenOpenInBrowser<CR>",
 			{ desc = "open output in browser", silent = true }
 		)
-
-		-- Quarto mappings
-		local runner = require("quarto.runner")
-		vim.keymap.set("n", "<localleader>sr", runner.run_cell, { desc = "run cell", silent = true })
-		vim.keymap.set("n", "<localleader>sa", runner.run_above, { desc = "run cell and above", silent = true })
-		vim.keymap.set("n", "<localleader>sA", runner.run_all, { desc = "run all cells", silent = true })
-		vim.keymap.set("n", "<localleader>sl", runner.run_line, { desc = "run line", silent = true })
-		vim.keymap.set("v", "<localleader>s", runner.run_range, { desc = "run visual range", silent = true })
-		vim.keymap.set("n", "<localleader>sA", function()
-			runner.run_all(true)
-		end, { desc = "run all cells of all languages", silent = true })
 
 		-- Keeping cell outputs in both .md and .ipynb files
 		-- automatically import output chunks from a jupyter notebook
@@ -131,6 +122,95 @@ return {
 					vim.cmd("MoltenExportOutput!")
 				end
 			end,
+		})
+
+		-- change the configuration when editing a python file
+		vim.api.nvim_create_autocmd("BufEnter", {
+			pattern = "*.py",
+			callback = function(e)
+				if string.match(e.file, ".otter.") then
+					return
+				end
+				if require("molten.status").initialized() == "Molten" then -- this is kinda a hack...
+					vim.fn.MoltenUpdateOption("virt_lines_off_by_1", false)
+					vim.fn.MoltenUpdateOption("virt_text_output", false)
+				else
+					vim.g.molten_virt_lines_off_by_1 = false
+					vim.g.molten_virt_text_output = false
+				end
+			end,
+		})
+
+		-- Undo those config changes when we go back to a markdown or quarto file
+		vim.api.nvim_create_autocmd("BufEnter", {
+			pattern = { "*.qmd", "*.md", "*.ipynb" },
+			callback = function(e)
+				if string.match(e.file, ".otter.") then
+					return
+				end
+				if require("molten.status").initialized() == "Molten" then
+					vim.fn.MoltenUpdateOption("virt_lines_off_by_1", true)
+					vim.fn.MoltenUpdateOption("virt_text_output", true)
+				else
+					vim.g.molten_virt_lines_off_by_1 = true
+					vim.g.molten_virt_text_output = true
+				end
+			end,
+		})
+
+		-- Provide a command to create a blank new Python notebook
+		-- note: the metadata is needed for Jupytext to understand how to parse the notebook.
+		-- if you use another language than Python, you should change it in the template.
+		local default_notebook = [[
+    {
+      "cells": [
+       {
+        "cell_type": "markdown",
+        "metadata": {},
+        "source": [
+          ""
+        ]
+       }
+      ],
+      "metadata": {
+       "kernelspec": {
+        "display_name": "Python 3",
+        "language": "python",
+        "name": "python3"
+       },
+       "language_info": {
+        "codemirror_mode": {
+          "name": "ipython"
+        },
+        "file_extension": ".py",
+        "mimetype": "text/x-python",
+        "name": "python",
+        "nbconvert_exporter": "python",
+        "pygments_lexer": "ipython3"
+       }
+      },
+      "nbformat": 4,
+      "nbformat_minor": 5
+    }
+  ]]
+
+		local function new_notebook(filename)
+			local path = filename .. ".ipynb"
+			local file = io.open(path, "w")
+			if file then
+				file:write(default_notebook)
+				file:close()
+				vim.cmd("edit " .. path)
+			else
+				print("Error: Could not open new notebook file for writing.")
+			end
+		end
+
+		vim.api.nvim_create_user_command("NewNotebook", function(opts)
+			new_notebook(opts.args)
+		end, {
+			nargs = 1,
+			complete = "file",
 		})
 	end,
 }

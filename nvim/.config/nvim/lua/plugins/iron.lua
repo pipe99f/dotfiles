@@ -16,6 +16,10 @@ return {
 						command = { "jupyter-console" },
 						format = require("iron.fts.common").bracketed_paste,
 					},
+					markdown = {
+						command = { "jupyter-console" },
+						format = require("iron.fts.common").bracketed_paste,
+					},
 					quarto = {
 						command = { "jupyter-console" },
 						format = require("iron.fts.common").bracketed_paste,

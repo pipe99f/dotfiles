@@ -85,15 +85,22 @@ export DISABLE_AUTO_TITLE="true"
 # Atuin
 eval "$(atuin init zsh --disable-up-arrow)"
 
+# Direnv
+eval "$(direnv hook zsh)"
+
 # FZF
 source <(fzf --zsh)
 source $HOME/.config/fzf/config.zsh
 
-# Matplotlib
-# export MPLBACKEND=tkagg # It is used to avoid compatibility problems with matplotlib plots in wayland. Same effect is achieved in a python script using "matplotlib.use('tkagg')". webagg is also good
+# Pixi
+eval "$(pixi completion --shell zsh)"
 
 # PATH
 export PATH=$PATH:$HOME/dotfiles/scripts/scripts
+
+# Python
+# export MPLBACKEND=tkagg # It is used to avoid compatibility problems with matplotlib plots in wayland. Same effect is achieved in a python script using "matplotlib.use('tkagg')". webagg is also good
+# export PLOTLY_RENDERER="chromium"
 
 # Source functions file
 source $HOME/dotfiles/scripts/scripts/functions.zsh

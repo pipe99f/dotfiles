@@ -2,6 +2,7 @@
 application/pdf=org.pwmt.zathura.desktop
 application/epub+zip=org.pwmt.zathura.desktop
 image/vnd.djvu=org.pwmt.zathura.desktop
+image/png=chromium.desktop
 
 application/vnd.amazon.ebook=calibre-ebook-viewer.desktop
 application/x-mobipocket-ebook=calibre-ebook-viewer.desktop
@@ -16,6 +17,7 @@ text/html=firefox.desktop;
 x-scheme-handler/chrome=firefox.desktop;
 x-scheme-handler/http=firefox.desktop;
 x-scheme-handler/https=firefox.desktop;
+
 
 inode/directory=thunar.desktop;
 

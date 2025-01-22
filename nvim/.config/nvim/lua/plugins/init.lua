@@ -178,7 +178,7 @@ return {
 				closePreviewOnExit = true,
 				lspFeatures = {
 					enabled = true,
-					chunks = "curly",
+					chunks = "all",
 					languages = { "r", "python", "julia", "bash", "lua", "html" },
 					diagnostics = {
 						enabled = true,
@@ -193,6 +193,14 @@ return {
 					default_method = "molten",
 				},
 			})
+
+			-- Quarto mappings
+			local runner = require("quarto.runner")
+			vim.keymap.set("n", "<localleader>sr", runner.run_cell, { desc = "run cell", silent = true })
+			vim.keymap.set("n", "<localleader>sa", runner.run_above, { desc = "run cell and above", silent = true })
+			vim.keymap.set("n", "<localleader>sA", runner.run_all, { desc = "run all cells", silent = true })
+			vim.keymap.set("n", "<localleader>sl", runner.run_line, { desc = "run line", silent = true })
+			vim.keymap.set("v", "<localleader>s", runner.run_range, { desc = "run visual range", silent = true })
 		end,
 	},
 	{ -- preview equations
@@ -220,19 +228,20 @@ return {
 		build = "conda run --no-capture-output -n ds pip install .",
 		-- enabled = vim.fn.isdirectory(vim.fn.expand "~/miniconda3/envs/jupynium"),
 	},
-	-- {
-	-- 	-- see the image.nvim readme for more information about configuring this plugin
-	-- 	"3rd/image.nvim",
-	-- 	opts = {
-	-- 		backend = "kitty", -- whatever backend you would like to use
-	-- 		max_width = 100,
-	-- 		max_height = 12,
-	-- 		max_height_window_percentage = math.huge,
-	-- 		max_width_window_percentage = math.huge,
-	-- 		window_overlap_clear_enabled = true, -- toggles images when windows are overlapped
-	-- 		window_overlap_clear_ft_ignore = { "cmp_menu", "cmp_docs", "" },
-	-- 	},
-	-- },
+	{
+		-- see the image.nvim readme for more information about configuring this plugin
+		"3rd/image.nvim",
+		ft = { "markdown", "quarto" },
+		opts = {
+			backend = "kitty", -- whatever backend you would like to use
+			max_width = 100,
+			max_height = 12,
+			max_height_window_percentage = math.huge,
+			max_width_window_percentage = math.huge,
+			window_overlap_clear_enabled = true, -- toggles images when windows are overlapped
+			window_overlap_clear_ft_ignore = { "cmp_menu", "cmp_docs", "" },
+		},
+	},
 
 	{ "benlubas/image-save.nvim", cmd = "SaveImage" },
 
@@ -261,9 +270,9 @@ return {
 	--Markdown
 	{
 		"MeanderingProgrammer/render-markdown.nvim",
-		ft = { "markdown", "rmd", "pandoc.markdown", "codecompanion", "Avante" },
+		ft = { "markdown", "rmd", "pandoc.markdown", "codecompanion", "Avante", "quarto" },
 		opts = {
-			file_types = { "markdown", "Avante", "codecompanion" },
+			file_types = { "quarto", "rmd", "markdown", "Avante", "codecompanion" },
 		},
 	},
 	-- {
@@ -284,7 +293,7 @@ return {
 		ft = { "markdown", "rmd", "pandoc.markdown" },
 		cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
 		config = function()
-			vim.cmd([[let g:mkdp_browser = 'firefox']])
+			vim.cmd([[let g:mkdp_browser = 'chromium']])
 		end,
 	},
 
@@ -430,33 +439,22 @@ return {
 	}, -- data science use case
 	{
 		"GCBallesteros/NotebookNavigator.nvim",
-		keys = {
-			{
-				"]h",
-				function()
-					require("notebook-navigator").move_cell("d")
-				end,
-			},
-			{
-				"[h",
-				function()
-					require("notebook-navigator").move_cell("u")
-				end,
-			},
-			{ "<leader>X", "<cmd>lua require('notebook-navigator').run_cell()<cr>" },
-			{ "<leader>x", "<cmd>lua require('notebook-navigator').run_and_move()<cr>" },
-		},
+		ft = "python",
 		dependencies = {
 			-- "echasnovski/mini.comment",
 			"hkupty/iron.nvim", -- repl provider
 			-- "akinsho/toggleterm.nvim", -- alternative repl provider
 			-- "benlubas/molten-nvim", -- alternative repl provider
-			"anuvyklack/hydra.nvim",
+			{ "nvimtools/hydra.nvim", event = "VeryLazy" },
 		},
-		event = "VeryLazy",
 		config = function()
 			local nn = require("notebook-navigator")
-			nn.setup({ activate_hydra_keys = "<leader>h", repl_provider = "iron" })
+			nn.setup({
+				cell_markers = {
+					-- python = "# %%",
+				},
+				repl_provider = "iron",
+			})
 		end,
 	},
 	{
@@ -641,12 +639,14 @@ return {
 		"nvim-focus/focus.nvim",
 		version = false,
 		events = "VeryLazy",
+		cmd = "FocusToggle",
 		config = function()
 			require("focus").setup()
 		end,
 	},
 	{
 		"aaronik/treewalker.nvim",
+		event = "BufEnter",
 
 		-- The following options are the defaults.
 		-- Treewalker aims for sane defaults, so these are each individually optional,
@@ -694,7 +694,7 @@ return {
 	},
 	{
 		"rmagatti/auto-session",
-		-- event = "VeryLazy",
+		-- event = "VeryLazy", -- Don't Lazy load.
 		config = function()
 			require("auto-session").setup({
 				log_level = "error",

@@ -24,5 +24,6 @@ create_default_packages:
   - opencv
   - pandas
   - plotly
+  - python-kaleido
   - scipy
   - seaborn

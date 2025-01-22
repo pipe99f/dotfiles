@@ -10,7 +10,7 @@ options(
 options(repos = "https://packagemanager.rstudio.com/cran/latest")
 
 # set default browser
-options(browser = "brave")
+options(browser = "chromium")
 
 # httpgd as default graphics device. It will open in brave
 options(device = function() {
