@@ -453,7 +453,7 @@ return {
 				cell_markers = {
 					-- python = "# %%",
 				},
-				repl_provider = "iron",
+				repl_provider = "molten",
 			})
 		end,
 	},
@@ -694,15 +694,16 @@ return {
 	},
 	{
 		"rmagatti/auto-session",
-		-- event = "VeryLazy", -- Don't Lazy load.
-		config = function()
-			require("auto-session").setup({
-				log_level = "error",
-				auto_save_enabled = true,
-				auto_restore_enabled = true,
-				auto_session_suppress_dirs = { "~/", "~/Projects", "~/Downloads", "/" },
-			})
-		end,
+		lazy = false,
+		---enables autocomplete for opts
+		---@module "auto-session"
+		---@type AutoSession.Config
+		opts = {
+			suppressed_dirs = { "~/", "~/Projects", "~/Downloads", "/" },
+			session_lens = {
+				load_on_setup = false,
+			},
+		},
 	},
 	{
 		"nvim-pack/nvim-spectre",

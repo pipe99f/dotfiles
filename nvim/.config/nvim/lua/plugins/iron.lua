@@ -1,6 +1,5 @@
 return {
 	"hkupty/iron.nvim",
-	cmd = "IronSend",
 	event = "VeryLazy",
 	config = function()
 		require("iron.core").setup({
@@ -15,6 +14,7 @@ return {
 					python = {
 						command = { "jupyter-console" },
 						format = require("iron.fts.common").bracketed_paste,
+						block_deviders = { "# %%", "#%%" },
 					},
 					markdown = {
 						command = { "jupyter-console" },
@@ -43,7 +43,11 @@ return {
 				visual_send = "<space>sc",
 				send_file = "<space>sf",
 				send_line = "<space>sl",
+				send_paragraph = "<space>sp",
+				send_until_cursor = "<space>su",
 				send_mark = "<space>sm",
+				send_code_block = "<space>sb",
+				send_code_block_and_move = "<space>sn",
 				mark_motion = "<space>mc",
 				mark_visual = "<space>mc",
 				remove_mark = "<space>md",
