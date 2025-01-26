@@ -13,6 +13,16 @@ return {
 					command = "rprettify",
 					args = { "$FILENAME" },
 				},
+				injected = {
+					options = {
+						ignore_errors = false,
+						lang_to_formatters = {
+							python = { "ruff_fix", "ruff_organize_imports", "ruff_format" },
+							r = { "rprettify" },
+							sql = { "sql_formatter" },
+						},
+					},
+				},
 			},
 
 			formatters_by_ft = {
@@ -31,10 +41,10 @@ return {
 				sql = { "sql_formatter" },
 				tex = { "latexindent" },
 				yaml = { "prettierd" },
-				-- Conform will run multiple formatters sequentially
 				python = { "ruff_fix", "ruff_organize_imports", "ruff_format" },
 				-- Use a sub-list to run only the first available formatter
-				javascript = { { "prettierd", "prettier" } },
+				javascript = { "prettierd", "prettier" },
+				["*"] = { "injected" },
 			},
 
 			format_on_save = function(bufnr)
@@ -73,5 +83,8 @@ return {
 				return { lsp_fallback = true }
 			end,
 		})
+		-- require("conform").formatters.sql_formatter = {
+		-- 	prepend_args = { "-c", vim.fn.expand("~/.config/sql_formatter.json") },
+		-- }
 	end,
 }

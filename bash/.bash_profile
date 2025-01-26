@@ -1,15 +1,6 @@
 #start sway
 [ "$(tty)" = "/dev/tty1" ] && exec sway
 
-#mandatory for rust
-. "$HOME/.cargo/env"
-
-#makes tmux consider what is in this bashrc
-source ~/.bashrc
-
-#fuck alias
-eval "$(thefuck --alias)"
-
 # GTK
 export GTK_THEME=Adwaita-One-Dark
 export MOZ_ENABLE_WAYLAND=1 # only start firefox in wayland mode and no other GTK apps

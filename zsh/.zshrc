@@ -94,6 +94,7 @@ source $HOME/.config/fzf/config.zsh
 
 # Pixi
 eval "$(pixi completion --shell zsh)"
+export PATH=$PATH:$HOME/.pixi/bin
 
 # PATH
 export PATH=$PATH:$HOME/dotfiles/scripts/scripts

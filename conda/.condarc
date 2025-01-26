@@ -17,13 +17,17 @@ channel_priority: strict
 
 create_default_packages:
   - conda-tree
+  - ipykernel
   - ipython
-  - jupyter
+  - jupyterlab
+  - jupyter_client
+  - jupyter_console
+  - kaleido-core
   - matplotlib
   - numpy
   - opencv
   - pandas
   - plotly
-  - python-kaleido
+  - pyperclip
   - scipy
   - seaborn

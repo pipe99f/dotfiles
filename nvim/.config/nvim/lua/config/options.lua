@@ -15,6 +15,7 @@ opt.encoding = "utf-8"
 opt.matchpairs = { "(:)", "{:}", "[:]", "<:>" }
 opt.syntax = "enable"
 opt.history = 500
+g.python3_host_prog = vim.fn.expand("~/.pixi/envs/data-science-env/bin/python3")
 
 -- indention
 opt.autoindent = true

@@ -24,13 +24,4 @@ if [[ -z $DISPLAY && $TTY = /dev/tty1 ]]; then
   exec sway
 fi
 
-#mandatory for rust
-# . "$HOME/.cargo/env"
-
-#makes tmux consider what is in this bashrc
-source ~/.zshrc
-source ~/.priv
-
-#fuck alias
-eval $(thefuck --alias)
 

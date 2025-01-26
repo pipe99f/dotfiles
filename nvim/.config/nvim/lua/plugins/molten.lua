@@ -72,45 +72,37 @@ return {
 			{ desc = "open output in browser", silent = true }
 		)
 
-		-- Keeping cell outputs in both .md and .ipynb files
-		-- automatically import output chunks from a jupyter notebook
-		-- tries to find a kernel that matches the kernel in the jupyter notebook
-		-- falls back to a kernel that matches the name of the active venv (if any)
-		local imb = function(e) -- init molten buffer
-			vim.schedule(function()
-				local kernels = vim.fn.MoltenAvailableKernels()
-				local try_kernel_name = function()
-					local metadata = vim.json.decode(io.open(e.file, "r"):read("a"))["metadata"]
-					return metadata.kernelspec.name
+		local find_correct_conda_kernel = function()
+			local venv = os.getenv("CONDA_DEFAULT_ENV")
+			local kernel_path = vim.fn.expand("~/.local/share/jupyter/kernels/") .. venv .. "/kernel.json"
+			if venv ~= nil then
+				if vim.fn.filereadable(kernel_path) == 1 then
+					vim.cmd(("MoltenInit %s"):format(venv))
+				else
+					vim.notify("Creating new kernel " .. venv, vim.log.levels.INFO)
+					vim.fn.system(("python -m ipykernel install --user --name %s"):format(venv))
+					vim.cmd(("MoltenInit %s"):format(venv))
 				end
-				local ok, kernel_name = pcall(try_kernel_name)
-				if not ok or not vim.tbl_contains(kernels, kernel_name) then
-					kernel_name = nil
-					local venv = os.getenv("VIRTUAL_ENV")
-					if venv ~= nil then
-						kernel_name = string.match(venv, "/.+/(.+)")
-					end
-				end
-				if kernel_name ~= nil and vim.tbl_contains(kernels, kernel_name) then
-					vim.cmd(("MoltenInit %s"):format(kernel_name))
-				end
-				vim.cmd("MoltenImportOutput")
-			end)
+			else
+				vim.cmd("MoltenInit python3")
+			end
 		end
 
-		-- automatically import output chunks from a jupyter notebook
 		vim.api.nvim_create_autocmd("BufAdd", {
 			pattern = { "*.ipynb" },
-			callback = imb,
+			callback = function()
+				find_correct_conda_kernel()
+			end,
 		})
 
 		-- we have to do this as well so that we catch files opened like nvim ./hi.ipynb
 		vim.api.nvim_create_autocmd("BufEnter", {
 			pattern = { "*.ipynb" },
-			callback = function(e)
+			callback = function()
 				if vim.api.nvim_get_vvar("vim_did_enter") ~= 1 then
-					imb(e)
+					find_correct_conda_kernel()
 				end
+				-- automatically import output chunks from a jupyter notebook
 			end,
 		})
 

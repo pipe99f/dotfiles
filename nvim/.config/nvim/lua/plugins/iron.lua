@@ -12,20 +12,27 @@ return {
 				repl_definition = {
 					-- python = require("iron.fts.python").ipython,
 					python = {
-						command = { "jupyter-console" },
-						format = require("iron.fts.common").bracketed_paste,
+						command = { "ipython", "--no-autoindent", "--matplotlib=tkagg" },
+						format = require("iron.fts.common").bracketed_paste_python,
 						block_deviders = { "# %%", "#%%" },
 					},
 					markdown = {
-						command = { "jupyter-console" },
-						format = require("iron.fts.common").bracketed_paste,
+						command = { "ipython", "--no-autoindent", "--matplotlib=tkagg" },
+						format = require("iron.fts.common").bracketed_paste_python,
+						block_deviders = { "# %%", "#%%" },
 					},
+					-- python = {
+					-- 	command = { "jupyter-console" },
+					-- 	format = require("iron.fts.common").bracketed_paste,
+					-- 	block_deviders = { "# %%", "#%%" },
+					-- },
+					-- markdown = {
+					-- 	command = { "jupyter-console" },
+					-- 	format = require("iron.fts.common").bracketed_paste,
+					-- },
 					quarto = {
 						command = { "jupyter-console" },
 						format = require("iron.fts.common").bracketed_paste,
-					},
-					sh = {
-						command = { "zsh" },
 					},
 					r = {
 						command = { "radian" },

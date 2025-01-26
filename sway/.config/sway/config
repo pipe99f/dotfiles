@@ -160,7 +160,7 @@ for_window [window_type = "dialog"] floating enable
 for_window [window_role = "task_dialog"] floating enable
 for_window [window_type = "menu"] floating enable
 for_window [app_id = "floating"] floating enable
-for_window [class = "Matplotlib" title = "Figure 1"] floating enable , resize set height 300 , resize set width 380, exec $HOME/.config/sway/scripts/toprightfloat.sh
+for_window [class = "Matplotlib" title = "Figure *"] floating enable , resize set height 300 , resize set width 380, exec $HOME/.config/sway/scripts/toprightfloat.sh
 for_window [class = "R_x11" instance = "r_x11"] floating enable , resize set height 300 , resize set width 380, exec $HOME/.config/sway/scripts/toprightfloat.sh
 
 # for_window [app_id = "python3" title = "Jupyter QtConsole"] floating disable

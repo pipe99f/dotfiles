@@ -1,0 +1,11 @@
+{
+  "language": "sql",
+  "tabWidth": 2,
+  "keywordCase": "upper",
+  "identifierCase": "lower",
+  "logicalOperatorNewline": "before",
+  "expressionWidth": 50,
+  "linesBetweenQueries": 2,
+  "denseOperators": false,
+  "newlineBeforeSemicolon": false
+}
