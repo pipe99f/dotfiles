@@ -39,7 +39,7 @@ return {
 		vim.keymap.set("n", "<localleader>sl", ":MoltenEvaluateLine<CR>", { silent = true, desc = "evaluate line" })
 		vim.keymap.set(
 			"n",
-			"<localleader>ss",
+			"<localleader>sb",
 			":MoltenReevaluateCell<CR>",
 			{ silent = true, desc = "re-evaluate cell" }
 		)

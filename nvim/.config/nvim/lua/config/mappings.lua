@@ -128,7 +128,8 @@ vim.keymap.set("n", "<leader>db", "<CMD>DapToggleBreakpoint<CR>")
 vim.keymap.set("n", "<leader>dpr", "<CMD>lua require('dap-python').test_method()<CR>")
 
 --Iron
-map("n", "<leader>ti", "<cmd>IronRepl<CR>", opts) -- toggle iron REPL
+-- map("n", "<leader>ti", "<cmd>IronRepl<CR>", opts) -- toggle iron REPL
+map("n", "<leader>ti", "<cmd>IronAttach<CR>", opts) -- toggle iron REPL
 
 --NvimTree
 map("n", "<leader>n", ":NvimTreeToggle<CR>", { silent = false, noremap = true })

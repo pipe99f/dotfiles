@@ -12,16 +12,6 @@ return {
 			-- Your setup opts here
 		},
 	},
-	-- {
-	-- 	"j-hui/fidget.nvim",
-	-- 	opts = {
-	-- 		notification = {
-	-- 			window = {
-	-- 				winblend = 0,
-	-- 			},
-	-- 		},
-	-- 	},
-	-- },
 
 	-----------
 	----cmp----
@@ -200,7 +190,7 @@ return {
 			vim.keymap.set("n", "<localleader>sa", runner.run_above, { desc = "run cell and above", silent = true })
 			vim.keymap.set("n", "<localleader>sA", runner.run_all, { desc = "run all cells", silent = true })
 			vim.keymap.set("n", "<localleader>sl", runner.run_line, { desc = "run line", silent = true })
-			vim.keymap.set("v", "<localleader>s", runner.run_range, { desc = "run visual range", silent = true })
+			-- vim.keymap.set("v", "<localleader>s", runner.run_range, { desc = "run visual range", silent = true })
 		end,
 	},
 	{ -- preview equations
@@ -442,7 +432,7 @@ return {
 		ft = "python",
 		dependencies = {
 			-- "echasnovski/mini.comment",
-			"hkupty/iron.nvim", -- repl provider
+			-- "hkupty/iron.nvim", -- repl provider
 			-- "akinsho/toggleterm.nvim", -- alternative repl provider
 			-- "benlubas/molten-nvim", -- alternative repl provider
 			{ "nvimtools/hydra.nvim", event = "VeryLazy" },
@@ -547,14 +537,6 @@ return {
 			require("colorizer").setup()
 		end,
 	},
-	{
-		"rcarriga/nvim-notify",
-		config = function()
-			require("notify").setup({
-				background_colour = "#000000",
-			})
-		end,
-	},
 	-- {
 	-- 	"HampusHauffman/block.nvim",
 	-- 	config = function()
@@ -636,7 +618,7 @@ return {
 	},
 
 	{
-		"nvim-focus/focus.nvim",
+		"nvim-focus/focus.nvim", -- Auto resize splits
 		version = false,
 		events = "VeryLazy",
 		cmd = "FocusToggle",
@@ -645,7 +627,7 @@ return {
 		end,
 	},
 	{
-		"aaronik/treewalker.nvim",
+		"aaronik/treewalker.nvim", -- Move fast between treesitter nodes
 		event = "BufEnter",
 
 		-- The following options are the defaults.
@@ -682,6 +664,18 @@ return {
 	----Others----
 	--------------
 	-- { "nvim-lua/plenary.nvim", lazy = true },
+	-- { "Vimjas/vim-python-pep8-indent" },
+	-- "tpope/vim-sleuth",
+	{
+		"nmac427/guess-indent.nvim", -- adjust indent style used in buffer
+		config = function()
+			require("guess-indent").setup({
+				filetype_exclude = { -- A list of filetypes for which the auto command gets disabled
+					"lua",
+				},
+			})
+		end,
+	},
 	{
 		"ahmedkhalf/project.nvim",
 		opts = {

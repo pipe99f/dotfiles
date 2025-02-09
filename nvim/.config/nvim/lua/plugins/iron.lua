@@ -21,6 +21,11 @@ return {
 						format = require("iron.fts.common").bracketed_paste_python,
 						block_deviders = { "# %%", "#%%" },
 					},
+					quarto = {
+						command = { "ipython", "--no-autoindent", "--matplotlib=tkagg" },
+						format = require("iron.fts.common").bracketed_paste,
+						block_deviders = { "```" },
+					},
 					-- python = {
 					-- 	command = { "jupyter-console" },
 					-- 	format = require("iron.fts.common").bracketed_paste,
@@ -30,10 +35,11 @@ return {
 					-- 	command = { "jupyter-console" },
 					-- 	format = require("iron.fts.common").bracketed_paste,
 					-- },
-					quarto = {
-						command = { "jupyter-console" },
-						format = require("iron.fts.common").bracketed_paste,
-					},
+					-- quarto = {
+					-- 	command = { "jupyter-console" },
+					-- 	format = require("iron.fts.common").bracketed_paste,
+					-- 	block_deviders = { "```" },
+					-- },
 					r = {
 						command = { "radian" },
 					},

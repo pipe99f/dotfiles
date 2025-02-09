@@ -1,6 +1,6 @@
 return {
 	"R-nvim/R.nvim",
-	ft = { "r", "rmd" },
+	ft = { "r", "rmd", "quarto" },
 	keys = {
 		{ -- Restart graphic device and open in browser
 			"<LocalLeader>gd",
@@ -13,6 +13,8 @@ return {
 	config = function()
 		local opts = {
 			R_args = { "--quiet", "--no-save" },
+			disable_cmds = { "RSendChain" },
+			-- user_maps_only = true,
 			hook = {
 				on_filetype = function()
 					-- This function will be called at the FileType event

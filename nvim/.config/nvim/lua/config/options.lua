@@ -1,29 +1,19 @@
 local opt = vim.opt
 local g = vim.g
-local indent = 2
-
-vim.cmd([[
-      filetype on
-      filetype plugin on
-      filetype indent on
-]])
 
 -- misc
 opt.backspace = { "eol", "start", "indent" }
-opt.clipboard = vim.env.SSH_TTY and "" or "unnamedplus" -- Sync with system clipboard
+vim.schedule(function()
+	opt.clipboard = vim.env.SSH_TTY and "" or "unnamedplus" -- Sync with system clipboard
+end)
 opt.encoding = "utf-8"
 opt.matchpairs = { "(:)", "{:}", "[:]", "<:>" }
 opt.syntax = "enable"
 opt.history = 500
+g.have_nerd_font = true
+opt.breakindent = true
 g.python3_host_prog = vim.fn.expand("~/.pixi/envs/data-science-env/bin/python3")
-
--- indention
-opt.autoindent = true
-opt.expandtab = true
-opt.shiftwidth = indent
-opt.smartindent = true
-opt.softtabstop = indent
-opt.tabstop = indent
+opt.inccommand = "split" -- substitutions preview in a split
 
 -- search
 opt.hlsearch = false
@@ -39,11 +29,12 @@ vim.o.ch = 0 --removes bottom blank space. Makes statusline flicker
 opt.cursorline = true
 opt.lazyredraw = true
 opt.list = true
+opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
 opt.mouse = "a"
 opt.number = true
 opt.numberwidth = 2
 opt.relativenumber = true
-opt.scrolloff = 9
+opt.scrolloff = 10
 opt.showmode = false
 opt.sidescrolloff = 3 -- Lines to scroll horizontally
 opt.signcolumn = "yes"
@@ -76,4 +67,4 @@ opt.shortmess = opt.shortmess + { c = true }
 opt.redrawtime = 1500
 opt.timeoutlen = 400
 opt.ttimeoutlen = 10
-opt.updatetime = 200
+opt.updatetime = 250

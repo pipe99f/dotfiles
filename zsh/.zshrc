@@ -73,6 +73,10 @@ export XDG_CURRENT_DESKTOP=sway
 
 #QT
 export QT_QPA_PLATFORMTHEME=qt6ct
+#This makes matplotlib qt backend work
+export QT_STYLE_OVERRIDE="Fusion"
+export QT_QPA_PLATFORM=xcb
+
 
 #Spellchecking
 setopt correct

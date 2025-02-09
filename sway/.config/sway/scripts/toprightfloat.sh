@@ -24,4 +24,5 @@ rborderalign=$((monitor_width - window_width))
 # swaymsg "[class = "Matplotlib"] resize set width ${window_width}"
 
 swaymsg "[class = "Matplotlib" instance = "matplotlib"] move position ${rborderalign} -45"
+# swaymsg "[title = "Figure *"] move position ${rborderalign} -45"
 swaymsg "[class = "R_x11" instance = "r_x11"] move position ${rborderalign} 0"

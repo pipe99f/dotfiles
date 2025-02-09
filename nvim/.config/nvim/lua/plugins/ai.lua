@@ -20,6 +20,7 @@ return {
 					api_key_name = "DEEPSEEK_API_KEY",
 					endpoint = "https://api.deepseek.com",
 					model = "deepseek-chat",
+					-- model = "deepseek-reasoner", -- two times more expensive than deepseek-chat
 					timeout = 30000, -- Timeout in milliseconds
 					temperature = 0,
 					max_tokens = 4096,
@@ -75,27 +76,24 @@ return {
 		config = function()
 			require("codecompanion").setup({
 				-- Can't find a way to setup deekseek
-				-- 	strategies = {
-				-- 		chat = { adapter = "ollama" },
-				-- 		inline = { adapter = "copilot" },
-				-- 	},
-				--
-				-- 	adapters = { -- default seems to be copilot
-				-- 		ollama = function()
-				-- 			return require("codecompanion.adapters").extend("openai_compatible", {
-				-- 				env = {
-				-- 					url = "https://api.deepseek.com", -- optional: default value is ollama url http://127.0.0.1:11434
-				-- 					api_key = "DEEPSEEK_API_KEY", -- optional: if your endpoint is authenticated
-				-- 					-- chat_url = "/v1/chat/completions", -- optional: default value, override if different
-				-- 				},
-				-- 				schema = {
-				-- 					model = {
-				-- 						default = "deepseek-chat",
-				-- 					},
-				-- 				},
-				-- 			})
-				-- 		end,
-				-- 	},
+				strategies = {
+					chat = { adapter = "deepseek" },
+					inline = { adapter = "deepseek" },
+				},
+				adapters = {
+					deepseek = function()
+						return require("codecompanion.adapters").extend("deepseek", {
+							env = {
+								api_key = "DEEPSEEK_API_KEY",
+							},
+							schema = {
+								model = {
+									default = "deepseek-chat",
+								},
+							},
+						})
+					end,
+				},
 			})
 		end,
 	},
