@@ -29,9 +29,6 @@ vim.cmd("map re gD:%s/<C-R>///gc<left><left><left>")
 --Ctrl+Backspace deletes word
 vim.keymap.set("i", "<C-h>", "<C-w>")
 
---Enter in normal mode deletes word
--- vim.keymap.set("n", "<cr>", "ciw")
-
 --avoid placing cursor at the beginning when yanking in visual mode
 vim.keymap.set("v", "y", "may`a")
 
@@ -134,29 +131,17 @@ map("n", "<leader>ti", "<cmd>IronAttach<CR>", opts) -- toggle iron REPL
 --NvimTree
 map("n", "<leader>n", ":NvimTreeToggle<CR>", { silent = false, noremap = true })
 
+-- Rename
+vim.keymap.set("n", "<leader>rn", function()
+	return ":IncRename " .. vim.fn.expand("<cword>")
+end, { expr = true })
+
 -- Toggleterm
 vim.keymap.set("n", "<A-i>", "<CMD>lua _hiddenFloat()<CR>")
 vim.keymap.set("t", "<A-i>", "<C-\\><C-n><CMD>:lua _hiddenFloat()<CR>")
 map("n", "<A-g>", "<cmd>lua _lazygit_toggle()<CR>", { noremap = true, silent = true })
 map("t", "<A-g>", "<C-\\><C-n><cmd>lua _lazygit_toggle()<CR>", { noremap = true, silent = true })
 -- con alt-\ se abre una terminal en la parte inferior.
-
---Symbols Outline
-vim.keymap.set("n", "<A-o>", "<cmd>Outline<CR>", { desc = "Toggle Outline" })
-
---Spectre
-vim.keymap.set("n", "<leader>S", '<cmd>lua require("spectre").open()<CR>', {
-	desc = "Open Spectre",
-})
-vim.keymap.set("n", "<leader>sw", '<cmd>lua require("spectre").open_visual({select_word=true})<CR>', {
-	desc = "Search current word",
-})
-vim.keymap.set("v", "<leader>sw", '<esc><cmd>lua require("spectre").open_visual()<CR>', {
-	desc = "Search current word",
-})
-vim.keymap.set("n", "<leader>sp", '<cmd>lua require("spectre").open_file_search({select_word=true})<CR>', {
-	desc = "Search on current file",
-})
 
 --Telescope
 map("n", "<leader>tk", ':<cmd>lua require("telescope.builtin").keymaps()<cr>', { silent = false, noremap = true })

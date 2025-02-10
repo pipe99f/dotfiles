@@ -11,6 +11,12 @@ return {
 		priority = 1000,
 		opts = {
 			integrations = {
+				blink_cmp = true,
+				dropbar = {
+					enabled = true,
+					color_mode = true, -- enable color for kind's texts, not just kind's icons
+				},
+				grug_far = true,
 				leap = true,
 				lsp_saga = true,
 				mason = true,
@@ -27,8 +33,10 @@ return {
 				noice = true,
 				notify = true,
 				lsp_trouble = true,
+				octo = true,
 				overseer = true,
 				snacks = true,
+				which_key = true,
 			},
 		},
 	},

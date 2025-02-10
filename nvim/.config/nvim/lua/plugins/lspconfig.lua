@@ -3,39 +3,22 @@ return {
 	{
 		"neovim/nvim-lspconfig",
 		event = { "BufReadPre", "BufNewFile" },
-		dependencies = { "williamboman/mason.nvim" },
-	},
-	{
-		"VonHeikemen/lsp-zero.nvim",
-		branch = "v3.x",
-		dependencies = {
-			"p00f/clangd_extensions.nvim",
-			"glepnir/lspsaga.nvim",
-			"mrcjkb/rustaceanvim",
-			-- "scalameta/nvim-metals",
-		},
+		dependencies = { "williamboman/mason.nvim", "saghen/blink.cmp" },
 		config = function()
-			local lsp_zero = require("lsp-zero")
-			lsp_zero.extend_lspconfig()
-
-			lsp_zero.on_attach(function(client, bufnr)
-				-- see :help lsp-zero-keybindings
-				-- to learn the available actions
-				lsp_zero.default_keymaps({ buffer = bufnr })
-			end)
-
-			require("lspconfig").bashls.setup({})
-			require("lspconfig").cssls.setup({})
-			require("lspconfig").html.setup({})
-			require("lspconfig").ltex.setup({})
-			require("lspconfig").marksman.setup({})
-			require("lspconfig").nim_langserver.setup({})
-			require("lspconfig").r_language_server.setup({})
-			require("lspconfig").sqlls.setup({})
-			require("lspconfig").texlab.setup({})
-			require("lspconfig").ts_ls.setup({})
+			local capabilities = require("blink.cmp").get_lsp_capabilities()
+			require("lspconfig").bashls.setup({ capabilities = capabilities })
+			require("lspconfig").cssls.setup({ capabilities = capabilities })
+			require("lspconfig").html.setup({ capabilities = capabilities })
+			require("lspconfig").ltex.setup({ capabilities = capabilities })
+			require("lspconfig").marksman.setup({ capabilities = capabilities })
+			require("lspconfig").nim_langserver.setup({ capabilities = capabilities })
+			require("lspconfig").r_language_server.setup({ capabilities = capabilities })
+			require("lspconfig").sqlls.setup({ capabilities = capabilities })
+			require("lspconfig").texlab.setup({ capabilities = capabilities })
+			require("lspconfig").ts_ls.setup({ capabilities = capabilities })
 
 			require("lspconfig").clangd.setup({
+				capabilities = capabilities,
 				cmd = {
 					"clangd",
 					"--background-index",
@@ -67,6 +50,7 @@ return {
 			})
 
 			require("lspconfig").gopls.setup({
+				capabilities = capabilities,
 				settings = {
 					gopls = {
 						gofumpt = true,
@@ -106,6 +90,7 @@ return {
 			})
 
 			require("lspconfig").lua_ls.setup({
+				capabilities = capabilities,
 				settings = {
 					Lua = {
 						runtime = {
@@ -123,6 +108,7 @@ return {
 			})
 
 			require("lspconfig").pyright.setup({
+				capabilities = capabilities,
 				filetypes = { "python" },
 				settings = {
 					python = {
@@ -139,7 +125,7 @@ return {
 	{
 		"p00f/clangd_extensions.nvim",
 		lazy = true,
-		ft = { c, cpp },
+		ft = { "c", "cpp" },
 		config = function() end,
 		opts = {
 			-- inlay_hints = {
@@ -182,7 +168,8 @@ return {
 			metals_config.init_options.statusBarProvider = "off"
 
 			-- metals_config.capabilities = require("cmp_nvim_lsp").default_capabilities()
-			metals_config.capabilities = require("lsp-zero").get_capabilities()
+			-- metals_config.capabilities = require("lsp-zero").get_capabilities()
+			metals_config.capabilities = require("blink.cmp").get_lsp_capabilities()
 
 			metals_config.on_attach = function(client, bufnr)
 				require("metals").setup_dap()
@@ -207,7 +194,8 @@ return {
 		config = function()
 			vim.g.rustaceanvim = {
 				server = {
-					capabilities = require("lsp-zero").get_capabilities(),
+					-- capabilities = require("lsp-zero").get_capabilities(),
+					capabilities = require("blink.cmp").get_lsp_capabilities(),
 					default_settings = {
 						-- rust-analyzer language server configuration
 						["rust-analyzer"] = {

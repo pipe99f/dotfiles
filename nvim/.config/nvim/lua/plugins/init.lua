@@ -5,87 +5,29 @@ return {
 	-----------
 
 	{
+		"smjonas/inc-rename.nvim",
+		cmd = "IncRename",
+		opts = {},
+	},
+	{
 		"hedyhli/outline.nvim",
-		lazy = true,
-		cmd = { "Outline", "OutlineOpen" },
-		opts = {
-			-- Your setup opts here
-		},
+		keys = { { "<M-o>", "<cmd>Outline<cr>", desc = "Toggle Outline" } },
+		cmd = "Outline",
+		opts = {},
 	},
-
-	-----------
-	----cmp----
-	-----------
-
-	{ "onsails/lspkind.nvim", event = "VeryLazy" },
 	{
-		"lkhphuc/jupyter-kernel.nvim",
-		opts = {
-			inspect = {
-				-- opts for vim.lsp.util.open_floating_preview
-				window = {
-					max_width = 84,
-				},
-			},
-			-- time to wait for kernel's response in seconds
-			timeout = 0.5,
-		},
-		cmd = { "JupyterAttach", "JupyterInspect", "JupyterExecute" },
-		build = ":UpdateRemotePlugins",
-		keys = { { "<leader>k", "<Cmd>JupyterInspect<CR>", desc = "Inspect object in kernel" } },
-	},
-
-	----------------
-	----Snippets----
-	----------------
-
-	{
-		"L3MON4D3/LuaSnip",
-		event = "InsertEnter",
-
-		-- these dependencies will only be loaded when luasnip loads
+		"Bekaboo/dropbar.nvim",
+		-- optional, but required for fuzzy finder support
 		dependencies = {
-			{ --vscode-like
-				"rafamadriz/friendly-snippets",
-				config = function()
-					require("luasnip.loaders.from_vscode").lazy_load()
-				end,
-			},
-			{ --snipmate-like (el plugin de snipmate no incluye ningún snippet)
-				"honza/vim-snippets",
-				config = function()
-					require("luasnip.loaders.from_snipmate").lazy_load()
-				end,
-			},
-			"evesdropper/luasnip-latex-snippets.nvim",
+			"nvim-telescope/telescope-fzf-native.nvim",
+			build = "make",
 		},
-	},
-
-	{
-		"mikavilpas/yazi.nvim",
-		-- event = "VeryLazy",
-		keys = {
-			-- 👇 in this section, choose your own keymappings!
-			{
-				"<leader>-",
-				function()
-					require("yazi").yazi()
-				end,
-				desc = "Open the file manager",
-			},
-			{
-				-- Open in the current working directory
-				"<leader>cw",
-				function()
-					require("yazi").yazi(nil, vim.fn.getcwd())
-				end,
-				desc = "Open the file manager in nvim's working directory",
-			},
-		},
-		---@type YaziConfig
-		opts = {
-			open_for_directories = false,
-		},
+		config = function()
+			local dropbar_api = require("dropbar.api")
+			vim.keymap.set("n", "<Leader>;", dropbar_api.pick, { desc = "Pick symbols in winbar" })
+			vim.keymap.set("n", "[;", dropbar_api.goto_context_start, { desc = "Go to start of current context" })
+			vim.keymap.set("n", "];", dropbar_api.select_next_context, { desc = "Select next context" })
+		end,
 	},
 
 	{ "ThePrimeagen/vim-be-good", cmd = "VimBeGood" },
@@ -115,6 +57,15 @@ return {
 		},
 		cmd = { "Neogit" },
 		config = true,
+	},
+	{
+		"pwntester/octo.nvim", -- Issues and PR's
+		cmd = "Octo",
+		opts = {
+			enable_builtin = true,
+			default_merge_method = "squash",
+			-- default_to_projects_v2 = true,
+		},
 	},
 
 	{
@@ -157,10 +108,10 @@ return {
 		dependencies = {
 			{
 				"jmbuhr/otter.nvim",
-				dev = false,
-				config = function()
-					require("otter").setup()
-				end,
+				dependencies = {
+					"nvim-treesitter/nvim-treesitter",
+				},
+				opts = {},
 			},
 		},
 		config = function()
@@ -265,16 +216,6 @@ return {
 			file_types = { "quarto", "rmd", "markdown", "Avante", "codecompanion" },
 		},
 	},
-	-- {
-	-- 	"OXY2DEV/markview.nvim",
-	-- 	ft = { "markdown", "rmd", "pandoc.markdown" },
-	-- 	-- dependencies = {
-	-- 	-- 	-- You may not need this if you don't lazy load
-	-- 	-- 	-- Or if the parsers are in your $RUNTIMEPATH
-	-- 	-- 	"nvim-treesitter/nvim-treesitter",
-	-- 	-- 	"nvim-tree/nvim-web-devicons",
-	-- 	-- },
-	-- },
 	{
 		"iamcco/markdown-preview.nvim",
 		build = function()
@@ -423,10 +364,10 @@ return {
 
 	{ "michaelb/sniprun", build = "bash ./install.sh", cmd = "SnipRun" },
 	{
-		"milanglacier/yarepl.nvim",
+		"milanglacier/yarepl.nvim", -- data science use case
 		cmd = "REPLStart",
 		config = true,
-	}, -- data science use case
+	},
 	{
 		"GCBallesteros/NotebookNavigator.nvim",
 		ft = "python",
@@ -472,38 +413,12 @@ return {
 	--------------------------
 
 	{ "nvim-tree/nvim-web-devicons" },
-	-- {
-	-- 	"folke/noice.nvim",
-	-- 	event = "VeryLazy",
-	-- 	opts = {
-	-- 		messages = {
-	-- 			-- NOTE: If you enable messages, then the cmdline is enabled automatically.
-	-- 			-- This is a current Neovim limitation.
-	-- 			enabled = true,
-	-- 			view = "mini", -- default view for messages
-	-- 			view_error = "mini", -- view for errors
-	-- 			view_warn = "mini", -- view for warnings
-	-- 		},
-	-- 		lsp = {
-	-- 			progress = {
-	-- 				enabled = false,
-	-- 			},
-	-- 			signature = {
-	-- 				enabled = false,
-	-- 			},
-	-- 		},
-	-- 		dependencies = {
-	-- 			"MunifTanjim/nui.nvim",
-	-- 			"rcarriga/nvim-notify",
-	-- 		},
-	-- 	},
-	-- },
 	{
 		"nvim-treesitter/nvim-treesitter-context",
 		cmd = { "TSContextEnable", "TSContextToggle" },
 	},
 	{
-		"tamton-aquib/staline.nvim",
+		"tamton-aquib/staline.nvim", -- status line
 		config = function()
 			require("staline").setup({
 				sections = {
@@ -531,18 +446,23 @@ return {
 	},
 	{ "HiPhish/rainbow-delimiters.nvim" },
 	{
-		"norcalli/nvim-colorizer.lua",
+		"norcalli/nvim-colorizer.lua", -- hex code colorizer
 		event = "VeryLazy",
 		config = function()
 			require("colorizer").setup()
 		end,
 	},
-	-- {
-	-- 	"HampusHauffman/block.nvim",
-	-- 	config = function()
-	-- 		require("block").setup({})
-	-- 	end,
-	-- },
+	{
+		"nmac427/guess-indent.nvim", -- adjust indent following current buffer style
+		event = "VeryLazy",
+		config = function()
+			require("guess-indent").setup({
+				filetype_exclude = { -- A list of filetypes for which the auto command gets disabled
+					"lua",
+				},
+			})
+		end,
+	},
 
 	------------------
 	----Efficiency----
@@ -616,6 +536,20 @@ return {
 		opts = {},
 		event = "VeryLazy",
 	},
+	{
+		"danymat/neogen", -- Fast annotions using treesitter
+		keys = {
+			{
+				"gcn",
+				function()
+					require("neogen").generate()
+				end,
+				desc = "Neogen annotation",
+			},
+		},
+		cmd = "Neogen",
+		config = true,
+	},
 
 	{
 		"nvim-focus/focus.nvim", -- Auto resize splits
@@ -625,6 +559,11 @@ return {
 		config = function()
 			require("focus").setup()
 		end,
+	},
+	{
+		"nvimtools/hydra.nvim",
+		event = "VeryLazy",
+		config = function() end,
 	},
 	{
 		"aaronik/treewalker.nvim", -- Move fast between treesitter nodes
@@ -659,22 +598,72 @@ return {
 			vim.keymap.set("n", "<M-S-h>", "<cmd>Treewalker SwapLeft<CR>", { silent = true })
 		end,
 	},
+	{
+		"MagicDuck/grug-far.nvim", -- Find and replace
+		cmd = "GrugFar",
+		keys = {
+			{
+				"<leader>sr",
+				function()
+					local grug = require("grug-far")
+					local ext = vim.bo.buftype == "" and vim.fn.expand("%:e")
+					grug.open({
+						transient = true,
+						prefills = {
+							filesFilter = ext and ext ~= "" and "*." .. ext or nil,
+						},
+					})
+				end,
+				mode = { "n", "v" },
+				desc = "Search and Replace",
+			},
+		},
+		config = function()
+			require("grug-far").setup({
+				-- engine = 'ripgrep' is default, but 'astgrep' can be specified
+			})
+		end,
+	},
 
 	--------------
 	----Others----
 	--------------
 	-- { "nvim-lua/plenary.nvim", lazy = true },
 	-- { "Vimjas/vim-python-pep8-indent" },
-	-- "tpope/vim-sleuth",
 	{
-		"nmac427/guess-indent.nvim", -- adjust indent style used in buffer
-		config = function()
-			require("guess-indent").setup({
-				filetype_exclude = { -- A list of filetypes for which the auto command gets disabled
-					"lua",
-				},
-			})
-		end,
+		"mikavilpas/yazi.nvim",
+		-- event = "VeryLazy",
+		keys = {
+			-- 👇 in this section, choose your own keymappings!
+			{
+				"<leader>-",
+				function()
+					require("yazi").yazi()
+				end,
+				desc = "Open the file manager",
+			},
+			{
+				-- Open in the current working directory
+				"<leader>cw",
+				function()
+					require("yazi").yazi(nil, vim.fn.getcwd())
+				end,
+				desc = "Open the file manager in nvim's working directory",
+			},
+		},
+		---@type YaziConfig
+		opts = {
+			open_for_directories = false,
+		},
+	},
+	{
+		"gbprod/yanky.nvim",
+		event = "VeryLazy",
+		opts = {
+			-- your configuration comes here
+			-- or leave it empty to use the default settings
+			-- refer to the configuration section below
+		},
 	},
 	{
 		"ahmedkhalf/project.nvim",
@@ -706,13 +695,6 @@ return {
 		-- which this plugin will affect (see :help autocommand-pattern).
 		opts = { pattern = "*" },
 		dependencies = { "nvim-treesitter/nvim-treesitter" },
-	},
-	{
-		"nvim-pack/nvim-spectre",
-		cmd = "Spectre",
-		config = function()
-			require("spectre").setup()
-		end,
 	},
 	{ -- Create scratch buffer
 		"LintaoAmons/scratch.nvim",

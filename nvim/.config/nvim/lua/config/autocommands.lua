@@ -4,26 +4,6 @@ vim.api.nvim_create_augroup("resize_splits", { clear = true })
 vim.api.nvim_create_augroup("close_with_q", { clear = true })
 vim.api.nvim_create_augroup("Make", { clear = true })
 
--- set autochdir for certain folders
-
--- highlight yanks
-vim.api.nvim_create_autocmd("TextYankPost", {
-	group = "bufcheck",
-	pattern = "*",
-	callback = function()
-		vim.highlight.on_yank({ timeout = 500 })
-	end,
-})
-
--- -- sync clipboards because I'm easily confused. No sé qué hace exactamente pero me está confundiendo
--- vim.api.nvim_create_autocmd("TextYankPost", {
--- 	group = "bufcheck",
--- 	pattern = "*",
--- 	callback = function()
--- 		fn.setreg("+", fn.getreg("*"))
--- 	end,
--- })
-
 -- start terminal in insert mode
 -- vim.api.nvim_create_autocmd('TermOpen',     {
 --     group    = 'bufcheck',
