@@ -658,7 +658,7 @@ return {
 	},
 	{
 		"gbprod/yanky.nvim",
-		event = "VeryLazy",
+		event = "BufEnter",
 		opts = {
 			-- your configuration comes here
 			-- or leave it empty to use the default settings
@@ -693,6 +693,7 @@ return {
 		"wurli/contextindent.nvim",
 		-- This is the only config option; you can use it to restrict the files
 		-- which this plugin will affect (see :help autocommand-pattern).
+		ft = { "markdown", "pandoc.markdown", "quarto", "org", "html" },
 		opts = { pattern = "*" },
 		dependencies = { "nvim-treesitter/nvim-treesitter" },
 	},

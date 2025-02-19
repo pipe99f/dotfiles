@@ -88,6 +88,9 @@ return {
 					enabled = true,
 				},
 			},
+			list = {
+				selection = { preselect = false },
+			},
 			menu = {
 				border = "rounded",
 				winblend = 0,
@@ -112,20 +115,20 @@ return {
 			},
 			documentation = {
 				auto_show = true,
-				auto_show_delay_ms = 200,
+				auto_show_delay_ms = 250,
 				window = {
 					border = "rounded",
 					winblend = 0,
 				},
 			},
 			ghost_text = {
-				-- enabled = vim.g.ai_cmp,
 				enabled = false,
 			},
 		},
 		keymap = {
 			-- set to 'none' to disable the 'default' preset
-			preset = "default",
+			-- preset = "default",
+			preset = "none",
 
 			["<S-Tab>"] = { "select_prev", "fallback" },
 			["<Tab>"] = { "select_next", "fallback" },
@@ -150,6 +153,7 @@ return {
 			["<C-e>"] = { "hide", "fallback" },
 
 			["<C-y>"] = { "select_and_accept" },
+			-- ["<CR>"] = { "accept", "fallback" },
 
 			-- control whether the next command will be run when using a function
 			["<C-n>"] = {
@@ -187,7 +191,7 @@ return {
 				"latex_symbols",
 				"copilot",
 				"codeium",
-				"cmp_r",
+				-- "cmp_r",
 				"cmp_dbee",
 				"lazydev",
 			},

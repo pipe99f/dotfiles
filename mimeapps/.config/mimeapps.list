@@ -20,6 +20,7 @@ x-scheme-handler/https=firefox.desktop;
 
 
 inode/directory=thunar.desktop;
+x-scheme-handler/discord=vesktop.desktop
 
 [Added Associations]
 application/x-extension-htm=firefox.desktop;

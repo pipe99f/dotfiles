@@ -1,8 +1,8 @@
 # Disable completion from the language server, config coming from https://github.com/R-nvim/cmp-r
-options(
-  languageserver.server_capabilities =
-    list(completionProvider = FALSE, completionItemResolve = FALSE)
-)
+# options(
+#   languageserver.server_capabilities =
+#     list(completionProvider = FALSE, completionItemResolve = FALSE)
+# )
 
 # Use Rstudio Package Manager as default repo
 # It has precompiled binaries

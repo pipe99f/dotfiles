@@ -17,6 +17,7 @@ return {
 		end)
 		map("n", "gd", "<cmd>Lspsaga peek_definition<CR>", opts)
 		map("n", "<space>ga", "<cmd>Lspsaga code_action<CR>", opts)
+		map("n", "<space>gn", "<cmd>Lspsaga rename<CR>", opts)
 
 		map("n", "gD", "<cmd>lua require'telescope.builtin'.lsp_definitions()<CR>", opts)
 		map("n", "gi", "<cmd>lua require'telescope.builtin'.lsp_implementations()<CR>", opts)

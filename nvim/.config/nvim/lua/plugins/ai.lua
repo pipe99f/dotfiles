@@ -35,7 +35,6 @@ return {
 			"nvim-lua/plenary.nvim",
 			"MunifTanjim/nui.nvim",
 			--- The below dependencies are optional,
-			"hrsh7th/nvim-cmp", -- autocompletion for avante commands and mentions
 			"nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons
 			"zbirenbaum/copilot.lua", -- for providers='copilot'
 			{
@@ -103,7 +102,8 @@ return {
 	------
 	{
 		"Exafunction/codeium.nvim",
-		event = "InsertEnter",
+		-- event = "InsertEnter",
+		cmd = "Codeium",
 		opts = {
 			-- enable_chat = true,
 		},
@@ -125,10 +125,17 @@ return {
 	------
 	-- Supermaven
 	------
-	-- {
-	-- 	"supermaven-inc/supermaven-nvim",
-	-- 	config = function()
-	-- 		require("supermaven-nvim").setup({})
-	-- 	end,
-	-- },
+	{
+		"supermaven-inc/supermaven-nvim",
+		event = "InsertEnter",
+		config = function()
+			require("supermaven-nvim").setup({
+				keymaps = {
+					accept_suggestion = "<M-f>",
+					clear_suggestion = "<C-]>",
+					accept_word = "<C-j>",
+				},
+			})
+		end,
+	},
 }

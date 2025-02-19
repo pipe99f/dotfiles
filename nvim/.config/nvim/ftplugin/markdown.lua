@@ -138,7 +138,6 @@ hydra({
 	config = {
 		color = "pink",
 		invoke_on_body = true,
-
 		hint = {
 			float_opts = {
 				border = "rounded", -- you can change the border if you want
