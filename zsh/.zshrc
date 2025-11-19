@@ -106,6 +106,11 @@ export PATH=$PATH:$HOME/dotfiles/scripts/scripts
 # Python
 # export MPLBACKEND=tkagg # It is used to avoid compatibility problems with matplotlib plots in wayland. Same effect is achieved in a python script using "matplotlib.use('tkagg')". webagg is also good
 # export PLOTLY_RENDERER="chromium"
+export HIP_VISIBLE_DEVICES=0  # solve amdgpu error with pytorch
+export ROCM_PATH=/opt/rocm
+# export PYTORCH_ROCM_ARCH="gfx1034"
+# export HSA_OVERRIDE_GFX_VERSION=10.3.1
+
 
 # Source functions file
 source $HOME/dotfiles/scripts/scripts/functions.zsh

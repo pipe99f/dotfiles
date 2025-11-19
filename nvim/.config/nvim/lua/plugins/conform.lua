@@ -7,18 +7,18 @@ return {
 		local slow_format_filetypes = {}
 		require("conform").setup({
 			formatters = {
-				rprettify = {
-					inherit = false,
-					stdin = false,
-					command = "rprettify",
-					args = { "$FILENAME" },
-				},
+				-- rprettify = {
+				-- 	inherit = false,
+				-- 	stdin = false,
+				-- 	command = "rprettify",
+				-- 	args = { "$FILENAME" },
+				-- },
 				injected = {
 					options = {
 						ignore_errors = false,
 						lang_to_formatters = {
 							python = { "ruff_fix", "ruff_organize_imports", "ruff_format" },
-							r = { "rprettify" },
+							r = { "air" },
 							sql = { "sql_formatter" },
 						},
 					},
@@ -31,19 +31,21 @@ return {
 				css = { "prettierd" },
 				go = { "goimports", "gofumpt" },
 				html = { "prettierd" },
+				-- Use a sub-list to run only the first available formatter
+				javascript = { "prettierd", "prettier" },
 				json = { "prettierd" },
 				lua = { "stylua" },
 				markdown = { "prettierd", "markdownlint" },
-				-- r = { "styler" },
-				r = { "rprettify" },
+				python = { "ruff_fix", "ruff_organize_imports", "ruff_format" },
+				quarto = { "injected" },
+				r = { "air" },
+				rmd = { "injected" },
+				-- r = { "rprettify" },
 				rust = { "rustfmt" },
 				sh = { "shellharden", "shfmt" },
 				sql = { "sql_formatter" },
 				tex = { "latexindent" },
 				yaml = { "prettierd" },
-				python = { "ruff_fix", "ruff_organize_imports", "ruff_format" },
-				-- Use a sub-list to run only the first available formatter
-				javascript = { "prettierd", "prettier" },
 				["*"] = { "injected" },
 			},
 

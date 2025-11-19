@@ -13,10 +13,10 @@ options(repos = "https://packagemanager.rstudio.com/cran/latest")
 options(browser = "chromium")
 
 # httpgd as default graphics device. It will open in brave
-options(device = function() {
-  httpgd::hgd()
-  httpgd::hgd_browse()
-})
+# options(device = function() {
+#   httpgd::hgd()
+#   httpgd::hgd_browse()
+# })
 
 # Improving packages compilation
 local({

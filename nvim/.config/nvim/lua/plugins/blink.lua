@@ -191,7 +191,7 @@ return {
 				"latex_symbols",
 				"copilot",
 				"codeium",
-				-- "cmp_r",
+				"cmp_r",
 				"cmp_dbee",
 				"lazydev",
 			},

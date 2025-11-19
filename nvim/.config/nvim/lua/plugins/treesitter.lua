@@ -23,7 +23,6 @@ return {
 				"lua",
 				"markdown",
 				"markdown_inline",
-				"nim",
 				"norg",
 				"python",
 				"r",

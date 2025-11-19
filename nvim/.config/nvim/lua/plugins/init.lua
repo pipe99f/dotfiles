@@ -218,14 +218,19 @@ return {
 	},
 	{
 		"iamcco/markdown-preview.nvim",
-		build = function()
-			vim.fn["mkdp#util#install"]()
-		end,
+		build = "cd app && yarn install",
+		-- build = function()
+		-- 	vim.fn["mkdp#util#install"]()
+		-- end,
 		ft = { "markdown", "rmd", "pandoc.markdown" },
 		cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
 		config = function()
 			vim.cmd([[let g:mkdp_browser = 'chromium']])
 		end,
+	},
+	{
+		"brianhuster/live-preview.nvim",
+		ft = { "markdown", "rmd", "pandoc.markdown" },
 	},
 
 	-- Org mode
@@ -415,7 +420,7 @@ return {
 	{ "nvim-tree/nvim-web-devicons" },
 	{
 		"nvim-treesitter/nvim-treesitter-context",
-		cmd = { "TSContextEnable", "TSContextToggle" },
+		cmd = { "TSContext enable", "TSContext toggle" },
 	},
 	{
 		"tamton-aquib/staline.nvim", -- status line
@@ -592,10 +597,10 @@ return {
 			vim.keymap.set({ "n", "v" }, "<M-h>", "<cmd>Treewalker Left<cr>", { silent = true })
 
 			-- swapping
-			vim.keymap.set("n", "<M-S-j>", "<cmd>Treewalker SwapDown<cr>", { silent = true })
-			vim.keymap.set("n", "<M-S-k>", "<cmd>Treewalker SwapUp<cr>", { silent = true })
-			vim.keymap.set("n", "<M-S-l>", "<cmd>Treewalker SwapRight<CR>", { silent = true })
-			vim.keymap.set("n", "<M-S-h>", "<cmd>Treewalker SwapLeft<CR>", { silent = true })
+			vim.keymap.set("n", "<M-J>", "<cmd>Treewalker SwapDown<cr>", { silent = true })
+			vim.keymap.set("n", "<M-K>", "<cmd>Treewalker SwapUp<cr>", { silent = true })
+			vim.keymap.set("n", "<M-L>", "<cmd>Treewalker SwapRight<CR>", { silent = true })
+			vim.keymap.set("n", "<M-H>", "<cmd>Treewalker SwapLeft<CR>", { silent = true })
 		end,
 	},
 	{

@@ -11,6 +11,7 @@ $docker_context\
 $cmd_duration\
 $line_break\
 $python\
+$pixi\
 $conda\
 $character"""
 
@@ -77,6 +78,11 @@ style = "bright-black"
 format = '[$symbol$environment](dimmed green) '
 ignore_base = false
 
+[pixi]
+format = '[$symbol(\($environment\) )]($style)'
+detect_folders = ['']
+
+
 [docker_context]
-format = 'via [🐋 $context](blue bold)'
+format = '[🐋 $context](blue bold)'
 

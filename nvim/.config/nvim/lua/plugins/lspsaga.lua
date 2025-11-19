@@ -9,12 +9,13 @@ return {
 			symbol_in_winbar = { enable = false },
 		})
 
-		map("n", "K", function()
-			local winid = require("ufo").peekFoldedLinesUnderCursor()
-			if not winid then
-				vim.cmd("Lspsaga hover_doc")
-			end
-		end)
+		-- map("n", "K", function()
+		-- 	local winid = require("ufo").peekFoldedLinesUnderCursor()
+		-- 	if not winid then
+		-- 		vim.cmd("Lspsaga hover_doc")
+		-- 	end
+		-- end)
+		map("n", "K", "<cmd>Lspsaga hover_doc<CR>", opts)
 		map("n", "gd", "<cmd>Lspsaga peek_definition<CR>", opts)
 		map("n", "<space>ga", "<cmd>Lspsaga code_action<CR>", opts)
 		map("n", "<space>gn", "<cmd>Lspsaga rename<CR>", opts)

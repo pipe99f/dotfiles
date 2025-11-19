@@ -2,10 +2,16 @@ return {
 	{
 		"williamboman/mason-lspconfig.nvim",
 		-- event = "VeryLazy",
-		dependencies = { "WhoIsSethDaniel/mason-tool-installer.nvim", "jay-babu/mason-nvim-dap.nvim" },
+		dependencies = {
+			"WhoIsSethDaniel/mason-tool-installer.nvim",
+			"jay-babu/mason-nvim-dap.nvim",
+			{ "mason-org/mason.nvim", opts = {} },
+			"neovim/nvim-lspconfig",
+		},
 
 		config = function()
 			local servers = {
+				"air", -- R
 				"bashls", -- lsp
 				"clangd",
 				"cssls",
@@ -17,9 +23,8 @@ return {
 				"ltex",
 				"lua_ls",
 				"marksman",
-				"nim_langserver",
 				"pyright",
-				"r_language_server",
+				-- "r_language_server",
 				"rust_analyzer",
 				"sqlls",
 				"lua_ls",
@@ -59,6 +64,12 @@ return {
 
 			require("mason-lspconfig").setup({
 				ensure_installed = servers,
+				-- automatic_enable = {
+				-- 	exclude = {
+				-- 		"clangd",
+				-- 		"ts_ls",
+				-- 	},
+				-- },
 				automatic_installation = true,
 			})
 

@@ -110,6 +110,24 @@ return {
 		build = ":Codeium Auth",
 	},
 
+	{
+		"monkoose/neocodeium",
+		-- event = "VeryLazy",
+		-- event = "InsertEnter",
+		cmd = "NeoCodeium enable",
+		config = function()
+			local neocodeium = require("neocodeium")
+			neocodeium.setup()
+			vim.keymap.set("i", "<M-f>", neocodeium.accept)
+			vim.keymap.set("i", "<C-]>", function()
+				neocodeium.clear()
+			end)
+			vim.keymap.set("i", "<C-j>", function()
+				neocodeium.accept_word()
+			end)
+		end,
+	},
+
 	------
 	-- Copilot
 	------

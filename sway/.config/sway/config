@@ -21,6 +21,7 @@ set $term wezterm
 #set $menu dmenu_path | dmenu | xargs swaymsg exec --
 set $menu wofi --show=drun --lines=7 --prompt=""
 set $wallpapers_path $HOME/.config/sway/wallpapers
+set $lockscreen_wallpapers_path $HOME/.config/sway/lockscreen_wallpapers
 
 #intl dead keys keyboard
 # input * xkb_layout "us,ru"
@@ -365,15 +366,26 @@ output * bg `find $wallpapers_path -type f | shuf -n 1` fill
 #lock screen when closing lid
 bindswitch --reload --locked lid:on exec swaylock -f -e -i ~/.config/sway/grotesqueimpalement.jpg'
 
+
 exec swayidle -w \
-    timeout 720 'swaylock -f -e -i ~/.config/sway/grotesqueimpalement.jpg' \
+    timeout 720 'swaylock -f -e -i ~/.config/sway/lockscreen_wallpapers/grotesqueimpalement.jpg' \
     timeout 1500 'systemctl suspend' \
         resume 'swaymsg "output * dpms on"' \
-    before-sleep 'playerctl pause && swaylock -f -e -i ~/.config/sway/grotesqueimpalement.jpg'
+    before-sleep 'playerctl pause && swaylock -f -e -i ~/.config/sway/lockscreen_wallpapers/grotesqueimpalement.jpg'
+
+# exec swayidle -w \
+#     timeout 720 'swaylock -f -e -i ~/.config/sway/lockscreen_wallpapers/grotesqueimpalement.jpg' \
+#     timeout 1500 'systemctl suspend' \
+#         resume 'swaymsg "output * dpms on"' \
+#     before-sleep 'playerctl pause && swaylock -f -e -i ~/.config/sway/lockscreen_wallpapers/grotesqueimpalement.jpg'
+
+
+# exec swayidle -w \
+#     timeout 720 'swaylock -f -e -i "find $lockscreen_wallpapers_path -type f | shuf -n 1"' \
+#     timeout 1500 'systemctl suspend' \
+#         resume 'swaymsg "output * dpms on"' \
+#     before-sleep 'playerctl pause && swaylock -f -e -i ~/.config/sway/mediumrarities.jpg'
+#     # before-sleep 'playerctl pause && swaylock -f -e -i ~/.config/sway/grotesqueimpalement.jpg'
  
-
-
-    #va entre 720 y 1020, no sé por qué no funciona
-    #timeout 15 'if pgrep -x swaylock; then swaymsg "output * dpms off"; fi' \
 
 include /etc/sway/config.d/*
