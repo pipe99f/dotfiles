@@ -1,7 +1,3 @@
-#Lock image
-image=$HOME/.config/sway/grotesqueimpalement.jpg
-
-
 # Ring
 indicator-radius=160
 # line-uses-ring
@@ -16,4 +12,3 @@ key-hl-color=#5e81ac
 separator-color=#4c566a
 layout-text-color=#eceff4
 line-wrong-color=#d08770
-

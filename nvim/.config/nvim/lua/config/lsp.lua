@@ -84,15 +84,15 @@ vim.lsp.config["lua_ls"] = {
 	},
 }
 
-vim.lsp.config["pyright"] = {
-	filetypes = { "python" },
-	settings = {
-		python = {
-			analysis = {
-				diagnosticSeverityOverrides = {
-					reportUnusedExpression = "none",
-				},
-			},
-		},
-	},
-}
+-- vim.lsp.config["basedpyright"] = {
+-- 	filetypes = { "python" },
+-- 	settings = {
+-- 		basedpyright = {
+-- 			analysis = {
+-- 				diagnosticSeverityOverrides = {
+-- 					reportUnusedExpression = "none",
+-- 				},
+-- 			},
+-- 		},
+-- 	},
+-- }

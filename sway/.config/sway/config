@@ -252,12 +252,12 @@ workspace_auto_back_and_forth yes
 bindsym Mod1+Tab workspace back_and_forth
 
 #opening some apps in certain workspace, usar xprop para determinar el instance(primero) y el class(segundo) para wayland se usa "swaymsg -t get_tree"
-assign [class="Spotify" instance="spotify"] → 1
+assign [app_id="spotify"] → 1
 assign [app_id="firefox"] → 2
 # assign [app_id="LibreWolf"] → 2
 assign [class ="com.bitwig.BitwigStudio"] → 6
 assign [class ="discord" instance="discord"] → 8
-assign [class ="vesktop" instance="vesktop"] → 8
+assign [app_id ="vesktop"] → 8
 assign [class="steam" instance="steamwebhelper"] → 9
 assign [app_id="org.libretro.RetroArch"] → 10
 # PCSX2

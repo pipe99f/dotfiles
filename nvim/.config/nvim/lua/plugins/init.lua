@@ -235,30 +235,6 @@ return {
 
 	-- Org mode
 	{
-		"nvim-neorg/neorg",
-		-- lazy = false, -- Disable lazy loading as some `lazy.nvim` distributions set `lazy = true` by default
-		ft = "norg",
-		version = "*", -- Pin Neorg to the latest stable release
-		opts = {
-			load = {
-				["core.defaults"] = {},
-				["core.concealer"] = {},
-				["core.dirman"] = {
-					config = {
-						workspaces = {
-							general = "~/neorg",
-							-- my_other_notes = "~/work/notes",
-						},
-						index = "index.norg",
-					},
-					["core.integrations.telescope"] = {},
-				},
-			},
-			dependencies = { { "nvim-lua/plenary.nvim" }, { "nvim-neorg/neorg-telescope" } },
-			config = true,
-		},
-	},
-	{
 		"nvim-orgmode/orgmode",
 		-- event = "VeryLazy",
 		ft = { "org" },
@@ -493,6 +469,25 @@ return {
 		ft = { "html", "typescript", "javascript", "markdown" },
 		config = function()
 			require("nvim-ts-autotag").setup()
+			vim.lsp.handlers["textDocument/publishDiagnostics"] =
+				-- vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+				-- 	underline = true,
+				-- 	virtual_text = {
+				-- 		spacing = 5,
+				-- 		severity_limit = "Warning",
+				-- 	},
+				-- 	update_in_insert = true,
+				-- })
+				vim.diagnostic.config({
+					underline = true,
+					virtual_text = {
+						spacing = 5,
+						-- In the new API, 'severity_limit' is replaced by 'severity'
+						-- This shows Warnings, Errors, and anything "above" Info
+						severity = { min = vim.diagnostic.severity.WARN },
+					},
+					update_in_insert = true,
+				})
 		end,
 	},
 	{
@@ -635,6 +630,21 @@ return {
 	--------------
 	-- { "nvim-lua/plenary.nvim", lazy = true },
 	-- { "Vimjas/vim-python-pep8-indent" },
+	{
+		"linux-cultist/venv-selector.nvim",
+		dependencies = {
+			"neovim/nvim-lspconfig",
+			{ "nvim-telescope/telescope.nvim", branch = "0.1.x", dependencies = { "nvim-lua/plenary.nvim" } }, -- optional: you can also use fzf-lua, snacks, mini-pick instead.
+		},
+		ft = "python", -- Load when opening Python files
+		keys = {
+			{ "<space>v", "<cmd>VenvSelect<cr>" }, -- Open picker on keymap
+		},
+		opts = { -- this can be an empty lua table - just showing below for clarity.
+			search = {}, -- if you add your own searches, they go here.
+			options = {}, -- if you add plugin options, they go here.
+		},
+	},
 	{
 		"mikavilpas/yazi.nvim",
 		-- event = "VeryLazy",

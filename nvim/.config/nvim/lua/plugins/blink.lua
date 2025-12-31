@@ -7,7 +7,6 @@ return {
 		-- "evesdropper/luasnip-latex-snippets.nvim",
 		"kdheepak/cmp-latex-symbols",
 		"hrsh7th/cmp-omni",
-		"R-nvim/cmp-r",
 		"Kaiser-Yang/blink-cmp-git",
 		{
 			"fang2hou/blink-copilot",
@@ -191,7 +190,6 @@ return {
 				"latex_symbols",
 				"copilot",
 				"codeium",
-				"cmp_r",
 				"cmp_dbee",
 				"lazydev",
 			},

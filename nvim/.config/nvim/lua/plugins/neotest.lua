@@ -1,7 +1,7 @@
 return {
 	{
 		"nvim-neotest/neotest",
-		dependencies = { "nvim-neotest/nvim-nio" },
+		dependencies = { "nvim-neotest/nvim-nio", "nvim-neotest/neotest-python" },
 		opts = {
 			-- Can be a list of adapters like what neotest expects,
 			-- or a list of adapter names,

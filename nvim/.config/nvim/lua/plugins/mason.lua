@@ -12,6 +12,7 @@ return {
 		config = function()
 			local servers = {
 				"air", -- R
+				"basedpyright",
 				"bashls", -- lsp
 				"clangd",
 				"cssls",
@@ -23,7 +24,7 @@ return {
 				"ltex",
 				"lua_ls",
 				"marksman",
-				"pyright",
+				-- "pyright",
 				-- "r_language_server",
 				"rust_analyzer",
 				"sqlls",
