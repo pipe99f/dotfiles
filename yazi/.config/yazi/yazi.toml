@@ -3,17 +3,15 @@
 show_hidden = true
 
 [opener]
-archive = [
-	{ run = 'unar "$1"', display_name = "Extract here" },
-]
-edit = [
-	{ run = 'nvim "$@"', block = true },
-]
+# edit = [
+# 	{ run = 'nvim "$@"', block = true },
+# ]
 image = [
 	{ run = 'imv "$@"', orphan = true, for = "unix" },
 ]
 play = [
 	{ run = 'mpv "$@"', orphan = true, for = "unix" },
+	# { run = "xdg-open %s1",                desc = "Play", for = "linux" },
 ]
 open = [
 	{ run = 'nohup xdg-open "$@"', desc = "Open" },
@@ -32,20 +30,15 @@ prepend_rules = [
 	{ mime = "video/*", use = "play" },
 	{ mime = "audio/*", use = "play" },
 	{ mime = "inode/x-empty", use = "edit" },
+	{ mime = "vfs/{absent,stale}", use = "download" },
 
 	{ name = "*.json", use = "edit" },
 	{ mime = "application/json", use = "edit" },
+  	{ mime = "application/{json,ndjson}", use = [ "edit", "reveal" ] },
 	{ mime = "*/javascript", use = "edit" },
 	{ name = "*.html", use = [ "edit" ] },
 
-
-	{ mime = "application/zip", use = "archive" },
-	{ mime = "application/gzip", use = "archive" },
-	{ mime = "application/x-bzip", use = "archive" },
-	{ mime = "application/x-bzip2", use = "archive" },
-	{ mime = "application/x-tar", use = "archive" },
-	{ mime = "application/x-7z-compressed", use = "archive" },
-	{ mime = "application/x-rar", use = "archive" },
+	{ mime = "application/{zip,rar,7z*,tar,gzip,xz,zstd,bzip*,lzma,compress,archive,cpio,arj,xar,ms-cab*}", use = [ "extract", "reveal" ] },
 
 	# Multiple openers for a single rule
 	# { name = "*.html", use = [ "open", "edit" ] },

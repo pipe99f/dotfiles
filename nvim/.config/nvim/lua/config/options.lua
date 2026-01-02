@@ -68,3 +68,12 @@ opt.redrawtime = 1500
 opt.timeoutlen = 400
 opt.ttimeoutlen = 10
 opt.updatetime = 250
+
+-- Helps to debug deprecated functions, I must only uncomment that code and the deprecate
+-- messages will be very verbose
+-- local orig_deprecate = vim.deprecate
+-- vim.deprecate = function(name, alternative, version, plugin, backtrace)
+-- 	print("DEBUG DEPRECATE: " .. name)
+-- 	print(debug.traceback())
+-- 	return orig_deprecate(name, alternative, version, plugin, backtrace)
+-- end

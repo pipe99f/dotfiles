@@ -680,15 +680,26 @@ return {
 			-- refer to the configuration section below
 		},
 	},
+	-- Unmaintained and using a deprecated function
+	-- {
+	-- 	"ahmedkhalf/project.nvim",
+	-- 	opts = {
+	-- 		-- manual_mode = true,
+	-- 	},
+	-- 	event = "VeryLazy",
+	-- 	config = function(_, opts)
+	-- 		require("project_nvim").setup(opts)
+	-- 	end,
+	-- },
 	{
-		"ahmedkhalf/project.nvim",
-		opts = {
-			-- manual_mode = true,
-		},
+		"DrKJeff16/project.nvim",
 		event = "VeryLazy",
-		config = function(_, opts)
-			require("project_nvim").setup(opts)
-		end,
+		opts = {
+			-- manual_mode = false,
+		},
+		-- config = function()
+		-- 	require("project").setup()
+		-- end,
 	},
 	{
 		"rmagatti/auto-session",

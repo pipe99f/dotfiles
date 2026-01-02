@@ -1,10 +1,12 @@
 return {
 	"nvim-telescope/telescope.nvim",
+	-- tag = "*", -- not working, however, according to one issue, master is the branch to use
+	branch = "master",
 	cmd = "Telescope",
 	dependencies = {
 
     -- stylua: ignore
-    { 'nvim-telescope/telescope-fzf-native.nvim', build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release' },
+    { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
 		{ "nvim-telescope/telescope-frecency.nvim", dependencies = { "tami5/sqlite.lua" } },
 	},
 	config = function()
