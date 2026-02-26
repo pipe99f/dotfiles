@@ -16,8 +16,20 @@ source "${ZINIT_HOME}/zinit.zsh"
 eval "$(starship init zsh)"
 
 # Plugins
-# zinit ice depth=1
-# zinit light jeffreytse/zsh-vi-mode # it is too slow
+zinit ice depth=1
+
+zinit light jeffreytse/zsh-vi-mode # it is too slow?
+# This function is automatically called by zsh-vi-mode after initialization
+# Fixes conflic with Atuin CTRL-R
+function zvm_after_init() {
+  # Re-bind Atuin to CTRL-R for all modes
+  zvm_bindkey vicmd '^R' _atuin_search_widget
+  zvm_bindkey viins '^R' _atuin_search_widget
+
+  # zvm_bindkey vicmd '^R' fzf-history-widget
+  # zvm_bindkey viins '^R' fzf-history-widget
+}
+
 zinit light zsh-users/zsh-syntax-highlighting
 zinit light zsh-users/zsh-completions
 zinit light zsh-users/zsh-autosuggestions
@@ -30,7 +42,7 @@ zinit snippet OMZP::copypath
 zinit snippet OMZP::copyfile
 zinit snippet OMZP::git
 zinit snippet OMZP::sudo
-zinit snippet OMZP::vi-mode
+# zinit snippet OMZP::vi-mode
 
 # Load completions
 autoload -U compinit && compinit
@@ -114,6 +126,9 @@ export ROCM_PATH=/opt/rocm
 
 # Source functions file
 source $HOME/dotfiles/scripts/scripts/functions.zsh
+
+# Yarn
+export PATH=$HOME/.yarn/bin:$PATH
 
 # Zoxide (replaces cd)
 eval "$(zoxide init --cmd cd zsh)"

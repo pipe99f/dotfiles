@@ -33,3 +33,12 @@
     right: (string
       (string_content) @injection.content
       (#set! injection.language "json"))))
+
+; This sql injection is working, the others are not
+(
+    [
+        (string_content)
+    ] @injection.content
+    (#match? @injection.content "(SELECT|INSERT|UPDATE|DELETE).+(FROM|INTO|VALUES|SET).*(WHERE|GROUP BY)?")
+    (#set! injection.language "sql")
+)

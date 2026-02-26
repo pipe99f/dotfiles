@@ -1,6 +1,7 @@
 return {
 	{
 		"nvim-treesitter/nvim-treesitter",
+		dependencies = { "MeanderingProgrammer/treesitter-modules.nvim" },
 		build = ":TSUpdate",
 		lazy = false,
 		branch = "main",
@@ -8,43 +9,11 @@ return {
 	{
 		"MeanderingProgrammer/treesitter-modules.nvim",
 		dependencies = {
-			"nvim-treesitter/nvim-treesitter",
+			-- "nvim-treesitter/nvim-treesitter",
 			{ "nvim-treesitter/nvim-treesitter-textobjects", branch = "main", event = "VeryLazy" },
 		},
 		opts = {
 
-			ensure_installed = {
-				"bash",
-				"c",
-				"csv",
-				"cpp",
-				"css",
-				"cuda",
-				"dockerfile",
-				"go",
-				"gitcommit",
-				"git_rebase",
-				"html",
-				"http",
-				"javascript",
-				"json",
-				"julia",
-				"lua",
-				"markdown",
-				"markdown_inline",
-				"python",
-				"r",
-				"rnoweb", -- required by plugin R.nvim
-				"regex",
-				"rst",
-				"rust",
-				"scala",
-				"sql",
-				"toml",
-				"typescript",
-				"xml",
-				"yaml",
-			},
 			ignore_install = { "latex" },
 
 			-- Install parsers synchronously (only applied to `ensure_installed`)
@@ -74,6 +43,39 @@ return {
 			fold = { enable = true },
 		},
 		config = function()
+			parsers = {
+				"bash",
+				"c",
+				-- "csv", -- built-in highlights are better, csvview.nvim is better as well
+				"cpp",
+				"css",
+				"cuda",
+				"dockerfile",
+				"go",
+				"gitcommit",
+				"git_rebase",
+				"html",
+				"http",
+				"javascript",
+				"json",
+				"julia",
+				"lua",
+				"markdown",
+				"markdown_inline",
+				"python",
+				"r",
+				"rnoweb", -- required by plugin R.nvim
+				"regex",
+				"rst",
+				"rust",
+				"scala",
+				"sql",
+				"toml",
+				"typescript",
+				"xml",
+				"yaml",
+			}
+			require("nvim-treesitter").install(parsers)
 			require("nvim-treesitter-textobjects").setup({
 				-- ... other ts config
 				textobjects = {

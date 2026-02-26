@@ -84,6 +84,14 @@ vim.lsp.config["lua_ls"] = {
 	},
 }
 
+vim.lsp.config["kulala-ls"] = {
+	cmd = { "kulala-ls", "--stdio" },
+	filetypes = { "http" },
+	root_markers = { ".git" },
+}
+
+vim.lsp.enable("kulala_ls")
+
 -- vim.lsp.config["basedpyright"] = {
 -- 	filetypes = { "python" },
 -- 	settings = {

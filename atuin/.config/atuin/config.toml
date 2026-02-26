@@ -3,3 +3,28 @@ sync_frequency = "2h"
 style = "compact"
 inline_height = 17
 filter_mode = "global"
+invert = true
+
+[keymap.emacs]
+# Scroll down with Tab
+"tab" = "select-next"
+# Scroll up with Shift-Tab
+"shift-tab" = "select-previous"
+# Use Enter to execute (usually default, but good to have)
+"enter" = "return-selection"
+
+[keymap.vim-normal]
+# Scroll down with Tab
+"tab" = "select-next"
+# Scroll up with Shift-Tab
+"shift-tab" = "select-previous"
+# Use Enter to execute (usually default, but good to have)
+"enter" = "return-selection"
+
+[keymap.vim-insert]
+# Scroll down with Tab
+"tab" = "select-next"
+# Scroll up with Shift-Tab
+"shift-tab" = "select-previous"
+# Use Enter to execute (usually default, but good to have)
+"enter" = "return-selection"

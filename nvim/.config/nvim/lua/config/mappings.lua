@@ -24,7 +24,7 @@ vim.keymap.set("n", "<leader>o", "o<Esc>")
 vim.keymap.set("n", "<leader>O", "O<Esc>")
 
 -- Rename all string occurrences in the current buffer
-vim.cmd("map re gD:%s/<C-R>///gc<left><left><left>")
+vim.cmd("map <leader>re gD:%s/<C-R>///gc<left><left><left>")
 
 --Ctrl+Backspace deletes word
 vim.keymap.set("i", "<C-h>", "<C-w>")

@@ -30,11 +30,14 @@ return {
 				"sqlls",
 				"lua_ls",
 				"texlab",
+				"tombi", -- toml lsp, linter and formatter
 				"ts_ls",
 			}
 
 			local tools = {
 				--diagnostics/linter
+				--"clippy", -- rust linter, it is not supported yet by mason
+				"golangci-lint",
 				"htmlhint",
 				"ruff",
 				"sqlfluff",
@@ -44,11 +47,12 @@ return {
 				"clang-format",
 				"gofumpt",
 				"goimports",
+				"kulala-fmt",
 				"jupytext",
 				"latexindent",
 				"markdownlint",
 				"prettierd",
-				-- "rustfmt",
+				-- "rustfmt", -- must be installed manually
 				"shellcheck",
 				"shfmt",
 				"sql-formatter",

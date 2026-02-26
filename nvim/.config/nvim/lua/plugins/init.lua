@@ -5,9 +5,36 @@ return {
 	-----------
 
 	{
+		"rachartier/tiny-code-action.nvim",
+		-- event = "LspAttach",
+		opts = {},
+		keys = { { "<leader>ca", '<cmd> lua require("tiny-code-action").code_action()<cr>' } },
+	},
+	{
 		"smjonas/inc-rename.nvim",
 		cmd = "IncRename",
 		opts = {},
+	},
+	{
+		"rachartier/tiny-inline-diagnostic.nvim",
+		-- event = "VeryLazy",
+		-- priority = 1000,
+		keys = {
+			{ "<leader>e", "<cmd>TinyInlineDiag enable<cr>" },
+		},
+		config = function()
+			require("tiny-inline-diagnostic").setup({
+				options = {
+					multilines = {
+						enabled = true,
+					},
+					show_source = {
+						enabled = true,
+					},
+				},
+			})
+			vim.diagnostic.config({ virtual_text = false }) -- Disable Neovim's default virtual text diagnostics
+		end,
 	},
 	{
 		"hedyhli/outline.nvim",
@@ -35,6 +62,30 @@ return {
 	-------------
 	----MODES----
 	-------------
+	-- CSV
+	{
+		"hat0uma/csvview.nvim",
+		---@module "csvview"
+		---@type CsvView.Options
+		opts = {
+			parser = { comments = { "#", "//" } },
+			keymaps = {
+				-- Text objects for selecting fields
+				textobject_field_inner = { "if", mode = { "o", "x" } },
+				textobject_field_outer = { "af", mode = { "o", "x" } },
+				-- Excel-like navigation:
+				-- Use <Tab> and <S-Tab> to move horizontally between fields.
+				-- Use <Enter> and <S-Enter> to move vertically between rows and place the cursor at the end of the field.
+				-- Note: In terminals, you may need to enable CSI-u mode to use <S-Tab> and <S-Enter>.
+				jump_next_field_end = { "<Tab>", mode = { "n", "v" } },
+				jump_prev_field_end = { "<S-Tab>", mode = { "n", "v" } },
+				jump_next_row = { "<Enter>", mode = { "n", "v" } },
+				jump_prev_row = { "<S-Enter>", mode = { "n", "v" } },
+			},
+		},
+		cmd = { "CsvViewEnable", "CsvViewDisable", "CsvViewToggle" },
+	},
+
 	--Docker
 	-- ("dgrbrady/nvim-docker"),
 
@@ -630,6 +681,21 @@ return {
 	--------------
 	-- { "nvim-lua/plenary.nvim", lazy = true },
 	-- { "Vimjas/vim-python-pep8-indent" },
+	{
+		"mistweaverco/kulala.nvim",
+		keys = {
+			{ "<leader>ks", desc = "Send request" },
+			{ "<leader>ka", desc = "Send all requests" },
+			{ "<leader>kb", desc = "Open scratchpad" },
+		},
+		ft = { "http", "rest" },
+		opts = {
+			-- your configuration comes here
+			global_keymaps = true,
+			global_keymaps_prefix = "<leader>k",
+			kulala_keymaps_prefix = "",
+		},
+	},
 	{
 		"linux-cultist/venv-selector.nvim",
 		dependencies = {

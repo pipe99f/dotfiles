@@ -3,11 +3,14 @@ return {
 	event = { "BufReadPre", "BufNewFile" },
 	config = function()
 		require("lint").linters_by_ft = {
+			go = { "golangcilint" },
 			html = { "htmlhint" },
 			markdown = { "markdownlint" },
 			python = { "ruff" },
+			rust = { "clippy" },
 			sh = { "shellcheck" },
 			sql = { "sqlfluff" },
+			toml = { "tombi" },
 			yaml = { "yamllint" },
 		}
 

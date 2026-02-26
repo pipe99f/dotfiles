@@ -28,9 +28,11 @@ return {
 			formatters_by_ft = {
 				c = { "clang-format" },
 				cpp = { "clang-format" },
+				cuda = { "clang-format" },
 				css = { "prettierd" },
 				go = { "goimports", "gofumpt" },
 				html = { "prettierd" },
+				http = { "kulala-fmt" },
 				-- Use a sub-list to run only the first available formatter
 				javascript = { "prettierd", "prettier" },
 				json = { "prettierd" },
@@ -45,6 +47,7 @@ return {
 				sh = { "shellharden", "shfmt" },
 				sql = { "sql_formatter" },
 				tex = { "latexindent" },
+				toml = { "tombi" },
 				yaml = { "prettierd" },
 				["*"] = { "injected" },
 			},
