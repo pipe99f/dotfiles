@@ -113,9 +113,39 @@ return {
 		"pwntester/octo.nvim", -- Issues and PR's
 		cmd = "Octo",
 		opts = {
+			picker = "telescope",
 			enable_builtin = true,
 			default_merge_method = "squash",
 			-- default_to_projects_v2 = true,
+		},
+		keys = {
+			{
+				"<leader>oi",
+				"<CMD>Octo issue list<CR>",
+				desc = "List GitHub Issues",
+			},
+			{
+				"<leader>op",
+				"<CMD>Octo pr list<CR>",
+				desc = "List GitHub PullRequests",
+			},
+			{
+				"<leader>od",
+				"<CMD>Octo discussion list<CR>",
+				desc = "List GitHub Discussions",
+			},
+			{
+				"<leader>on",
+				"<CMD>Octo notification list<CR>",
+				desc = "List GitHub Notifications",
+			},
+			{
+				"<leader>os",
+				function()
+					require("octo.utils").create_base_search_command({ include_current_repo = true })
+				end,
+				desc = "Search GitHub",
+			},
 		},
 	},
 
@@ -694,6 +724,14 @@ return {
 			global_keymaps = true,
 			global_keymaps_prefix = "<leader>k",
 			kulala_keymaps_prefix = "",
+			kulala_keymaps = {
+				["Show verbose"] = {
+					"<leader>kv",
+					function()
+						require("kulala.ui").show_verbose()
+					end,
+				},
+			},
 		},
 	},
 	{

@@ -1,7 +1,7 @@
 return {
 	{
 		"nvim-treesitter/nvim-treesitter",
-		dependencies = { "MeanderingProgrammer/treesitter-modules.nvim" },
+		-- dependencies = { "MeanderingProgrammer/treesitter-modules.nvim" },
 		build = ":TSUpdate",
 		lazy = false,
 		branch = "main",
@@ -9,7 +9,7 @@ return {
 	{
 		"MeanderingProgrammer/treesitter-modules.nvim",
 		dependencies = {
-			-- "nvim-treesitter/nvim-treesitter",
+			"nvim-treesitter/nvim-treesitter",
 			{ "nvim-treesitter/nvim-treesitter-textobjects", branch = "main", event = "VeryLazy" },
 		},
 		opts = {
@@ -32,11 +32,12 @@ return {
 				enable = true,
 
 				keymaps = {
-
-					node_incremental = "v",
-
-					node_decremental = "V",
-
+					init_selection = "gnn",
+					node_incremental = "grn",
+					-- scope_incremental = "grc",
+					node_decremental = "grm",
+					-- node_incremental = "v",
+					-- -- node_decremental = "V",
 					scope_incremental = "<c-s>",
 				},
 			},
@@ -55,7 +56,7 @@ return {
 				"gitcommit",
 				"git_rebase",
 				"html",
-				"http",
+				-- "http",
 				"javascript",
 				"json",
 				"julia",

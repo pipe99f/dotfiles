@@ -34,6 +34,7 @@ zinit light zsh-users/zsh-syntax-highlighting
 zinit light zsh-users/zsh-completions
 zinit light zsh-users/zsh-autosuggestions
 zinit light Aloxaf/fzf-tab
+zinit light TunaCuma/zsh-vi-man # on vi mode press 'K' to open man page
 
 # snippets plugins
 zinit snippet OMZP::aws
