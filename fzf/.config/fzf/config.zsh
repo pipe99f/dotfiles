@@ -35,7 +35,9 @@ export FZF_DEFAULT_OPTS=" \
 # }
 
 #open file in nvim
-alias fe="fd --type f --follow --hidden --exclude .git | fzf --preview 'bat {1}' --border |sed -r 's|[[:blank:]]|\\\ |g'| xargs -r nvim"
+# alias fe="fd --type f --follow --hidden --exclude .git | fzf --preview 'bat --color=always {1}' --border |sed -r 's|[[:blank:]]|\\\ |g'| xargs -r nvim"
+# This one doesn't have the problem with spaces in file names
+alias fe="fd --type f --follow --hidden --exclude .git | fzf --preview 'bat --color=always {}' --bind 'enter:execute(nvim {})+accept'"
 
 
 alias pacmansearch="pacman -Slq | fzf --multi --preview 'cat <(pacman -Si {1}) <(pacman -Fl {1} | awk \"{print \$2}\")' | xargs -ro sudo pacman -S"
@@ -44,4 +46,21 @@ alias pacmansearch="pacman -Slq | fzf --multi --preview 'cat <(pacman -Si {1}) <
 fif() {
   if [ ! "$#" -gt 0 ]; then echo "Need a string to search for!"; return 1; fi
   rg --files-with-matches --no-messages "$1" | fzf --preview "highlight -O ansi -l {} 2> /dev/null | rg --colors 'match:bg:yellow' --ignore-case --pretty --context 10 '$1' || rg --ignore-case --pretty --context 10 '$1' {}"
+}
+
+# fbr - checkout git branch (including remote branches)
+fbr() {
+  local branches branch
+  branches=$(git branch --all | grep -v 'HEAD') &&
+  branch=$(echo "$branches" | fzf-tmux -d $(( 2 + $(echo "$branches" | wc -l) )) +m) &&
+  git checkout $(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")
+}
+
+# fkill - kill processes - list only the ones you can kill
+fkill() {
+    local pid
+    pid=$(ps -u $USER -o pid,stat,start,time,command | fzf --header='[kill:process]' --tail=10 --layout=reverse | awk '{print $1}')
+    if [ "x$pid" != "x" ]; then
+        echo $pid | xargs kill -9
+    fi
 }

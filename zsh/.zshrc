@@ -30,9 +30,10 @@ function zvm_after_init() {
   # zvm_bindkey viins '^R' fzf-history-widget
 }
 
+zinit light zsh-users/zsh-autosuggestions
 zinit light zsh-users/zsh-syntax-highlighting
 zinit light zsh-users/zsh-completions
-zinit light zsh-users/zsh-autosuggestions
+zinit light MichaelAquilina/zsh-you-should-use
 zinit light Aloxaf/fzf-tab
 zinit light TunaCuma/zsh-vi-man # on vi mode press 'K' to open man page
 
@@ -79,6 +80,15 @@ setopt hist_ignore_all_dups
 setopt hist_save_no_dups
 setopt hist_ignore_dups
 setopt hist_find_no_dups
+
+# Prevent accidental overwrite >
+setopt NO_CLOBBER
+
+# Add delay before rm *
+setopt RM_STAR_WAIT
+
+# Allow inline comments (useful for copy/paste)
+setopt INTERACTIVE_COMMENTS
 
 #GTK THEME
 export GTK_THEME=Adwaita-One-Dark

@@ -104,10 +104,31 @@ return {
 	{
 		"NeogitOrg/neogit",
 		dependencies = {
-			"sindrets/diffview.nvim", -- optional - Diff integration
+			-- "sindrets/diffview.nvim", -- optional - unmaintained
+			-- "esmuellert/codediff.nvim", -- optional
 		},
 		cmd = { "Neogit" },
+		keys = {
+			{ "<leader>gg", "<cmd>Neogit<cr>", desc = "Show Neogit UI" },
+		},
 		config = true,
+	},
+	{
+		"esmuellert/codediff.nvim",
+		cmd = "CodeDiff",
+	},
+	{
+		"barrettruth/diffs.nvim", -- May conflict with codediff.nvim
+		init = function()
+			vim.g.diffs = {
+				integrations = {
+					neogit = true,
+					gitsigns = true,
+					-- neojj = true,
+					-- fugitive = true,
+				},
+			}
+		end,
 	},
 	{
 		"pwntester/octo.nvim", -- Issues and PR's
