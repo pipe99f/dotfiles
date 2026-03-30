@@ -1,9 +1,13 @@
 palette = "catppuccin_macchiato"
-
+# Wait 200 milliseconds for starship to check files under the current directory.
+scan_timeout = 200
+# command_timeout = 500
 format = """
 $username\
 $hostname\
 $directory\
+$sudo\
+$jobs\
 $git_branch\
 $git_state\
 $git_status\
@@ -45,9 +49,16 @@ crust = "#181926"
 
 [directory]
 style = "blue"
+# fish_style_pwd_dir_length = 1  # Turns /home/user/projects into ~/u/projects
 
 [character]
 error_symbol = "[✖](bold red) "
+
+[sudo]
+disabled = false
+
+[jobs]
+disabled = false
 
 [git_branch]
 format = "[$branch]($style)"
@@ -55,13 +66,6 @@ format = "[$branch]($style)"
 [git_status]
 format = "[[(*$conflicted$untracked$modified$staged$renamed$deleted)](218) ($ahead_behind$stashed)]($style)"
 style = "cyan"
-conflicted = "​"
-untracked = "​"
-modified = "​"
-staged = "​"
-renamed = "​"
-deleted = "​"
-stashed = "≡"
 
 [git_state]
 format = '\([$state( $progress_current/$progress_total)]($style)\) '
@@ -71,18 +75,17 @@ format = "[$duration]($style) "
 style = "yellow"
 
 [python]
-format = "[$virtualenv]($style) "
-style = "bright-black"
+format = "[${symbol}(${version} )(${virtualenv} )]($style)"
+# style = "bright-black"
+style = "blue"
 
 [conda]
-format = '[$symbol$environment](dimmed green) '
+format = "[$symbol$environment](dimmed green) "
 ignore_base = false
 
 [pixi]
 format = '[$symbol(\($environment\) )]($style)'
-detect_folders = ['']
-
+detect_folders = [""]
 
 [docker_context]
-format = '[🐋 $context](blue bold)'
-
+format = "[🐋 $context](blue bold)"

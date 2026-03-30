@@ -37,8 +37,38 @@ function yy() {
 	rm -f -- "$tmp"
 }
 
-zsh-update() {
-  echo "🔄 Updating Zinit and plugins..."
-  zinit self-update && zinit update --all
-  echo "✅ All Zinit plugins updated!"
+# ------------------------------------------------------------------------------
+# Function: kubectl Overload
+# Description:
+#   A safety interceptor for kubectl. It prompts for confirmation if the current
+#   context is a production environment and the command is destructive.
+# ------------------------------------------------------------------------------
+kubectl() {
+    local cmd_args="$*"
+
+    # 1. Check for destructive/modifying commands
+    if [[ "$cmd_args" =~ "delete|scale|apply|edit" ]]; then
+
+        # 2. Retrieve current context
+        local current_ctx
+        current_ctx=$(command kubectl config current-context 2>/dev/null)
+
+        # 3. Guard PRODUCTION keywords
+        if [[ "$current_ctx" =~ "prod|production|live|main" ]]; then
+            print "\n${COLOR[BOLD]}${COLOR[RED]}[K8S GUARD]  WARNING: Targeting PRODUCTION ($current_ctx)${COLOR[RESET]}"
+            print "Command: ${COLOR[YELLOW]}kubectl $cmd_args${COLOR[RESET]}"
+            print -n "Are you sure? [y/N] "
+
+            # read -q: read one character and compare it to 'y'
+            if ! read -q; then
+                print # Newline
+                print "${COLOR[RED]}Aborted.${COLOR[RESET]}"
+                return 1
+            fi
+            print # Newline
+        fi
+    fi
+
+    # 4. Standard passthrough
+    command kubectl "$@"
 }

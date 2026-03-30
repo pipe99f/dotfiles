@@ -3,7 +3,7 @@ return {
 	version = "^1.0.0", -- use version <2.0.0 to avoid breaking changes
 	ft = { "python", "quarto", "markdown" },
 	dependencies = {
-		"3rd/image.nvim",
+		-- "3rd/image.nvim",
 		{ "willothy/wezterm.nvim", config = true },
 	},
 	build = ":UpdateRemotePlugins",
@@ -21,7 +21,8 @@ return {
 		-- this guide will be using image.nvim
 		-- Don't forget to setup and install the plugin if you want to view image outputs
 		-- vim.g.molten_image_provider = "wezterm" -- can't use under tmux session
-		vim.g.molten_image_provider = "image.nvim" -- can't use under tmux session
+		-- vim.g.molten_image_provider = "image.nvim" -- can't use under tmux session
+		vim.g.molten_image_provider = "snacks.nvim"
 
 		-- optional, I like wrapping. works for virt text and the output window
 		vim.g.molten_wrap_output = true

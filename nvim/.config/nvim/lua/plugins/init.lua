@@ -118,8 +118,15 @@ return {
 		cmd = "CodeDiff",
 	},
 	{
+		"HarshK97/diffmantic.nvim", -- Semantic diff
+		config = function()
+			require("diffmantic").setup()
+		end,
+		cmd = { "Diffmantic" },
+	},
+	{
 		"barrettruth/diffs.nvim", -- May conflict with codediff.nvim
-		init = function()
+		init = function() -- Highlights neogit when tabbing
 			vim.g.diffs = {
 				integrations = {
 					neogit = true,
@@ -169,7 +176,15 @@ return {
 			},
 		},
 	},
-
+	{
+		"oribarilan/lensline.nvim",
+		tag = "2.0.0", -- or: branch = 'release/2.x' for latest non-breaking updates
+		-- event = "LspAttach",
+		cmd = "LenslineToggleView",
+		config = function()
+			require("lensline").setup()
+		end,
+	},
 	{
 		"isakbm/gitgraph.nvim",
 		---@type I.GGConfig
@@ -271,21 +286,6 @@ return {
 		build = "conda run --no-capture-output -n ds pip install .",
 		-- enabled = vim.fn.isdirectory(vim.fn.expand "~/miniconda3/envs/jupynium"),
 	},
-	{
-		-- see the image.nvim readme for more information about configuring this plugin
-		"3rd/image.nvim",
-		ft = { "markdown", "quarto" },
-		opts = {
-			backend = "kitty", -- whatever backend you would like to use
-			max_width = 100,
-			max_height = 12,
-			max_height_window_percentage = math.huge,
-			max_width_window_percentage = math.huge,
-			window_overlap_clear_enabled = true, -- toggles images when windows are overlapped
-			window_overlap_clear_ft_ignore = { "cmp_menu", "cmp_docs", "" },
-		},
-	},
-
 	{ "benlubas/image-save.nvim", cmd = "SaveImage" },
 
 	--Latex
@@ -733,6 +733,12 @@ return {
 	-- { "nvim-lua/plenary.nvim", lazy = true },
 	-- { "Vimjas/vim-python-pep8-indent" },
 	{
+		"alex-popov-tech/store.nvim",
+		-- dependencies = { "OXY2DEV/markview.nvim" },
+		opts = {},
+		cmd = "Store",
+	},
+	{
 		"mistweaverco/kulala.nvim",
 		keys = {
 			{ "<leader>ks", desc = "Send request" },
@@ -865,6 +871,15 @@ return {
 			bigfile = { enabled = true },
 			bufdelete = { enabled = true }, -- idk how it improves <leader>bd keybinding
 			gitbrowse = { enabled = true },
+			image = {
+				enabled = true,
+				doc = {
+					enabled = true,
+					inline = false,
+					-- max_width = 100,
+					-- max_height = 100,
+				},
+			},
 			-- input = { enabled = true },
 			notifier = { enabled = true },
 			quickfile = { enabled = true },

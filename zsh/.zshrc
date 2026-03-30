@@ -1,3 +1,32 @@
+# Profiler (measures time taken by commands)
+# set next venv to 1 to enable profiling
+export PROFILING_MODE=0
+if [ $PROFILING_MODE -ne 0 ]; then
+    zmodload zsh/zprof
+    zmodload zsh/datetime
+    zsh_start_time=$(( EPOCHREALTIME * 1000 ))
+fi
+
+
+#########
+# PATH
+#########
+
+typeset -U path PATH
+path=(
+    $HOME/.pixi/bin
+    $HOME/.yarn/bin
+    $HOME/dotfiles/scripts/scripts
+    $path
+)
+
+##############
+# Zinit and plugins
+##############
+
+# Compile plugin loads 
+ZINIT_COMPRESS_INDEX=1
+
 # zinit directory
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 [ ! -d $ZINIT_HOME ] && mkdir -p "$(dirname $ZINIT_HOME)"
@@ -12,15 +41,29 @@ source "${ZINIT_HOME}/zinit.zsh"
 # Plugin parallel update
 # zinit update --parallel
 
-#run starship theme
-eval "$(starship init zsh)"
 
-# Plugins
+export ZSH_COMPDUMP="/tmp/.zcompdump-${USER}-${ZSH_VERSION}" # using ram instead of disk
+
+# Load completions
+# It shoul be before the plugins loading
+# 1. Faster compinit with daily cache check
+autoload -Uz compinit
+if [[ -n $ZSH_COMPDUMP(#qN.m-1) ]]; then
+  compinit -C -d $ZSH_COMPDUMP # The -C flag skips the slow security audit
+else
+  compinit -d $ZSH_COMPDUMP
+fi
+
+
+# it is better to run vi-mode not in turbo mode, otherwise it would break zvm_after_init function
 zinit ice depth=1
+zinit light jeffreytse/zsh-vi-mode 
 
-zinit light jeffreytse/zsh-vi-mode # it is too slow?
+zinit ice depth=1
+zinit light TunaCuma/zsh-vi-man # on vi mode press 'K' to open man page
+
 # This function is automatically called by zsh-vi-mode after initialization
-# Fixes conflic with Atuin CTRL-R
+# Fixes conflict with Atuin CTRL-R
 function zvm_after_init() {
   # Re-bind Atuin to CTRL-R for all modes
   zvm_bindkey vicmd '^R' _atuin_search_widget
@@ -30,33 +73,45 @@ function zvm_after_init() {
   # zvm_bindkey viins '^R' fzf-history-widget
 }
 
-zinit light zsh-users/zsh-autosuggestions
-zinit light zsh-users/zsh-syntax-highlighting
-zinit light zsh-users/zsh-completions
-zinit light MichaelAquilina/zsh-you-should-use
-zinit light Aloxaf/fzf-tab
-zinit light TunaCuma/zsh-vi-man # on vi mode press 'K' to open man page
+zinit wait lucid for \
+ atinit"ZINIT[COMPINIT_OPTS]=-C; zicompinit; zicdreplay" \
+    zdharma-continuum/fast-syntax-highlighting \
+ blockf \
+    zsh-users/zsh-completions \
+ atload"!_zsh_autosuggest_start" \
+    zsh-users/zsh-autosuggestions \
+ MichaelAquilina/zsh-you-should-use \
+ Aloxaf/fzf-tab
+
+# Zsh-fast-syntax-highlighting theme
+zinit ice wait'0' lucid atload"fast-theme -q XDG:catppuccin-macchiato" # this is needs to be run only once, I guess
 
 # snippets plugins
-zinit snippet OMZP::aws
-zinit snippet OMZP::command-not-found
-zinit snippet OMZP::copypath
-zinit snippet OMZP::copyfile
-zinit snippet OMZP::git
-zinit snippet OMZP::sudo
-# zinit snippet OMZP::vi-mode
+zinit wait'0b' lucid for \
+    OMZP::command-not-found \
+    OMZP::docker \
+    OMZP::git
 
-# Load completions
-autoload -U compinit && compinit
 # Improves performance of compinit
+# It should be after the plugins loading
 zinit cdreplay -q
+
+
+##############
+# OPTIONS AND ENVVARS
+##############
 
 # Completion styling
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 zstyle ':completion:*' list-colors '${s.:.)LS_COLORS}'
 zstyle ':completion:*' menu no
-zstyle ':fzf-tab:complete:cd*' fzf-preview 'ls --color $realpath'
-zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
+zstyle ':completion:*' use-cache yes
+# zstyle ':completion:*' cache-path "$XDG_CACHE_HOME/zsh/zcompcache"
+# Preview file content when completing 'cat' or 'bat'
+zstyle ':fzf-tab:complete:*:*' fzf-preview \
+  'if [ -d $realpath ]; then eza --icons --color=always $realpath; else bat --color=always --line-range :200 $realpath; fi'
+# zstyle ':fzf-tab:complete:cd*' fzf-preview 'ls --color $realpath'
+# zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
 
 # Preferred editor for local and remote sessions
  if [[ -n $SSH_CONNECTION ]]; then
@@ -90,6 +145,12 @@ setopt RM_STAR_WAIT
 # Allow inline comments (useful for copy/paste)
 setopt INTERACTIVE_COMMENTS
 
+unsetopt FLOWCONTROL        # Disable Ctrl+S/Ctrl+Q output freezing
+unsetopt NOMATCH            # Don't error if a glob has no matches (pass to command)
+setopt NOTIFY                  # Report status of background jobs immediately
+setopt NOHUP                   # Don't kill background jobs on exit
+setopt NOBEEP                  # No beep on error
+
 #GTK THEME
 export GTK_THEME=Adwaita-One-Dark
 export XDG_CURRENT_DESKTOP=sway
@@ -102,29 +163,66 @@ export QT_QPA_PLATFORM=xcb
 
 
 #Spellchecking
-setopt correct
-# export SPROMPT="Correct %R to %r? [Yes, No, Abort, Edit] "
-export SPROMPT="Correct $fg[red]%R$reset_color to $fg[green]%r$reset_color? [Yes, No, Abort, Edit] "
+# setopt correct
+# export SPROMPT="Correct $fg[red]%R$reset_color to $fg[green]%r$reset_color? [Yes, No, Abort, Edit] "
 
 #Required by tmuxp
 export DISABLE_AUTO_TITLE="true"
 
+
+##############
+# Third party utilities
+##############
+
+# Makes the caching work on MacOS
+if [[ "$(uname)" == "Darwin" ]]; then
+    eval "$(/opt/homebrew/bin/brew shellenv)" # Apple Silicon
+    # eval "$(/usr/local/bin/brew shellenv)"  # Intel
+fi
+
+# Function to cache heavy init commands
+cache_eval() {
+    local name="$1"
+    local cmd="$2"
+    local binary="${3:-$name}"  # optional 3rd arg if binary name differs from cache name
+    local cache_dir="${XDG_CACHE_HOME:-$HOME/.cache}/zsh_init"
+    local cache_file="$cache_dir/$name.zsh"
+
+    [[ ! -d "$cache_dir" ]] && mkdir -p "$cache_dir"
+
+    local binary_path
+    binary_path="$(command -v $binary 2>/dev/null)"
+
+    if [[ -z "$binary_path" ]]; then
+        echo "cache_eval: '$binary' not found in PATH, skipping." >&2
+        return 1
+    fi
+
+    if [[ ! -f "$cache_file" ]] || [[ "$binary_path" -nt "$cache_file" ]]; then
+        eval "$cmd" > "$cache_file" || {
+            echo "cache_eval: failed to generate cache for '$name'" >&2
+            rm -f "$cache_file"
+            return 1
+        }
+    fi
+    source "$cache_file"
+}
+
 # Atuin
-eval "$(atuin init zsh --disable-up-arrow)"
+# eval "$(atuin init zsh --disable-up-arrow)"
+cache_eval "atuin"    "atuin init zsh --disable-up-arrow"
 
 # Direnv
-eval "$(direnv hook zsh)"
+# eval "$(direnv hook zsh)"
+cache_eval "direnv"   "direnv hook zsh"
 
 # FZF
-source <(fzf --zsh)
+# source <(fzf --zsh)
+cache_eval "fzf" "fzf --zsh"
 source $HOME/.config/fzf/config.zsh
 
 # Pixi
-eval "$(pixi completion --shell zsh)"
-export PATH=$PATH:$HOME/.pixi/bin
-
-# PATH
-export PATH=$PATH:$HOME/dotfiles/scripts/scripts
+# eval "$(pixi completion --shell zsh)" # too slow
 
 # Python
 # export MPLBACKEND=tkagg # It is used to avoid compatibility problems with matplotlib plots in wayland. Same effect is achieved in a python script using "matplotlib.use('tkagg')". webagg is also good
@@ -138,29 +236,35 @@ export ROCM_PATH=/opt/rocm
 # Source functions file
 source $HOME/dotfiles/scripts/scripts/functions.zsh
 
-# Yarn
-export PATH=$HOME/.yarn/bin:$PATH
+#run starship theme
+# eval "$(starship init zsh)"
+cache_eval "starship" "starship init zsh"
+
 
 # Zoxide (replaces cd)
-eval "$(zoxide init --cmd cd zsh)"
+# eval "$(zoxide init --cmd cd zsh)"
+cache_eval "zoxide"   "zoxide init --cmd cd zsh"
 
 # Zsh-syntax-highlighting theme
-source $HOME/dotfiles/scripts/scripts/catppuccin_macchiato-zsh-syntax-highlighting.zsh
-source $HOME/.priv
+# source $HOME/dotfiles/scripts/scripts/catppuccin_macchiato-zsh-syntax-highlighting.zsh
 
 
+[[ -f $HOME/.priv ]] && source $HOME/.priv
+
+
+##############
 # Aliases
+##############
 
 # alias ll='ls -alF'
 # alias la='ls -A'
-alias ls='exa --icons --git'
-alias ll='exa --icons --git -labF'
-alias la='exa --icons --git -a'
-alias llm='exa --icons --git -labF --sort=modified'
+alias ls='eza --icons --git'
+alias ll='eza --icons --git -labF'
+alias la='eza --icons --git -a'
+alias llm='eza --icons --git -labF --sort=modified'
 
 #nvim as vim
 alias vim="nvim"
-alias vi="nvim"
 
 #abrir yazi en la carpeta de libros
 alias li="yazi ~/ce/Libros"
@@ -172,19 +276,25 @@ alias yay="yay --aur"
 alias tmuxp="nocorrect tmuxp"
 #alias <command>="nocorrect <command>"
 
+##############
+# END OF FILE
+##############
 
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/home/pipe99f/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/home/pipe99f/miniconda3/etc/profile.d/conda.sh" ]; then
-        . "/home/pipe99f/miniconda3/etc/profile.d/conda.sh"
-    else
-        export PATH="/home/pipe99f/miniconda3/bin:$PATH"
-    fi
+# Conda lazy loader
+conda() {
+    unfunction conda
+    source "/home/pipe99f/miniconda3/etc/profile.d/conda.sh"
+    conda "$@"
+}
+
+# Auto-Compile .zshrc for next time
+if [[ ~/.zshrc -nt ~/.zshrc.zwc ]]; then
+  zcompile ~/.zshrc
 fi
-unset __conda_setup
-# <<< conda initialize <<<
 
+# Profiler (uncomment to enable)
+if [ $PROFILING_MODE -ne 0 ]; then
+    zprof
+    local zsh_end_time=$(( EPOCHREALTIME * 1000 ))
+    printf "Shell init time: %.0f ms\n" $(( zsh_end_time - zsh_start_time ))
+fi
