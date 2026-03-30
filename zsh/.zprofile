@@ -18,6 +18,10 @@ export MOZ_DBUS_REMOTE=1                # fixes firefox is already running, but 
 
 # GTK
 export GTK_THEME=Adwaita-One-Dark
+# fix dead keys in ghostty
+export GTK_IM_MODULE=ibus 
+export QT_IM_MODULE=ibus
+export XMODIFIERS=@im=ibus
 
 #start sway
 if [[ -z $DISPLAY && $TTY = /dev/tty1 ]]; then

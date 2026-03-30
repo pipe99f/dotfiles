@@ -99,6 +99,7 @@ return {
 			"stevearc/dressing.nvim",
 			"nvim-lua/plenary.nvim",
 			"MunifTanjim/nui.nvim",
+			"ravitemer/mcphub.nvim",
 			--- The below dependencies are optional,
 			"nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons
 			"zbirenbaum/copilot.lua", -- for providers='copilot'
@@ -129,37 +130,59 @@ return {
 	------
 	-- Codecompanion
 	------
+	-- {
+	-- 	"olimorris/codecompanion.nvim",
+	-- 	cmd = { "CodeCompanionChat" },
+	-- 	dependencies = {
+	-- 		"nvim-lua/plenary.nvim",
+	-- 		"nvim-treesitter/nvim-treesitter",
+	-- 		"ravitemer/mcphub.nvim",
+	-- 		{ "MeanderingProgrammer/render-markdown.nvim", ft = { "markdown", "codecompanion" } },
+	-- 	},
+	-- 	config = function()
+	-- 		require("codecompanion").setup({
+	-- 			-- Can't find a way to setup deekseek
+	-- 			strategies = {
+	-- 				chat = { adapter = "deepseek" },
+	-- 				inline = { adapter = "deepseek" },
+	-- 			},
+	-- 			extensions = {
+	-- 				mcphub = {
+	-- 					callback = "mcphub.extensions.codecompanion",
+	-- 					opts = {
+	-- 						make_vars = true,
+	-- 						make_slash_commands = true,
+	-- 						show_result_in_chat = true,
+	-- 					},
+	-- 				},
+	-- 			},
+	-- 			adapters = {
+	-- 				deepseek = function()
+	-- 					return require("codecompanion.adapters").extend("deepseek", {
+	-- 						env = {
+	-- 							api_key = "DEEPSEEK_API_KEY",
+	-- 						},
+	-- 						schema = {
+	-- 							model = {
+	-- 								default = "deepseek-chat",
+	-- 							},
+	-- 						},
+	-- 					})
+	-- 				end,
+	-- 			},
+	-- 		})
+	-- 	end,
+	-- },
+
+	--------
+	--- Claude Code preview
+	--------
 	{
-		"olimorris/codecompanion.nvim",
-		cmd = { "CodeCompanionChat" },
-		dependencies = {
-			"nvim-lua/plenary.nvim",
-			"nvim-treesitter/nvim-treesitter",
-			{ "MeanderingProgrammer/render-markdown.nvim", ft = { "markdown", "codecompanion" } },
-		},
+		"Cannon07/claude-preview.nvim",
 		config = function()
-			require("codecompanion").setup({
-				-- Can't find a way to setup deekseek
-				strategies = {
-					chat = { adapter = "deepseek" },
-					inline = { adapter = "deepseek" },
-				},
-				adapters = {
-					deepseek = function()
-						return require("codecompanion.adapters").extend("deepseek", {
-							env = {
-								api_key = "DEEPSEEK_API_KEY",
-							},
-							schema = {
-								model = {
-									default = "deepseek-chat",
-								},
-							},
-						})
-					end,
-				},
-			})
+			require("claude-preview").setup()
 		end,
+		cmd = { "ClaudePreviewInstallHooks", "CodePreviewInstallOpenCodeHooks" },
 	},
 
 	------

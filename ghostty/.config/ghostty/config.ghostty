@@ -1,0 +1,16 @@
+# Color Scheme
+theme = Catppuccin Macchiato
+
+# Transparency
+background-opacity = 0.85
+
+# Padding
+window-padding-x = 0
+window-padding-y = 0
+
+# Font
+font-family = "RobotoMono Nerd Font"
+font-size = 14
+
+# Ensures that 'truecolor' support is passed correctly to apps.
+term = xterm-256color

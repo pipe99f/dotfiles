@@ -64,3 +64,25 @@ fkill() {
         echo $pid | xargs kill -9
     fi
 }
+
+
+# Select a running container to stop using FZF
+dstop() {
+  local cid
+  cid=$(docker ps --format "{{.ID}}: {{.Names}}" | fzf --height 20% --border --header "Select container to stop" | cut -d ":" -f1)
+  [ -n "$cid" ] && docker stop "$cid"
+}
+
+# Select a container to enter its shell
+dsh() {
+  local cid
+  cid=$(docker ps --format "{{.ID}}: {{.Names}}" | fzf --height 20% --border --header "Select container to enter" | cut -d ":" -f1)
+  [ -n "$cid" ] && docker exec -it "$cid" /bin/bash || docker exec -it "$cid" /bin/sh
+}
+
+# fzf for man pages
+fzf-man() {
+    man -k . | fzf --prompt='Man> ' \
+                   --preview='echo {} | tr -d "()" | awk "{print \$2, \$1}" | xargs man' \
+                   --bind='enter:execute(echo {} | tr -d "()" | awk "{print \$2, \$1}" | xargs man)'
+}

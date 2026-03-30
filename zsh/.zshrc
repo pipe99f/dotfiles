@@ -7,6 +7,10 @@ if [ $PROFILING_MODE -ne 0 ]; then
     zsh_start_time=$(( EPOCHREALTIME * 1000 ))
 fi
 
+# Environment Detection
+# Capture the kernel name to handle OS-specific flags (Darwin vs Linux).
+local detected_os
+detected_os=$(uname -s)
 
 #########
 # PATH
@@ -89,7 +93,6 @@ zinit ice wait'0' lucid atload"fast-theme -q XDG:catppuccin-macchiato" # this is
 # snippets plugins
 zinit wait'0b' lucid for \
     OMZP::command-not-found \
-    OMZP::docker \
     OMZP::git
 
 # Improves performance of compinit
@@ -175,7 +178,7 @@ export DISABLE_AUTO_TITLE="true"
 ##############
 
 # Makes the caching work on MacOS
-if [[ "$(uname)" == "Darwin" ]]; then
+if [[ detected_os == "Darwin" ]]; then
     eval "$(/opt/homebrew/bin/brew shellenv)" # Apple Silicon
     # eval "$(/usr/local/bin/brew shellenv)"  # Intel
 fi
@@ -211,6 +214,14 @@ cache_eval() {
 # Atuin
 # eval "$(atuin init zsh --disable-up-arrow)"
 cache_eval "atuin"    "atuin init zsh --disable-up-arrow"
+
+
+# Conda lazy loader
+conda() {
+    unfunction conda
+    source "/home/pipe99f/miniconda3/etc/profile.d/conda.sh"
+    conda "$@"
+}
 
 # Direnv
 # eval "$(direnv hook zsh)"
@@ -256,12 +267,144 @@ cache_eval "zoxide"   "zoxide init --cmd cd zsh"
 # Aliases
 ##############
 
-# alias ll='ls -alF'
-# alias la='ls -A'
-alias ls='eza --icons --git'
-alias ll='eza --icons --git -labF'
-alias la='eza --icons --git -a'
-alias llm='eza --icons --git -labF --sort=modified'
+# System & Privileges
+## Wrappers for administrative commands and safety features.
+# Admin Helpers
+alias -- _="sudo"        # Quick sudo shorthand
+
+# Auto-Sudo (Linux Only)
+# On Linux, system commands almost always require root. This wrapper adds
+# 'sudo' automatically to specific commands to save typing.
+if [[ "$detected_os" == "Linux" ]]; then
+    for sys_cmd in mount umount sv updatedb su shutdown poweroff reboot; do
+        alias "$sys_cmd"="_ $sys_cmd"
+    done
+    unset sys_cmd
+fi
+
+# Safety Nets
+# Force interactive mode (-i) to prompt before destructive actions.
+alias mv="command mv -i"
+alias cp="command cp -i"
+alias ln="command ln -i"
+alias rm="command rm -i"      # "Are you sure?" prompt for deletions
+
+# GNU/BSD Compatibility
+# Linux specific flags that don't exist on macOS/BSD.
+if [[ "$detected_os" == "Linux" ]]; then
+    alias chown="chown --preserve-root"
+    alias chmod="chmod --preserve-root"
+    alias chgrp="chgrp --preserve-root"
+fi
+
+# Shell Management
+# 'exec zsh' replaces the current process, reloading the config cleanly.
+(( $+functions[_zsh_reload] )) && alias zsh="_zsh_reload" || alias zsh="exec zsh"  # Fallback if the function isn't defined yet
+alias which='type -a' # 'type -a' is more robust in Zsh than 'which'
+
+
+# Utilities & Tools
+## Replacing legacy unix tools with modern Rust/Go alternatives.
+
+# Modern Replacements
+
+# 'cat' -> 'bat' (Syntax highlighting)
+(( $+commands[bat] ))     && alias cat='bat'
+
+# 'df' -> 'duf' (Disk Usage / Free utility)
+(( $+commands[duf] ))     && alias df="duf" || alias df="df -h"
+
+# 'rm' -> 'trash' (Moves to trash instead of permanent delete)
+(( $+commands[trash] ))   && alias del="trash"
+
+# 'grep' -> 'ripgrep' (Much faster search)
+if (( $+commands[rg] )); then
+    alias grep="rg"
+    alias -g ':G'="| rg"
+elif (( $+commands[ripgrep] )); then
+    alias grep="ripgrep"
+    alias -g ':G'="| ripgrep"
+else
+    alias -g ':G'="| grep"
+fi
+
+# 'find' -> 'fd' (Simple, fast, user-friendly)
+(( $+commands[fd] )) && alias find="fd"
+
+# 'diff' -> 'delta' (Syntax highlighted diffs)
+(( $+commands[delta] )) && alias diff="delta"
+
+# Eza as ls
+if (( $+commands[eza] )); then
+    alias ls='eza --icons --git --color=always'
+    alias ll='eza --icons --git -labF'
+    alias la='eza --icons --git -a'
+    alias llm='eza --icons --git -labF --sort=modified'
+    alias lt="eza --tree --level=2 --icons --git --all --group-directories-first"
+else
+    # Native Fallback
+    if [[ "$detected_os" == "Darwin" ]]; then
+        alias ls="ls -G"           # macOS color flag
+        alias ll="ls -laG"
+    else
+        alias ls="ls --color=auto" # Linux color flag
+        alias ll="ls -la --color=auto"
+    fi
+fi
+
+# Network & Process
+
+alias ip="curl ipinfo.io/ip"           # Get Public IP
+alias ping='ping -c 5'                 # Stop after 5 pings
+alias fastping='ping -c 100 -s 2'     # Stress test
+alias gping="ping -c 5 google.com"     # Connectivity check
+
+# Process Listing (ps)
+alias p="ps -f"
+alias paux='ps aux | grep'
+
+# Memory/CPU Sorting (Handles flag differences between macOS/Linux)
+if [[ "$detected_os" == "Linux" ]]; then
+    alias psmem='ps auxf | sort -nr -k 4'
+    alias pscpu='ps auxf | sort -nr -k 3'
+else
+    alias psmem='ps aux | sort -nr -k 4'  # macOS lacks 'f' forest view in aux
+    alias pscpu='ps aux | sort -nr -k 3'
+fi
+
+alias killl='killall -q'
+
+# docker
+alias dk='docker'
+alias dps='docker ps --format "table {{.ID}}\t{{.Names}}\t{{.Status}}\t{{.Ports}}"' # Cleaner PS
+alias dpa='docker ps -a'                      # Show all containers
+alias di='docker images'                      # List images
+alias dl='docker logs -f'                     # Follow logs: dl <container_name>
+
+# Remove all stopped containers, unused networks, and dangling images
+alias dprune='docker system prune -a --volumes'
+
+# Stop and remove ALL containers (Careful!)
+alias dstopall='docker stop $(docker ps -aq) && docker rm $(docker ps -aq)'
+
+# Delete all "dangling" images (the ones labeled <none>)
+alias dclean-i='docker rmi $(docker images -f "dangling=true" -q)'
+
+# Enter a running container's shell (Usage: dex <name>)
+alias dex='docker exec -it'
+
+# Quick restart
+alias dr='docker restart'
+
+# Get the IP address of a container
+alias dip="docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}'"
+
+alias dco='docker compose'
+alias dcup='docker compose up -d'
+alias dcdn='docker compose down'
+alias dcl='docker compose logs -f'
+alias dcb='docker compose build'
+
 
 #nvim as vim
 alias vim="nvim"
@@ -280,12 +423,6 @@ alias tmuxp="nocorrect tmuxp"
 # END OF FILE
 ##############
 
-# Conda lazy loader
-conda() {
-    unfunction conda
-    source "/home/pipe99f/miniconda3/etc/profile.d/conda.sh"
-    conda "$@"
-}
 
 # Auto-Compile .zshrc for next time
 if [[ ~/.zshrc -nt ~/.zshrc.zwc ]]; then
