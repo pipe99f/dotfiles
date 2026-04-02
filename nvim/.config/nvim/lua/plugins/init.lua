@@ -311,25 +311,38 @@ return {
 	},
 
 	--Markdown
-	{
+	{ -- Terminal markdown preview
 		"MeanderingProgrammer/render-markdown.nvim",
-		ft = { "markdown", "rmd", "pandoc.markdown", "codecompanion", "Avante", "quarto" },
+		ft = { "markdown", "rmd", "pandoc.markdown", "codecompanion", "Avante", "quarto", "AgenticChat" },
 		opts = {
-			file_types = { "quarto", "rmd", "markdown", "Avante", "codecompanion" },
+			file_types = { "quarto", "rmd", "markdown", "Avante", "codecompanion", "AgenticChat" },
 		},
 	},
-	{
-		"iamcco/markdown-preview.nvim",
-		build = "cd app && yarn install",
-		-- build = function()
-		-- 	vim.fn["mkdp#util#install"]()
-		-- end,
-		ft = { "markdown", "rmd", "pandoc.markdown" },
-		cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+	-- { -- UNMAINTAINED
+	-- 	"iamcco/markdown-preview.nvim",
+	-- 	build = "cd app && yarn install",
+	-- 	ft = { "markdown", "rmd", "pandoc.markdown" },
+	-- 	cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+	-- 	config = function()
+	-- 		vim.cmd([[let g:mkdp_browser = 'chromium']])
+	-- 	end,
+	-- },
+	{ -- Maintained and with good mermaid support
+		"selimacerbas/markdown-preview.nvim",
+		dependencies = { "selimacerbas/live-server.nvim" },
+		cmd = { "MarkdownPreview" },
 		config = function()
-			vim.cmd([[let g:mkdp_browser = 'chromium']])
+			require("markdown_preview").setup({
+				-- all optional; sane defaults shown
+				instance_mode = "takeover", -- "takeover" (one tab) or "multi" (tab per instance)
+				port = 0, -- 0 = auto (8421 for takeover, OS-assigned for multi)
+				open_browser = true,
+				debounce_ms = 300,
+			})
 		end,
 	},
+
+	-- HTML
 	{
 		"brianhuster/live-preview.nvim",
 		ft = { "markdown", "rmd", "pandoc.markdown" },

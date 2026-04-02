@@ -1,158 +1,115 @@
-local map = vim.api.nvim_set_keymap
-local opts = { noremap = true, silent = true }
+vim.g.mapleader = " "
 
 -----------
 --GENERAL--
 -----------
 
-vim.g.mapleader = " "
-
 -- Quickfix mappings
-map("n", "<leader>ck", ":cexpr []<cr>", opts)
-map("n", "<leader>cc", ":cclose <cr>", opts)
-map("n", "<leader>co", ":copen <cr>", opts)
-map("n", "<leader>cf", ":cfdo %s/", opts)
-map("n", "<leader>cp", ":cprev<cr>zz", opts)
-map("n", "<leader>cn", ":cnext<cr>zz", opts)
+vim.keymap.set("n", "<leader>ck", "<cmd>cexpr []<cr>")
+vim.keymap.set("n", "<leader>cc", "<cmd>cclose<cr>")
+vim.keymap.set("n", "<leader>co", "<cmd>copen<cr>")
+vim.keymap.set("n", "<leader>cf", "<cmd>cfdo %s/", { desc = "cfdo substitution" })
+vim.keymap.set("n", "<leader>cp", "<cmd>cprev<cr>zz")
+vim.keymap.set("n", "<leader>cn", "<cmd>cnext<cr>zz")
 
+-- Copy name
+vim.keymap.set(
+	"n",
+	"<leader>fn",
+	":let @+ = expand('%:t') | echo 'File name copied: ' . @+<CR>",
+	{ desc = "Copy file name" }
+)
 -- Copy path
-vim.cmd('map <leader>fn :let @+ = expand("%:t") \\| echo "File name copied: " . @+<CR>')
-vim.cmd('map <leader>fp :let @+ = expand("%:p") \\| echo "File path copied: " . @+<CR>')
+vim.keymap.set(
+	"n",
+	"<leader>fp",
+	":let @+ = expand('%:p') | echo 'File path copied: ' . @+<CR>",
+	{ desc = "Copy file path" }
+)
 
--- Insert blank lines
-vim.keymap.set("n", "<leader>o", "o<Esc>")
-vim.keymap.set("n", "<leader>O", "O<Esc>")
+vim.keymap.set("n", "<leader>o", "o<Esc>", { desc = "Insert line below" })
+vim.keymap.set("n", "<leader>O", "O<Esc>", { desc = "Insert line above" })
+vim.keymap.set("n", "<leader>re", "gD:%s/<C-R>///gc<left><left><left>", { desc = "Replace all in buffer" })
 
--- Rename all string occurrences in the current buffer
-vim.cmd("map <leader>re gD:%s/<C-R>///gc<left><left><left>")
+vim.keymap.set("i", "<C-h>", "<C-w>", { desc = "Delete word in insert mode" })
 
---Ctrl+Backspace deletes word
-vim.keymap.set("i", "<C-h>", "<C-w>")
+vim.keymap.set("v", "y", "may`a", { desc = "Yank without moving cursor" })
+vim.keymap.set("n", "H", "^", { desc = "Go to line start" })
+vim.keymap.set("n", "L", "$", { desc = "Go to line end" })
+vim.keymap.set("v", "J", ":m '>+1<CR>gv==kgvo<esc>=kgvo", { desc = "Move highlighted text down" })
+vim.keymap.set("v", "K", ":m '<-2<CR>gv==jgvo<esc>=jgvo", { desc = "Move highlighted text up" })
 
---avoid placing cursor at the beginning when yanking in visual mode
-vim.keymap.set("v", "y", "may`a")
+vim.keymap.set("n", "<leader>w", "<cmd>silent write!<CR>", { desc = "Save" })
+vim.keymap.set("n", "<leader>W", "<cmd>wa!<CR>", { desc = "Save all" })
+vim.keymap.set("n", "<C-Q>", "<cmd>qa<CR>", { desc = "Quit all" })
 
---Beginning and end of lines
-vim.keymap.set("n", "H", "^")
-vim.keymap.set("n", "L", "$")
+vim.keymap.set("n", "<C-Up>", "<cmd>resize -2<CR>", { desc = "Resize window up" })
+vim.keymap.set("n", "<C-Down>", "<cmd>resize +2<CR>", { desc = "Resize window down" })
+vim.keymap.set("n", "<C-Left>", "<cmd>vertical resize -2<CR>", { desc = "Resize window left" })
+vim.keymap.set("n", "<C-Right>", "<cmd>vertical resize +2<CR>", { desc = "Resize window right" })
 
---Move highlited text in visual mode
-vim.keymap.set("v", "J", ":m '>+1<CR>gv==kgvo<esc>=kgvo", { desc = "move highlighted text down" })
-vim.keymap.set("v", "K", ":m '<-2<CR>gv==jgvo<esc>=jgvo", { desc = "move highlighted text up" })
+vim.keymap.set("n", "<C-k>", "<C-W>k", { desc = "Move to window above" })
+vim.keymap.set("n", "<C-j>", "<C-W>j", { desc = "Move to window below" })
+vim.keymap.set("n", "<C-l>", "<C-W>l", { desc = "Move to window right" })
+vim.keymap.set("n", "<C-h>", "<C-W>h", { desc = "Move to window left" })
+vim.keymap.set("t", "<C-h>", "<Cmd>wincmd h<CR>", { desc = "Move to window left (terminal)" })
+vim.keymap.set("t", "<C-j>", "<Cmd>wincmd j<CR>", { desc = "Move to window below (terminal)" })
+vim.keymap.set("t", "<C-k>", "<Cmd>wincmd k<CR>", { desc = "Move to window above (terminal)" })
+vim.keymap.set("t", "<C-l>", "<Cmd>wincmd l<CR>", { desc = "Move to window right (terminal)" })
 
---fast saving
-map("n", "<leader>w", "<cmd>silent write!<CR>", { silent = false })
-map("n", "<leader>W", ":wa!<CR>", { silent = false })
+vim.keymap.set("n", "<leader>vs", "<cmd>vsplit<CR>", { desc = "Vertical split" })
+vim.keymap.set("n", "<leader>ss", "<cmd>split<CR>", { desc = "Horizontal split" })
 
--- Quit neovim
-map("n", "<C-Q>", ":qa<CR>", opts)
+vim.keymap.set("t", "<Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
 
--- resize windows
-map("n", "<C-Up>", ":resize -2<CR>", opts)
-map("n", "<C-Down>", ":resize +2<CR>", opts)
-map("n", "<C-Left>", ":vertical resize -2<CR>", opts)
-map("n", "<C-Right>", ":vertical resize +2<CR>", opts)
-
--- move between windows
-map("n", "<C-k>", "<C-W>k", { silent = true })
-map("n", "<C-j>", "<C-W>j", { silent = true })
-map("n", "<C-l>", "<C-W>l", { silent = true })
-map("n", "<C-h>", "<C-W>h", { silent = true })
-map("t", "<C-h>", [[<Cmd>wincmd h<CR>]], opts)
-map("t", "<C-j>", [[<Cmd>wincmd j<CR>]], opts)
-map("t", "<C-k>", [[<Cmd>wincmd k<CR>]], opts)
-map("t", "<C-l>", [[<Cmd>wincmd l<CR>]], opts)
-
---create split window
-map("n", "<leader>vs", ":vsplit<CR>", { silent = false })
-map("n", "<leader>ss", ":split<CR>", { silent = false })
-
---normal mode in terminal
-map("t", "<Esc>", "<C-\\><C-n>", { silent = false })
-
---buffers
-vim.keymap.set("n", "<BS>", ":b#<CR>", { silent = true })
-vim.api.nvim_set_keymap("n", "<Tab>", ":BufferLineCycleNext<CR>", { silent = false, noremap = true })
-vim.api.nvim_set_keymap("n", "<S-Tab>", ":BufferLineCyclePrev<CR>", { silent = false, noremap = true })
-vim.api.nvim_set_keymap("n", ">b", ":BufferLineMoveNext<CR>", { silent = true, noremap = true })
-vim.api.nvim_set_keymap("n", "<b", ":BufferLineMovePrev<CR>", { silent = true, noremap = true })
-
---running code
--- autocmd('FileType', {pattern = 'python',  })
-
--- vim.api.nvim_create_augroup('runcode', {clear = true})
--- vim.cmd([[
---   augroup runcode
---
---   autocmd FileType python map <buffer> <F9> :w<CR>:exec '!python3' shellescape(@%, 1)<CR>
---   autocmd FileType python imap <buffer> <F9> <esc>:w<CR>:exec '!python3' shellescape(@%, 1)<CR>
---   autocmd FileType python nnoremap <buffer> <leader>rr :silent w <bar> bo <bar> 8sp <bar> term python "%:p" <CR><CR>
---
---   autocmd FileType sh nnoremap <buffer> <leader>rr :w <CR> :bo :8sp <CR> :term  bash "%:p" <CR>
---   autocmd FileType zsh nnoremap <buffer> <leader>rr :w <CR> :bo :8sp <CR> :term  bash "%:p" <CR>
---
---   autocmd FileType javascript nnoremap <buffer> <leader>rr :w <CR> :bo :8sp <CR> :term  node "%:p" <CR>
---
---   autocmd FileType lua nnoremap <buffer> <leader>rr :w :bo :8sp <CR> :term lua "%:p" <CR>
---
---   autocmd FileType cpp nnoremap <buffer> <leader>rr :w <CR> :make %< && ./%< <cr>
---   autocmd FileType cpp nnoremap <buffer> <leader>ru :w <CR> :!gcc % && ./%< <CR>
---   augroup END
--- ]])
+vim.keymap.set("n", "<BS>", "<cmd>b#<CR>", { desc = "Switch to previous buffer" })
+vim.keymap.set("n", "<Tab>", "<cmd>BufferLineCycleNext<CR>", { desc = "Next buffer" })
+vim.keymap.set("n", "<S-Tab>", "<cmd>BufferLineCyclePrev<CR>", { desc = "Previous buffer" })
+vim.keymap.set("n", ">b", "<cmd>BufferLineMoveNext<CR>", { desc = "Move buffer right" })
+vim.keymap.set("n", "<b", "<cmd>BufferLineMovePrev<CR>", { desc = "Move buffer left" })
 
 -----------
 --PLUGINS--
 -----------
 
 -- Compiler
--- Open compiler
-vim.api.nvim_buf_set_keymap(0, "n", "<F6>", "<cmd>CompilerOpen<cr>", { noremap = true, silent = true })
+vim.keymap.set("n", "<F6>", "<cmd>CompilerOpen<cr>", { desc = "Open compiler" })
+vim.keymap.set("n", "<S-F6>", "<cmd>CompilerToggleResults<cr>", { desc = "Toggle compiler results" })
 
--- Toggle compiler results
-vim.api.nvim_buf_set_keymap(0, "n", "<S-F6>", "<cmd>CompilerToggleResults<cr>", { noremap = true, silent = true })
+-- Code runner
+vim.keymap.set("n", "<leader>r", "<cmd>RunCode<CR>", { desc = "Run code" })
+vim.keymap.set("n", "<leader>rf", "<cmd>RunFile<CR>", { desc = "Run file" })
+vim.keymap.set("n", "<leader>rft", "<cmd>RunFile tab<CR>", { desc = "Run file in tab" })
+vim.keymap.set("n", "<leader>rp", "<cmd>RunProject<CR>", { desc = "Run project" })
+vim.keymap.set("n", "<leader>rc", "<cmd>RunClose<CR>", { desc = "Close runner" })
+vim.keymap.set("n", "<leader>crf", "<cmd>CRFiletype<CR>", { desc = "Code runner by filetype" })
+vim.keymap.set("n", "<leader>crp", "<cmd>CRProjects<CR>", { desc = "Code runner projects" })
 
---Code runner
-vim.keymap.set("n", "<leader>r", ":RunCode<CR>", { noremap = true, silent = false })
-vim.keymap.set("n", "<leader>rf", ":RunFile<CR>", { noremap = true, silent = false })
-vim.keymap.set("n", "<leader>rft", ":RunFile tab<CR>", { noremap = true, silent = false })
-vim.keymap.set("n", "<leader>rp", ":RunProject<CR>", { noremap = true, silent = false })
-vim.keymap.set("n", "<leader>rc", ":RunClose<CR>", { noremap = true, silent = false })
-vim.keymap.set("n", "<leader>crf", ":CRFiletype<CR>", { noremap = true, silent = false })
-vim.keymap.set("n", "<leader>crp", ":CRProjects<CR>", { noremap = true, silent = false })
+-- DAP
+vim.keymap.set("n", "<leader>db", "<cmd>DapToggleBreakpoint<CR>", { desc = "Toggle breakpoint" })
+vim.keymap.set("n", "<leader>dpr", "<cmd>lua require('dap-python').test_method()<CR>", { desc = "Debug python method" })
 
---DAP
-vim.keymap.set("n", "<leader>db", "<CMD>DapToggleBreakpoint<CR>")
-vim.keymap.set("n", "<leader>dpr", "<CMD>lua require('dap-python').test_method()<CR>")
+-- Iron REPL
+vim.keymap.set("n", "<leader>ti", "<cmd>IronAttach<CR>", { desc = "Attach to REPL" })
 
---Iron
--- map("n", "<leader>ti", "<cmd>IronRepl<CR>", opts) -- toggle iron REPL
-map("n", "<leader>ti", "<cmd>IronAttach<CR>", opts) -- toggle iron REPL
-
---NvimTree
-map("n", "<leader>n", ":NvimTreeToggle<CR>", { silent = false, noremap = true })
+-- NvimTree
+vim.keymap.set("n", "<leader>n", "<cmd>NvimTreeToggle<CR>", { desc = "Toggle file tree" })
 
 -- Rename
 vim.keymap.set("n", "<leader>rn", function()
 	return ":IncRename " .. vim.fn.expand("<cword>")
-end, { expr = true })
+end, { expr = true, desc = "Incremental rename" })
 
 -- Toggleterm
-vim.keymap.set("n", "<A-i>", "<CMD>lua _hiddenFloat()<CR>")
-vim.keymap.set("t", "<A-i>", "<C-\\><C-n><CMD>:lua _hiddenFloat()<CR>")
-map("n", "<A-g>", "<cmd>lua _lazygit_toggle()<CR>", { noremap = true, silent = true })
-map("t", "<A-g>", "<C-\\><C-n><cmd>lua _lazygit_toggle()<CR>", { noremap = true, silent = true })
--- con alt-\ se abre una terminal en la parte inferior.
+vim.keymap.set("n", "<A-i>", "<cmd>lua _hiddenFloat()<CR>", { desc = "Toggle floating terminal" })
+vim.keymap.set("t", "<A-i>", "<C-\\><C-n><cmd>lua _hiddenFloat()<CR>", { desc = "Toggle floating terminal" })
+vim.keymap.set("n", "<A-g>", "<cmd>lua _lazygit_toggle()<CR>", { desc = "Toggle lazygit" })
+vim.keymap.set("t", "<A-g>", "<C-\\><C-n><cmd>lua _lazygit_toggle()<CR>", { desc = "Toggle lazygit" })
 
---Telescope
-map("n", "<leader>tk", ':<cmd>lua require("telescope.builtin").keymaps()<cr>', { silent = false, noremap = true })
-map("n", "<leader>fe", ':<cmd>lua require("telescope.builtin").find_files()<cr>', { silent = false, noremap = true })
-map(
-	"n",
-	"<leader>tf",
-	':<cmd>lua require("telescope").extensions.frecency.frecency()<cr>',
-	{ silent = false, noremap = true }
-)
-map("n", "<leader><leader>", ':<cmd>lua require("telescope.builtin").resume()<cr>', { silent = false, noremap = true })
-
-map("n", "<leader>gt", ':<cmd>lua require("telescope.builtin").git_status()<cr>', { silent = false, noremap = true })
-map("n", "<leader>cm", ':<cmd>lua require("telescope.builtin").git_commits()<cr>', { silent = false, noremap = true })
+-- Telescope
+vim.keymap.set("n", "<leader>tk", "<cmd>Telescope keymaps<CR>", { desc = "Telescope keymaps" })
+vim.keymap.set("n", "<leader>fe", "<cmd>Telescope find_files<CR>", { desc = "Find files" })
+vim.keymap.set("n", "<leader>tf", "<cmd>Telescope frecency<CR>", { desc = "Frecency (recent/freq files)" })
+vim.keymap.set("n", "<leader><leader>", "<cmd>Telescope resume<CR>", { desc = "Resume previous search" })
+vim.keymap.set("n", "<leader>gt", "<cmd>Telescope git_status<CR>", { desc = "Git status" })
+vim.keymap.set("n", "<leader>cm", "<cmd>Telescope git_commits<CR>", { desc = "Git commits" })

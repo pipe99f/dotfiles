@@ -80,6 +80,7 @@ function zvm_after_init() {
 zinit wait lucid for \
  atinit"ZINIT[COMPINIT_OPTS]=-C; zicompinit; zicdreplay" \
     zdharma-continuum/fast-syntax-highlighting \
+    atload"fast-theme -q XDG:catppuccin-macchiato" \
  blockf \
     zsh-users/zsh-completions \
  atload"!_zsh_autosuggest_start" \
@@ -88,7 +89,6 @@ zinit wait lucid for \
  Aloxaf/fzf-tab
 
 # Zsh-fast-syntax-highlighting theme
-zinit ice wait'0' lucid atload"fast-theme -q XDG:catppuccin-macchiato" # this is needs to be run only once, I guess
 
 # snippets plugins
 zinit wait'0b' lucid for \
