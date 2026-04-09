@@ -225,9 +225,7 @@ return {
 		dependencies = {
 			{
 				"jmbuhr/otter.nvim",
-				dependencies = {
-					"nvim-treesitter/nvim-treesitter",
-				},
+				-- dependencies = { "nvim-treesitter/nvim-treesitter" },
 				opts = {},
 			},
 		},
@@ -360,13 +358,6 @@ return {
 				org_agenda_files = "~/orgfiles/**/*",
 				org_default_notes_file = "~/orgfiles/refile.org",
 			})
-
-			-- NOTE: If you are using nvim-treesitter with ~ensure_installed = "all"~ option
-			-- add ~org~ to ignore_install
-			-- require('nvim-treesitter.configs').setup({
-			--   ensure_installed = 'all',
-			--   ignore_install = { 'org' },
-			-- })
 		end,
 	},
 	{
@@ -759,6 +750,7 @@ return {
 			{ "<leader>kb", desc = "Open scratchpad" },
 		},
 		ft = { "http", "rest" },
+		dependencies = {},
 		opts = {
 			-- your configuration comes here
 			global_keymaps = true,
@@ -865,7 +857,7 @@ return {
 		-- which this plugin will affect (see :help autocommand-pattern).
 		ft = { "markdown", "pandoc.markdown", "quarto", "org", "html" },
 		opts = { pattern = "*" },
-		dependencies = { "nvim-treesitter/nvim-treesitter" },
+		-- dependencies = { "nvim-treesitter/nvim-treesitter" },
 	},
 	{ -- Create scratch buffer
 		"LintaoAmons/scratch.nvim",

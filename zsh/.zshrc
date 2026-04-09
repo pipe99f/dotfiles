@@ -92,8 +92,8 @@ zinit wait lucid for \
 
 # snippets plugins
 zinit wait'0b' lucid for \
-    OMZP::command-not-found \
     OMZP::git
+    # OMZP::command-not-found \ # Super slow
 
 # Improves performance of compinit
 # It should be after the plugins loading

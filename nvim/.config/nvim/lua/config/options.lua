@@ -1,6 +1,9 @@
 local opt = vim.opt
 local g = vim.g
 
+-- Experimental
+require("vim._core.ui2").enable({})
+
 -- misc
 opt.backspace = { "eol", "start", "indent" }
 vim.schedule(function()
@@ -70,20 +73,20 @@ opt.ttimeoutlen = 10
 opt.updatetime = 250
 
 -- solves http highlighting problem
-vim.filetype.add({
-	extension = {
-		["http"] = "http",
-		["rest"] = "http",
-	},
-})
-
-vim.api.nvim_create_autocmd("FileType", {
-	pattern = "http",
-	callback = function()
-		-- Forces Treesitter to start for the current buffer
-		vim.treesitter.start()
-	end,
-})
+-- vim.filetype.add({
+-- 	extension = {
+-- 		["http"] = "http",
+-- 		["rest"] = "http",
+-- 	},
+-- })
+--
+-- vim.api.nvim_create_autocmd("FileType", {
+-- 	pattern = "http",
+-- 	callback = function()
+-- 		-- Forces Treesitter to start for the current buffer
+-- 		vim.treesitter.start()
+-- 	end,
+-- })
 
 -- Helps to debug deprecated functions, I must only uncomment that code and the deprecate
 -- messages will be very verbose
