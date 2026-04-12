@@ -47,7 +47,7 @@ return {
 				sh = { "shellharden", "shfmt" },
 				sql = { "sql_formatter" },
 				tex = { "latexindent" },
-				toml = { "tombi" },
+				toml = { "tombi", "pyproject-fmt" },
 				yaml = { "prettierd" },
 				["*"] = { "injected" },
 			},

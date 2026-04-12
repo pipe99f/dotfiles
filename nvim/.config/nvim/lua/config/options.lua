@@ -73,13 +73,7 @@ opt.ttimeoutlen = 10
 opt.updatetime = 250
 
 -- solves http highlighting problem
--- vim.filetype.add({
--- 	extension = {
--- 		["http"] = "http",
--- 		["rest"] = "http",
--- 	},
--- })
---
+
 -- vim.api.nvim_create_autocmd("FileType", {
 -- 	pattern = "http",
 -- 	callback = function()

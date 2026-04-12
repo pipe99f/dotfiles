@@ -1,3 +1,5 @@
+#NOTE: press Ctrl+shift+, to reload config file
+
 # Color Scheme
 theme = Catppuccin Macchiato
 
@@ -14,3 +16,7 @@ font-size = 14
 
 # Ensures that 'truecolor' support is passed correctly to apps.
 term = xterm-256color
+
+# Always open ghostty in $HOME, default directory in ghostty is the directory of the previously focused terminal window 
+# window-inherit-working-directory = false
+# working-directory = home

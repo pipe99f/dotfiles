@@ -12,11 +12,11 @@ return {
 		config = function()
 			local servers = {
 				"air", -- R
-				"basedpyright",
+				-- "basedpyright",
 				"bashls", -- lsp
 				"clangd",
 				"cssls",
-				"dockerls",
+				"docker_language_server",
 				"gopls",
 				"html",
 				"jsonls",
@@ -32,12 +32,14 @@ return {
 				"texlab",
 				"tombi", -- toml lsp, linter and formatter
 				"ts_ls",
+				"ty", -- python lsp
 			}
 
 			local tools = {
 				--diagnostics/linter
 				--"clippy", -- rust linter, it is not supported yet by mason
 				"golangci-lint",
+				"hadolint", -- docker linter
 				"htmlhint",
 				"ruff",
 				"sqlfluff",
@@ -52,6 +54,7 @@ return {
 				"latexindent",
 				"markdownlint",
 				"prettierd",
+				"pyproject-fmt",
 				-- "rustfmt", -- must be installed manually
 				"shellcheck",
 				"shfmt",

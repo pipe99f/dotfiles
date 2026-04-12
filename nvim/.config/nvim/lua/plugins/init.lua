@@ -136,6 +136,8 @@ return {
 				},
 			}
 		end,
+		ft = { "NeogitStatus" },
+		cmd = { "Gdiff", "Greview" },
 	},
 	{
 		"pwntester/octo.nvim", -- Issues and PR's
@@ -375,6 +377,32 @@ return {
 				},
 			})
 		end,
+	},
+
+	-- HTTP / REST files
+	{
+		"mistweaverco/kulala.nvim",
+		keys = {
+			{ "<leader>ks", desc = "Send request" },
+			{ "<leader>ka", desc = "Send all requests" },
+			{ "<leader>kb", desc = "Open scratchpad" },
+		},
+		ft = { "http", "rest" },
+		dependencies = {},
+		opts = {
+			-- your configuration comes here
+			global_keymaps = true,
+			global_keymaps_prefix = "<leader>k",
+			kulala_keymaps_prefix = "",
+			kulala_keymaps = {
+				["Show verbose"] = {
+					"<leader>kv",
+					function()
+						require("kulala.ui").show_verbose()
+					end,
+				},
+			},
+		},
 	},
 
 	-- SQL
@@ -742,29 +770,27 @@ return {
 		opts = {},
 		cmd = "Store",
 	},
-	{
-		"mistweaverco/kulala.nvim",
-		keys = {
-			{ "<leader>ks", desc = "Send request" },
-			{ "<leader>ka", desc = "Send all requests" },
-			{ "<leader>kb", desc = "Open scratchpad" },
-		},
-		ft = { "http", "rest" },
-		dependencies = {},
-		opts = {
-			-- your configuration comes here
-			global_keymaps = true,
-			global_keymaps_prefix = "<leader>k",
-			kulala_keymaps_prefix = "",
-			kulala_keymaps = {
-				["Show verbose"] = {
-					"<leader>kv",
-					function()
-						require("kulala.ui").show_verbose()
-					end,
-				},
-			},
-		},
+	{ -- For loadig very large files
+		"minigian/juan-logs.nvim",
+		build = function(plugin)
+			local path = plugin.dir .. "/build.lua"
+			if vim.fn.filereadable(path) == 1 then
+				dofile(path)
+			end
+		end,
+		-- You can use `build = "cargo build --release"` if you have `cargo` in your system
+		config = function()
+			require("juanlog").setup({
+				threshold_size = 1024 * 1024 * 100, -- 100MB trigger
+				mode = "dynamic", -- I don't remember the other mode name, but it's useless so don't worry
+				lazy = true, -- background indexing. prevents neovim from freezing
+				dynamic_chunk_size = 10000, -- lines to load at once
+				dynamic_margin = 2000, -- trigger scroll load when this close to the edge
+				patterns = { "*.log", "*.txt", "*.csv", "*.json" },
+				enable_custom_statuscol = true, -- fakes absolute line numbers
+				syntax = false, -- set to true to enable native vim syntax (can be slow)
+			})
+		end,
 	},
 	{
 		"linux-cultist/venv-selector.nvim",
@@ -772,7 +798,7 @@ return {
 			"neovim/nvim-lspconfig",
 			{ "nvim-telescope/telescope.nvim", branch = "0.1.x", dependencies = { "nvim-lua/plenary.nvim" } }, -- optional: you can also use fzf-lua, snacks, mini-pick instead.
 		},
-		ft = "python", -- Load when opening Python files
+		-- ft = "python", -- Load when opening Python files
 		keys = {
 			{ "<space>v", "<cmd>VenvSelect<cr>" }, -- Open picker on keymap
 		},
