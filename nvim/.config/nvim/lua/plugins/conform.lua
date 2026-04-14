@@ -30,12 +30,14 @@ return {
 				cpp = { "clang-format" },
 				cuda = { "clang-format" },
 				css = { "prettierd" },
+				-- dockerfile = { "dockerfmt" }, -- formats to very long lines sometimes, I may try this later
 				go = { "goimports", "gofumpt" },
 				html = { "prettierd" },
 				http = { "kulala-fmt" },
 				-- Use a sub-list to run only the first available formatter
 				javascript = { "prettierd", "prettier" },
 				json = { "prettierd" },
+				just = { "just" },
 				lua = { "stylua" },
 				markdown = { "prettierd", "markdownlint" },
 				python = { "ruff_fix", "ruff_organize_imports", "ruff_format" },

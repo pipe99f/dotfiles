@@ -684,6 +684,12 @@ return {
 		cmd = "Neogen",
 		config = true,
 	},
+	{ -- Paste following current indentation
+		"nemanjamalesija/smart-paste.nvim",
+		-- event = "VeryLazy",
+		event = "BufEnter",
+		config = true,
+	},
 
 	{
 		"nvim-focus/focus.nvim", -- Auto resize splits

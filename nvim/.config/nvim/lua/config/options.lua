@@ -14,8 +14,12 @@ opt.matchpairs = { "(:)", "{:}", "[:]", "<:>" }
 opt.syntax = "enable"
 opt.history = 500
 g.have_nerd_font = true
-opt.breakindent = true
 g.python3_host_prog = vim.fn.expand("~/.pixi/envs/data-science-env/bin/python3")
+opt.breakindent = true
+opt.expandtab = true -- Convert tabs to spaces
+opt.shiftwidth = 4 -- Number of spaces for each step of (auto)indent
+opt.tabstop = 4 -- Number of spaces that a <Tab> in the file counts for
+opt.softtabstop = 4 -- Number of spaces that a <Tab> counts for while editing
 opt.inccommand = "split" -- substitutions preview in a split
 
 -- search

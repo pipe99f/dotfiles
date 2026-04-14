@@ -18,10 +18,10 @@ detected_os=$(uname -s)
 
 typeset -U path PATH
 path=(
+    $path
     $HOME/.pixi/bin
     $HOME/.yarn/bin
     $HOME/dotfiles/scripts/scripts
-    $path
 )
 
 ##############
@@ -251,6 +251,12 @@ source $HOME/dotfiles/scripts/scripts/functions.zsh
 # eval "$(starship init zsh)"
 cache_eval "starship" "starship init zsh"
 
+# UV
+# hard links are not supported between different drives, so we need to copy files instead
+# However, copy link mode is slower and uses more memory
+# export UV_LINK_MODE=copy 
+# Another option is to use a different cache directory, 
+export UV_CACHE_DIR=$HOME/ce/.uv_cache
 
 # Zoxide (replaces cd)
 # eval "$(zoxide init --cmd cd zsh)"
