@@ -533,16 +533,55 @@ return {
 		cmd = { "TSContext enable", "TSContext toggle" },
 	},
 	{
-		"tamton-aquib/staline.nvim", -- status line
+		"nvim-lualine/lualine.nvim",
+		event = "VeryLazy",
 		config = function()
-			require("staline").setup({
+			require("lualine").setup({
 				sections = {
-					-- left = { "  ", "mode", " ", "branch", " ", "lsp" },
-					mid = { "lsp", require("doing").status },
+					lualine_a = { "mode" },
+					lualine_b = { "branch" },
+					lualine_c = { "diagnostics" },
+					lualine_x = {
+						{
+							"diff",
+							-- symbols = {
+							-- 	added = icons.git.added,
+							-- 	modified = icons.git.modified,
+							-- 	removed = icons.git.removed,
+							-- },
+							source = function()
+								local gitsigns = vim.b.gitsigns_status_dict
+								if gitsigns then
+									return {
+										added = gitsigns.added,
+										modified = gitsigns.changed,
+										removed = gitsigns.removed,
+									}
+								end
+							end,
+						},
+						{
+							function()
+								return "  " .. require("dap").status()
+							end,
+							cond = function()
+								return package.loaded["dap"] and require("dap").status() ~= ""
+							end,
+						},
+						"fileformat",
+					},
+					lualine_y = { "progress" },
+					lualine_z = { "location" },
 				},
-				-- defaults = {
-				-- 	true_colors = true,
-				-- },
+				extensions = {
+					"avante",
+					"lazy",
+					"mason",
+					"nvim-tree",
+					"quickfix",
+					"toggleterm",
+					"trouble",
+				},
 			})
 		end,
 	},
@@ -937,7 +976,7 @@ return {
 
 	{ -- Don't forget what I'm doing
 		"Hashino/doing.nvim",
-		event = "VeryLazy",
+		-- event = "VeryLazy",
 		cmd = "Do",
 		-- keys = {
 		--   { "<leader>da", function() require("doing").add() end, {}, },
