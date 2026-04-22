@@ -600,11 +600,10 @@ return {
 	},
 	{ "HiPhish/rainbow-delimiters.nvim" },
 	{
-		"norcalli/nvim-colorizer.lua", -- hex code colorizer
-		event = "VeryLazy",
-		config = function()
-			require("colorizer").setup()
-		end,
+		-- hex code colorizer
+		"catgoose/nvim-colorizer.lua",
+		event = "BufReadPre",
+		opts = {},
 	},
 	{
 		"nmac427/guess-indent.nvim", -- adjust indent following current buffer style
@@ -887,17 +886,6 @@ return {
 			-- refer to the configuration section below
 		},
 	},
-	-- Unmaintained and using a deprecated function
-	-- {
-	-- 	"ahmedkhalf/project.nvim",
-	-- 	opts = {
-	-- 		-- manual_mode = true,
-	-- 	},
-	-- 	event = "VeryLazy",
-	-- 	config = function(_, opts)
-	-- 		require("project_nvim").setup(opts)
-	-- 	end,
-	-- },
 	{
 		"DrKJeff16/project.nvim",
 		event = "VeryLazy",

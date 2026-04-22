@@ -178,11 +178,15 @@ return {
 	--- Claude Code preview
 	--------
 	{ -- Shows differences between clauda/opencode modified code and original code
-		"Cannon07/claude-preview.nvim",
+		"Cannon07/code-preview.nvim",
 		config = function()
-			require("claude-preview").setup()
+			require("code-preview").setup()
 		end,
-		cmd = { "ClaudePreviewInstallHooks", "CodePreviewInstallOpenCodeHooks" },
+		cmd = {
+			"CodePreviewInstallClaudeCodeHooks",
+			"CodePreviewInstallOpenCodeHooks",
+			"CodePreviewToggleVisibleOnly",
+		},
 	},
 
 	------

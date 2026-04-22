@@ -1,33 +1,25 @@
 return {
-	-- {
-	-- 	"kevinhwang91/nvim-ufo",
-	-- 	dependencies = "kevinhwang91/promise-async",
-	-- 	config = function()
-	-- 		require("ufo").setup({
-	-- 			provider_selector = function(bufnr, filetype, buftype)
-	-- 				return { "treesitter", "indent" }
-	-- 			end,
-	-- 			preview = {
-	-- 				win_config = {
-	-- 					border = "rounded",
-	-- 					winhighlight = "Normal:Normal",
-	-- 					winblend = 0,
-	-- 				},
-	-- 				mappings = {
-	-- 					scrollU = "<C-u>",
-	-- 					scrollD = "<C-d>",
-	-- 				},
-	-- 			},
-	-- 		})
-	--
-	-- 		vim.keymap.set("n", "zR", require("ufo").openAllFolds)
-	-- 		vim.keymap.set("n", "zM", require("ufo").closeAllFolds)
-	-- 	end,
-	-- },
 	{
 		"chrisgrieser/nvim-origami",
 		event = "VeryLazy",
-		opts = {}, -- needed even when using default config
+		opts = {
+			autoFold = {
+				enabled = false, -- I don't like this feature. Folds are inconsistent.
+				kinds = { "comment", "imports" }, ---@type lsp.FoldingRangeKind[]
+			},
+			useLspFoldsWithTreesitterFallback = {
+				enable = true,
+				foldmethodIfNeitherIsAvailable = function(bufnr)
+					local ft = vim.bo[bufnr].filetype
+					local ft_filter = { "help", "text" }
+					if vim.list_contains(ft_filter, ft) then
+						return "manual"
+					else
+						return "indent"
+					end
+				end,
+			},
+		}, -- needed even when using default config
 		-- recommended: disable vim's auto-folding
 		init = function()
 			vim.opt.foldlevel = 99

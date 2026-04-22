@@ -2,10 +2,6 @@ return {
 	"benlubas/molten-nvim",
 	version = "^1.0.0", -- use version <2.0.0 to avoid breaking changes
 	ft = { "python", "quarto", "markdown" },
-	dependencies = {
-		-- "3rd/image.nvim",
-		{ "willothy/wezterm.nvim", config = true },
-	},
 	build = ":UpdateRemotePlugins",
 	init = function()
 		-- these are examples, not defaults. Please see the readme
@@ -16,7 +12,7 @@ return {
 
 		-- I find auto open annoying, keep in mind setting this option will require setting
 		-- a keybind for `:noautocmd MoltenEnterOutput` to open the output again
-		vim.g.molten_auto_open_output = false -- must be false when using wezterm
+		vim.g.molten_auto_open_output = true -- must be false when using wezterm
 
 		-- this guide will be using image.nvim
 		-- Don't forget to setup and install the plugin if you want to view image outputs
