@@ -12,7 +12,8 @@ return {
 				repl_definition = {
 					-- python = require("iron.fts.python").ipython,
 					python = {
-						command = { "ipython", "--no-autoindent", "--matplotlib=tkagg" },
+						-- command = { "ipython", "--no-autoindent", "--matplotlib=tkagg" },
+						command = { "ipython", "--no-autoindent" }, -- for venvs without tkagg dependency installed
 						format = require("iron.fts.common").bracketed_paste_python,
 						block_deviders = { "# %%", "#%%" },
 					},

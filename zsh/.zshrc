@@ -360,7 +360,7 @@ fi
 
 # Network & Process
 
-alias ip="curl ipinfo.io/ip"           # Get Public IP
+# alias ip="curl ipinfo.io/ip"           # Get Public IP
 alias ping='ping -c 5'                 # Stop after 5 pings
 alias fastping='ping -c 100 -s 2'     # Stress test
 alias gping="ping -c 5 google.com"     # Connectivity check

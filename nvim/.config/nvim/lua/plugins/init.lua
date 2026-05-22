@@ -357,9 +357,11 @@ return {
 		config = function()
 			-- Setup orgmode
 			require("orgmode").setup({
-				org_agenda_files = "~/orgfiles/**/*",
-				org_default_notes_file = "~/orgfiles/refile.org",
+				org_agenda_files = "~/org/**/*",
+				org_default_notes_file = "~/org/refile.org",
 			})
+
+			vim.lsp.enable("org")
 		end,
 	},
 	{
@@ -409,6 +411,23 @@ return {
 	-- { "pope/vim-dadbod" },
 	-- { "kristijanhusak/vim-dadbod-ui" },
 	-- { "kristijanhusak/vim-dadbod-completion" },
+	{
+		"kristijanhusak/vim-dadbod-ui",
+		dependencies = {
+			{ "tpope/vim-dadbod", lazy = true },
+			{ "kristijanhusak/vim-dadbod-completion", ft = { "sql", "mysql", "plsql" }, lazy = true }, -- Optional
+		},
+		cmd = {
+			"DBUI",
+			"DBUIToggle",
+			"DBUIAddConnection",
+			"DBUIFindBuffer",
+		},
+		init = function()
+			-- Your DBUI configuration
+			vim.g.db_ui_use_nerd_fonts = 1
+		end,
+	},
 	{
 		"kndndrj/nvim-dbee",
 		ft = "sql",
@@ -722,12 +741,13 @@ return {
 		cmd = "Neogen",
 		config = true,
 	},
-	{ -- Paste following current indentation
-		"nemanjamalesija/smart-paste.nvim",
-		-- event = "VeryLazy",
-		event = "BufEnter",
-		config = true,
-	},
+	-- I don't indentation behavior in python after function definition, may be fixed in the future
+	-- { -- Paste following current indentation
+	-- 	"nemanjamalesija/smart-paste.nvim",
+	-- 	-- event = "VeryLazy",
+	-- 	event = "BufEnter",
+	-- 	config = true,
+	-- },
 
 	{
 		"nvim-focus/focus.nvim", -- Auto resize splits
