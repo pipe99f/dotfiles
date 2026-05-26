@@ -1,7 +1,8 @@
 #!/bin/bash
 
 choice=$(
-  wofi --show dmenu --insensitive -O alphabetical --lines=10 -p "Outputs" <<EOF
+  # wofi --show dmenu --insensitive -O alphabetical --lines=10 -p "Outputs" <<EOF
+  fuzzel -d -i -p "Outputs: " -l 10 <<EOF
 1. Main monitor
 2. Vertical samsung and main
 3. Acer

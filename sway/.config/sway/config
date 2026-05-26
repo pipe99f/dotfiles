@@ -19,8 +19,8 @@ set $term ghostty
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
-#set $menu dmenu_path | dmenu | xargs swaymsg exec --
-set $menu wofi --show=drun --lines=7 --prompt=""
+# set $menu wofi --show=drun --lines=7 --prompt=""
+set $menu fuzzel
 set $wallpapers_path $HOME/.config/sway/wallpapers
 set $lockscreen_wallpapers_path $HOME/.config/sway/lockscreen_wallpapers
 
@@ -176,7 +176,8 @@ for_window [shell="xwayland"] title_format "[XWayland] %title"
 # Make copy buffers last after an app is closed
 exec wl-paste -t text --watch clipman store
 exec wl-paste -p -t text --watch clipman store -P --histpath="~/.local/share/clipman-primary.json"
-bindsym --to-code $mod+c exec clipman pick -t wofi
+# bindsym --to-code $mod+c exec clipman pick -t wofi
+bindsym --to-code $mod+c exec clipman pick --tool=CUSTOM --tool-args="fuzzel -d -w 70"
 
 #screen recording
 

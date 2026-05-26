@@ -138,7 +138,8 @@
     "network": {
         // "interface": "wlp2*", // (Optional) To force the use of this interface
         "format-ethernet": "󰚥 ",
-        "on-click": "$HOME/.config/sway/scripts/nmcli-wofi",
+        // "on-click": "$HOME/.config/sway/scripts/nmcli-wofi",
+        "on-click": "networkmanager_dmenu",
         "format-wifi": "  {signalStrength}%",
         "format-disconnected": "⚠ Disconnected",
         "tooltip-format-wifi": "{essid}",

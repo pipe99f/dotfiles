@@ -1,7 +1,8 @@
 #!/bin/bash
 
 chosen=$(
-  wofi --show dmenu --insensitive -p "Keyboard Layouts" <<EOF
+  # wofi --show dmenu --insensitive -p "Keyboard Layouts" <<EOF
+  fuzzel -d -i -p "Outputs: " -l 10 <<EOF
 English
 Russian
 Greek
