@@ -26,6 +26,7 @@ export XMODIFIERS=@im=ibus
 #start sway
 if [[ -z $DISPLAY && $TTY = /dev/tty1 ]]; then
   exec sway
+  # start-hyprland
 fi
 
 

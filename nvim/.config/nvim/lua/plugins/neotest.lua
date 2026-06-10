@@ -1,7 +1,7 @@
 return {
 	{
 		"nvim-neotest/neotest",
-		dependencies = { "nvim-neotest/nvim-nio", "nvim-neotest/neotest-python" },
+		dependencies = { "nvim-neotest/nvim-nio", "nvim-neotest/neotest-python", "folke/trouble.nvim" },
 		opts = {
 			-- Can be a list of adapters like what neotest expects,
 			-- or a list of adapter names,
@@ -19,11 +19,7 @@ return {
 			output = { open_on_run = true },
 			quickfix = {
 				open = function()
-					if LazyVim.has("trouble.nvim") then
-						require("trouble").open({ mode = "quickfix", focus = false })
-					else
-						vim.cmd("copen")
-					end
+					require("trouble").open({ mode = "quickfix", focus = false })
 				end,
 			},
 		},

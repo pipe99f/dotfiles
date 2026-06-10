@@ -752,7 +752,7 @@ return {
 	{
 		"nvim-focus/focus.nvim", -- Auto resize splits
 		version = false,
-		events = "VeryLazy",
+		event = "VeryLazy",
 		cmd = "FocusToggle",
 		config = function()
 			require("focus").setup()

@@ -67,6 +67,7 @@ vim.lsp.config["gopls"] = {
 	},
 }
 
+local runtime_path = vim.split(package.path, ";")
 vim.lsp.config["lua_ls"] = {
 	settings = {
 		Lua = {

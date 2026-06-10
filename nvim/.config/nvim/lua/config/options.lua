@@ -11,7 +11,7 @@ vim.schedule(function()
 end)
 opt.encoding = "utf-8"
 opt.matchpairs = { "(:)", "{:}", "[:]", "<:>" }
-opt.syntax = "enable"
+-- opt.syntax = "enable"
 opt.history = 500
 g.have_nerd_font = true
 g.python3_host_prog = vim.fn.expand("~/.pixi/envs/data-science-env/bin/python3")
@@ -34,7 +34,7 @@ vim.cmd.colorscheme("catppuccin-mocha")
 opt.laststatus = 3 -- use global statusline
 vim.o.ch = 0 --removes bottom blank space. Makes statusline flicker
 opt.cursorline = true
-opt.lazyredraw = true
+
 opt.list = true
 opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
 opt.mouse = "a"
