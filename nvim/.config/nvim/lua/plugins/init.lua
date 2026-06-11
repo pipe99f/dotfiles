@@ -359,6 +359,15 @@ return {
 			require("orgmode").setup({
 				org_agenda_files = "~/org/**/*",
 				org_default_notes_file = "~/org/refile.org",
+				mappings = {
+					org = {
+						org_cycle = "<leader>c",
+						org_global_cycle = "<leader>gc",
+					},
+					agenda = {
+						org_agenda_goto = "<leader>gt",
+					},
+				},
 			})
 
 			vim.lsp.enable("org")
