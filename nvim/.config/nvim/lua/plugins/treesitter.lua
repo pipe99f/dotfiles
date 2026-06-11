@@ -2,7 +2,7 @@ return {
 	"romus204/tree-sitter-manager.nvim",
 	dependencies = { "nvim-treesitter/nvim-treesitter-textobjects", branch = "main", event = "VeryLazy" },
 	config = function()
-		parsers = {
+		local parsers = {
 			"bash",
 			"c",
 			-- "csv", -- built-in highlights are better, csvview.nvim is better as well

@@ -739,7 +739,7 @@ return {
 			},
 		},
 		cmd = "Neogen",
-		config = true,
+		opts = {},
 	},
 	-- I don't indentation behavior in python after function definition, may be fixed in the future
 	-- { -- Paste following current indentation
@@ -761,7 +761,6 @@ return {
 	{
 		"nvimtools/hydra.nvim",
 		event = "VeryLazy",
-		config = function() end,
 	},
 	{
 		"aaronik/treewalker.nvim", -- Move fast between treesitter nodes

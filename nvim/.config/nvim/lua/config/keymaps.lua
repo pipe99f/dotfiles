@@ -99,10 +99,10 @@ vim.keymap.set("n", "<leader>rn", function()
 end, { expr = true, desc = "Incremental rename" })
 
 -- Toggleterm
-vim.keymap.set("n", "<A-i>", "<cmd>lua _hiddenFloat()<CR>", { desc = "Toggle floating terminal" })
-vim.keymap.set("t", "<A-i>", "<C-\\><C-n><cmd>lua _hiddenFloat()<CR>", { desc = "Toggle floating terminal" })
-vim.keymap.set("n", "<A-g>", "<cmd>lua _lazygit_toggle()<CR>", { desc = "Toggle lazygit" })
-vim.keymap.set("t", "<A-g>", "<C-\\><C-n><cmd>lua _lazygit_toggle()<CR>", { desc = "Toggle lazygit" })
+vim.keymap.set("n", "<A-i>", "<cmd>HiddenFloatToggle<CR>", { desc = "Toggle floating terminal" })
+vim.keymap.set("t", "<A-i>", "<C-\\><C-n><cmd>HiddenFloatToggle<CR>", { desc = "Toggle floating terminal" })
+vim.keymap.set("n", "<A-g>", "<cmd>LazygitToggle<CR>", { desc = "Toggle lazygit" })
+vim.keymap.set("t", "<A-g>", "<C-\\><C-n><cmd>LazygitToggle<CR>", { desc = "Toggle lazygit" })
 
 -- Telescope
 vim.keymap.set("n", "<leader>tk", "<cmd>Telescope keymaps<CR>", { desc = "Telescope keymaps" })

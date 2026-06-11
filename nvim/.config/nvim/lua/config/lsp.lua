@@ -92,16 +92,3 @@ vim.lsp.config["kulala-ls"] = {
 }
 
 vim.lsp.enable("kulala_ls")
-
--- vim.lsp.config["basedpyright"] = {
--- 	filetypes = { "python" },
--- 	settings = {
--- 		basedpyright = {
--- 			analysis = {
--- 				diagnosticSeverityOverrides = {
--- 					reportUnusedExpression = "none",
--- 				},
--- 			},
--- 		},
--- 	},
--- }

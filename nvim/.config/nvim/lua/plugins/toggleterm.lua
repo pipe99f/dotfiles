@@ -2,7 +2,6 @@ return {
 	"akinsho/toggleterm.nvim",
 	version = "*",
 	event = "VeryLazy",
-	-- cmd = "ToggleTerm",
 	config = function()
 		require("toggleterm").setup({
 			open_mapping = [[<A-\>]],
@@ -17,13 +16,11 @@ return {
 			float_opts = {
 				border = "double",
 			},
-			-- function to run on opening the terminal
 			on_open = function(term)
 				vim.cmd("startinsert!")
 				vim.api.nvim_buf_set_keymap(term.bufnr, "n", "q", "<cmd>close<CR>", { noremap = true, silent = true })
 			end,
-			-- function to run on closing the terminal
-			on_close = function(term)
+			on_close = function()
 				vim.cmd("startinsert!")
 			end,
 		})
@@ -34,12 +31,11 @@ return {
 			hidden = true,
 		})
 
-		function _lazygit_toggle()
+		vim.api.nvim_create_user_command("LazygitToggle", function()
 			lazygit:toggle()
-		end
-
-		function _hiddenFloat()
+		end, {})
+		vim.api.nvim_create_user_command("HiddenFloatToggle", function()
 			hiddenFloat:toggle()
-		end
+		end, {})
 	end,
 }
