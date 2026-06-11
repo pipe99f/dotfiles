@@ -47,6 +47,11 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 	group = "bufcheck",
 	pattern = "*",
 	callback = function()
+		-- Skip git, commit, and merge buffers entirely. Otherwise, it will insert zz at the start of the file.
+		if vim.bo.filetype == "gitcommit" or vim.bo.filetype == "gitrebase" then
+			return
+		end
+
 		if vim.fn.line("'\"") > 0 and vim.fn.line("'\"") <= vim.fn.line("$") then
 			vim.fn.setpos(".", vim.fn.getpos("'\""))
 			vim.api.nvim_feedkeys("zz", "n", true)
