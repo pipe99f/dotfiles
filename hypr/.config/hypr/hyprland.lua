@@ -22,14 +22,8 @@ local lockscreen_img = lockscreen_wallpapers_path .. "/grotesqueimpalement.jpg"
 -- ─────────────────────────────────────────
 -- MONITORS
 -- ─────────────────────────────────────────
+-- auto-detect monitors
 hl.monitor({ output = "", mode = "preferred", position = "auto", scale = 1 })
--- hl.monitor({
--- 	output = "Unknown GFV22CB",
--- 	mode = "1920x1080@120",
--- 	position = "0x0",
--- 	scale = 1,
--- 	vrr = 1,
--- })
 
 -- Workspace 7 pinned to secondary monitor
 hl.workspace_rule({ workspace = "7", monitor = "HDMI-A-1", default = true })
@@ -37,9 +31,32 @@ hl.workspace_rule({ workspace = "7", monitor = "HDMI-A-1", default = true })
 -- ─────────────────────────────────────────
 -- ENVIRONMENT VARIABLES
 -- ─────────────────────────────────────────
-hl.env("XDG_CURRENT_DESKTOP", "Hyprland")
+
+-- Wayland & Toolkit Backends
 hl.env("XDG_SESSION_TYPE", "wayland")
+hl.env("CLUTTER_BACKEND", "wayland")
+hl.env("SDL_VIDEODRIVER", "wayland")
+
+-- Hyprland Desktop Identity
+hl.env("XDG_CURRENT_DESKTOP", "Hyprland")
 hl.env("XDG_SESSION_DESKTOP", "Hyprland")
+
+-- Qt Configuration
+hl.env("QT_QPA_PLATFORM", "wayland;xcb")
+hl.env("QT_QPA_PLATFORMTHEME", "qt6ct")
+hl.env("QT_QPA_PLATFORMTHEME", "hyprqt6engine")
+-- hl.env("QT_STYLE_OVERRIDE", "kvantum")
+hl.env("QT_WAYLAND_DISABLE_WINDOWDECORATION", "1")
+
+-- GTK & Styling
+hl.env("GTK_THEME", "Adwaita-One-Dark")
+
+-- Java fix
+hl.env("_JAVA_AWT_WM_NONREPARENTING", "1")
+-- Fix dead keys in ghostty
+hl.env("GTK_IM_MODULE", "ibus")
+hl.env("QT_IM_MODULE", "ibus")
+hl.env("XMODIFIERS", "@im=ibus")
 
 -- ─────────────────────────────────────────
 -- INPUT
@@ -186,6 +203,10 @@ hl.animation({ leaf = "zoomFactor", enabled = true, speed = 7, bezier = "quick" 
 hl.config({
 	dwindle = {
 		preserve_split = true, -- You probably want this
+		default_split_ratio = 1.0,
+
+		-- Force new windows to open on the right or bottom instead of following cursor
+		force_split = 2,
 	},
 })
 
@@ -230,19 +251,6 @@ hl.on("hyprland.start", function()
 	-- Wallpaper (hyprpaper with random image)
 	hl.exec_cmd("hyprctl hyprpaper || hyprpaper &")
 	hl.exec_cmd('hyprctl dispatch output "*" bg "$(find ' .. wallpapers_path .. ' -type f | shuf -n 1)"')
-
-	-- Idle / lockscreen daemon
-	-- hl.exec_cmd(
-	-- 	"swayidle -w"
-	-- 		.. " timeout 720 'swaylock -f -e -i "
-	-- 		.. lockscreen_img
-	-- 		.. "'"
-	-- 		.. " timeout 1500 'systemctl suspend'"
-	-- 		.. " resume 'hyprctl dispatch dpms on'"
-	-- 		.. " before-sleep 'playerctl pause && swaylock -f -e -i "
-	-- 		.. lockscreen_img
-	-- 		.. "'"
-	-- )
 end)
 
 -- ─────────────────────────────────────────
@@ -361,7 +369,8 @@ hl.bind(mod .. " + Minus", hl.dsp.workspace.toggle_special("magic"))
 -- hl.bind(mod .. " + mouse_up", hl.dsp.focus({ workspace = "e-1" }))
 
 -- Clipboard picker
-hl.bind(mod .. " + C", hl.dsp.exec_cmd("cliphist list | fuzzel --dmenu | cliphist decode | wl-copy"))
+-- hl.bind(mod .. " + C", hl.dsp.exec_cmd("cliphist list | fuzzel --dmenu | cliphist decode | wl-copy"))
+hl.bind(mod .. " + C", hl.dsp.exec_cmd("bash ~/.config/hypr/scripts/cliphist.sh"))
 
 -- Screenshots
 hl.bind(mod .. " + P", hl.dsp.exec_cmd('grim -g "$(slurp)" - | wl-copy'))
@@ -487,4 +496,5 @@ end)
 -- ─────────────────────────────────────────
 -- HARDWARE LID SWITCH → lockscreen
 -- ─────────────────────────────────────────
+-- FIX: uses swaylock instead of hyprlock
 hl.bind("switch:on:Lid Status", hl.dsp.exec_cmd("swaylock -f -e -i " .. lockscreen_img), { locked = true })
