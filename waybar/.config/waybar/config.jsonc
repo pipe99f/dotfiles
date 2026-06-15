@@ -1,0 +1,191 @@
+{
+  "layer": "top", // Waybar at top layer
+  // "position": "bottom", // Waybar position (top|bottom|left|right)
+  "height": 30, // Waybar height (to be removed for auto height)
+  // "width": 1280, // Waybar width
+  "spacing": 4, // Gaps between modules (4px)
+  // Choose the order of the modules
+  "modules-left": ["hyprland/workspaces", "hyprland/mode"],
+  "modules-center": ["hyprland/window"],
+  "modules-right": [
+    "idle_inhibitor",
+    "network",
+    "wireplumber",
+    "cpu",
+    "memory",
+    "temperature",
+    "backlight",
+    "battery",
+    "battery#bat2",
+    "clock",
+    "custom/notification",
+    "custom/lang",
+    "tray",
+  ],
+
+  // Modules configuration
+  "hyprland/workspaces": {
+    "on-click": "activate",
+    "disable-scroll": true,
+    //     "all-outputs": true,
+    "format": "{icon}",
+    "format-icons": {
+      "1": "<span font='Arimo Nerd Font 13'></span>",
+      "2": "<span font='Arimo Nerd Font 13'></span>",
+      "3": "<span font='Arimo Nerd Font 13'></span>",
+      "4": "<span font='Arimo Nerd Font 15'>󰈚</span>",
+      "5": "<span font='Arimo Nerd Font 14'></span>",
+      "6": "<span font='Arimo Nerd Font 13'></span>",
+      "7": "<span font='Arimo Nerd Font 13'>󰇄</span>",
+      "8": "<span font='Arimo Nerd Font 13'></span>",
+      "9": "<span font='Arimo Nerd Font 14'></span>",
+      "10": "<span font='Arimo Nerd Font 13'></span>",
+    },
+  },
+  "keyboard-state": {
+    "numlock": true,
+    "capslock": true,
+    "format": "{name} {icon}",
+    "format-icons": {
+      "locked": "",
+      "unlocked": "",
+    },
+  },
+
+  "hyprland/window": {
+    "separate-outputs": true,
+  },
+
+  "hyprland/mode": {
+    "format": "<span style=\"italic\">{}</span>",
+  },
+  "mpd": {
+    "format": "{stateIcon} {consumeIcon}{randomIcon}{repeatIcon}{singleIcon}{artist} - {album} - {title} ({elapsedTime:%M:%S}/{totalTime:%M:%S}) ⸨{songPosition}|{queueLength}⸩ {volume}% ",
+    "format-disconnected": "Disconnected ",
+    "format-stopped": "{consumeIcon}{randomIcon}{repeatIcon}{singleIcon}Stopped ",
+    "unknown-tag": "N/A",
+    "interval": 2,
+    "consume-icons": {
+      "on": " ",
+    },
+    "random-icons": {
+      "off": "<span color=\"#f53c3c\"></span> ",
+      "on": " ",
+    },
+    "repeat-icons": {
+      "on": " ",
+    },
+    "single-icons": {
+      "on": "1 ",
+    },
+    "state-icons": {
+      "paused": "",
+      "playing": "",
+    },
+    "tooltip-format": "MPD (connected)",
+    "tooltip-format-disconnected": "MPD (disconnected)",
+  },
+  "idle_inhibitor": {
+    "format": "{icon}",
+    "format-icons": {
+      "activated": "",
+      "deactivated": "󰈉",
+    },
+  },
+  "tray": {
+    // "icon-size": 21,
+    "spacing": 10,
+  },
+  "clock": {
+    // "timezone": "America/New_York",
+    "tooltip-format": "{:%d/%m/%Y}\n<tt><small>{calendar}</small></tt>",
+    "format": " {:%a %d %b  %H:%M}",
+    //"format": "{: %H:%M}",
+    "format-alt": "{:%Y-%m-%d}",
+  },
+  "cpu": {
+    "format": " {usage}%",
+    "tooltip": false,
+  },
+  "memory": {
+    "format": " {}%",
+  },
+  "temperature": {
+    // "thermal-zone": 2,
+    // "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
+    "critical-threshold": 80,
+    // "format-critical": "{icon} {temperatureC}°",
+    "format": "{icon} {temperatureC}°",
+    "format-icons": ["", "", "", ""],
+  },
+  "backlight": {
+    // "device": "acpi_video1",
+    "format": "{icon} {percent}%",
+    "format-icons": ["", "󰖨"],
+  },
+  "battery": {
+    "states": {
+      // "good": 95,
+      "warning": 30,
+      "critical": 15,
+    },
+    "format": "{icon} {capacity}%",
+    "format-charging": "󰃨 {capacity}%",
+    "format-plugged": " {capacity}%",
+    "format-alt": "{time} {icon}",
+    // "format-good": "", // An empty format will hide the module
+    // "format-full": "",
+    "format-icons": ["", "", "", "", ""],
+  },
+  "battery#bat2": {
+    "bat": "BAT2",
+  },
+  "network": {
+    // "interface": "wlp2*", // (Optional) To force the use of this interface
+    "format-ethernet": "󰚥 ",
+    "on-click": "networkmanager_dmenu",
+    "format-wifi": "  {signalStrength}%",
+    "format-disconnected": "⚠ Disconnected",
+    "tooltip-format-wifi": "{essid}",
+  },
+  "wireplumber": {
+    "format": "{icon} {volume}%",
+    "format-muted": "",
+    "on-click": "pavucontrol",
+    "on-click-right": "helvum",
+    "max-volume": 150,
+    "scroll-step": 0.2,
+    "format-icons": ["", "", ""],
+  },
+  "hyprland/language": {
+    "format": "{short}",
+    "on-click": "$HOME/.config/hypr/scripts/wofi_language.sh",
+  },
+
+  "custom/lang": {
+    // "exec": "swaymsg -t get_inputs | grep layout_name | grep -v En | awk 'END{if(NR == 0){print \"EN\"}else{print toupper(substr($2,2,2))}}'",
+    "interval": 1,
+    "on-click": "$HOME/.config/hypr/scripts/wofi_language.sh",
+    "format": "{}",
+  },
+  "custom/notification": {
+    "tooltip": false,
+    "format": "{icon}",
+    "format-icons": {
+      "notification": "<span foreground='red'><sup></sup></span>",
+      "none": "",
+      "dnd-notification": "<span foreground='red'><sup></sup></span>",
+      "dnd-none": "",
+      "inhibited-notification": "<span foreground='red'><sup></sup></span>",
+      "inhibited-none": "",
+      "dnd-inhibited-notification": "<span foreground='red'><sup></sup></span>",
+      "dnd-inhibited-none": "",
+    },
+    "return-type": "json",
+    "exec-if": "which swaync-client",
+    "exec": "swaync-client -swb",
+    "on-click": "swaync-client -t -sw",
+    "on-click-right": "swaync-client -d -sw",
+    "escape": true,
+  },
+}

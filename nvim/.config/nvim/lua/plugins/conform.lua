@@ -37,6 +37,7 @@ return {
 				-- Use a sub-list to run only the first available formatter
 				javascript = { "prettierd", "prettier" },
 				json = { "prettierd" },
+				jsonc = { "prettierd" },
 				just = { "just" },
 				lua = { "stylua" },
 				markdown = { "prettierd", "markdownlint" },

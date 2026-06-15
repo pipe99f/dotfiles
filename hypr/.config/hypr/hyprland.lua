@@ -43,9 +43,9 @@ hl.env("XDG_SESSION_DESKTOP", "Hyprland")
 
 -- Qt Configuration
 hl.env("QT_QPA_PLATFORM", "wayland;xcb")
-hl.env("QT_QPA_PLATFORMTHEME", "qt6ct")
+-- hl.env("QT_QPA_PLATFORMTHEME", "qt6ct")
 hl.env("QT_QPA_PLATFORMTHEME", "hyprqt6engine")
--- hl.env("QT_STYLE_OVERRIDE", "kvantum")
+hl.env("QT_STYLE_OVERRIDE", "kvantum")
 hl.env("QT_WAYLAND_DISABLE_WINDOWDECORATION", "1")
 
 -- GTK & Styling
@@ -236,10 +236,14 @@ hl.on("hyprland.start", function()
 
 	-- Daemons
 	hl.exec_cmd("gammastep")
-	hl.exec_cmd("hypridle")
 	hl.exec_cmd("swaync")
 	hl.exec_cmd("waybar")
 	hl.exec_cmd("systemctl --user start hyprpolkitagent")
+	hl.exec_cmd("hypridle")
+	hl.exec_cmd("hyprpaper")
+	hl.exec_cmd("dbus-update-activation-environment --all")
+
+	hl.exec_cmd("sleep 3 && ~/.config/hypr/scripts/random_wallpaper.sh")
 
 	-- Clipboard
 	hl.exec_cmd("wl-paste --watch cliphist store")
@@ -247,10 +251,6 @@ hl.on("hyprland.start", function()
 	-- Core apps
 	hl.exec_cmd("firefox")
 	hl.exec_cmd("spotify-launcher")
-
-	-- Wallpaper (hyprpaper with random image)
-	hl.exec_cmd("hyprctl hyprpaper || hyprpaper &")
-	hl.exec_cmd('hyprctl dispatch output "*" bg "$(find ' .. wallpapers_path .. ' -type f | shuf -n 1)"')
 end)
 
 -- ─────────────────────────────────────────

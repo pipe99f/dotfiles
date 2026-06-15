@@ -51,7 +51,12 @@ window#waybar.chromium {
   box-shadow: inset 0 -3px #bababa;
 }
 
-#workspaces button.focused {
+#workspaces button.active {
+  background-color: #46566a;
+  box-shadow: inset 0 -3px #bbbbbb;
+}
+
+#workspaces button.visible {
   background-color: #46566a;
   box-shadow: inset 0 -3px #bbbbbb;
 }
