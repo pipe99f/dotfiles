@@ -5,12 +5,12 @@
     // "width": 1280, // Waybar width
     "spacing": 4, // Gaps between modules (4px)
     // Choose the order of the modules
-    "modules-left": ["sway/workspaces", "sway/mode", "custom/media"],
-    "modules-center": ["sway/window"],
+    "modules-left": ["hyprland/workspaces", "hyprland/mode", "custom/media"],
+    "modules-center": ["hyprland/window"],
     "modules-right": [ "idle_inhibitor", "custom/pacman", "network", "wireplumber", "cpu", "memory", "temperature", "backlight", "battery", "battery#bat2", "clock", "custom/notification", "custom/lang", "tray"],
     
     // Modules configuration
-    "sway/workspaces": {
+    "hyprland/workspaces": {
          "disable-scroll": true,
     //     "all-outputs": true,
          "format": "{icon}",
@@ -43,7 +43,7 @@
     },
 
 
-    "sway/mode": {
+    "hyprland/mode": {
         "format": "<span style=\"italic\">{}</span>"
     },
     "mpd": {
@@ -190,15 +190,15 @@
         // "exec": "$HOME/.config/waybar/mediaplayer.py --player spotify 2> /dev/null" // Filter player based on name
     },
 
-"sway/language": {
+"hyprland/language": {
 	"format": "{short}",
-    "on-click": "$HOME/.config/sway/scripts/wofi_language.sh",
+    "on-click": "$HOME/.config/hypr/scripts/wofi_language.sh",
 },
 
   "custom/lang": {
     "exec": "swaymsg -t get_inputs | grep layout_name | grep -v En | awk 'END{if(NR == 0){print \"EN\"}else{print toupper(substr($2,2,2))}}'",
     "interval": 1,
-    "on-click": "$HOME/.config/sway/scripts/wofi_language.sh",
+    "on-click": "$HOME/.config/hypr/scripts/wofi_language.sh",
     "format": "{}"
   },
     "custom/notification": {

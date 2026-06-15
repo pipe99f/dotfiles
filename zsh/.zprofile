@@ -4,8 +4,8 @@ export QT_STYLE_OVERRIDE=adwaita-dark
 export CLUTTER_BACKEND="wayland"
 export SDL_VIDEODRIVER="wayland"
 export XDG_SESSION_TYPE="wayland"
-export XDG_CURRENT_DESKTOP="sway"
-export XDG_SESSION_DESKTOP="sway"
+# export XDG_CURRENT_DESKTOP="sway"
+# export XDG_SESSION_DESKTOP="sway"
 # removes window outlines and stuff
 export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
 # java fix
@@ -24,9 +24,10 @@ export QT_IM_MODULE=ibus
 export XMODIFIERS=@im=ibus
 
 #start sway
-if [[ -z $DISPLAY && $TTY = /dev/tty1 ]]; then
-  exec sway
-  # start-hyprland
+# if [[ -z $DISPLAY && $TTY = /dev/tty1 ]]; then
+if [ -z "$DISPLAY" ] && [ "$XDG_VTNR" -eq 1 ]; then
+  # exec sway
+  exec start-hyprland
 fi
 
 
