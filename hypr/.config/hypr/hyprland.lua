@@ -492,9 +492,3 @@ hl.bind(mod .. " + R", function()
 		sm.bind("Escape", sm.reset)
 	end)
 end)
-
--- ─────────────────────────────────────────
--- HARDWARE LID SWITCH → lockscreen
--- ─────────────────────────────────────────
--- FIX: uses swaylock instead of hyprlock
-hl.bind("switch:on:Lid Status", hl.dsp.exec_cmd("swaylock -f -e -i " .. lockscreen_img), { locked = true })
