@@ -412,10 +412,13 @@ alias dcl='docker compose logs -f'
 alias dcb='docker compose build'
 
 
+# opencode autodetect port for nvim
+alias opencode="opencode --port"
+
 #nvim as vim
 alias vim="nvim"
 
-#abrir yazi en la carpeta de libros
+# yazi en la carpeta de libros
 alias li="yazi ~/ce/Libros"
 
 #make yay manage only aur

@@ -113,8 +113,7 @@ return {
 		},
 		config = function()
 			require("neogit").setup({
-				graph_style = "unicode",
-				-- graph_style = "kitty", -- doesnt work in wezterm terminal nor in windows terminal
+				graph_style = "kitty", -- doesnt work in wezterm terminal nor in windows terminal
 			})
 		end,
 	},
@@ -600,7 +599,10 @@ return {
 		end,
 		opts = {},
 	},
-	{ "HiPhish/rainbow-delimiters.nvim" },
+	{
+		"HiPhish/rainbow-delimiters.nvim",
+		event = "BufEnter",
+	},
 	{
 		-- hex code colorizer
 		"catgoose/nvim-colorizer.lua",

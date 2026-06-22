@@ -41,12 +41,12 @@ def download_sheet_music_images(url):
 
             # Check if the image is blank (1x1 pixel)
             if is_blank_image(img):
-                print(f"Skipping 1x1 blank image {i+1}")
+                print(f"Skipping 1x1 blank image {i + 1}")
                 continue
 
             # Append the image to the list
             images.append(img.convert("RGB"))  # Convert to RGB for PDF compatibility
-            print(f"Downloaded image {i+1}")
+            print(f"Downloaded image {i + 1}")
 
     return images
 
