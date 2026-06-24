@@ -243,16 +243,6 @@ return {
 
 	--Jupyter notebook
 	{
-		"GCBallesteros/jupytext.nvim",
-		config = function()
-			require("jupytext").setup({
-				style = "markdown",
-				output_extension = "md",
-				force_ft = "markdown",
-			})
-		end,
-	},
-	{
 		"kiyoon/jupynium.nvim",
 		-- build = "pip3 install --user .",
 		cmd = "JupyniumStartAndAttachToServer",
@@ -260,6 +250,19 @@ return {
 		-- enabled = vim.fn.isdirectory(vim.fn.expand "~/miniconda3/envs/jupynium"),
 	},
 	{ "benlubas/image-save.nvim", cmd = "SaveImage" },
+	{
+		"sheng-tse/jupynvim",
+		build = function(plugin)
+			local install = loadfile(plugin.dir .. "/lua/jupynvim/install.lua")()
+			install.run(plugin)
+		end,
+		config = function()
+			require("jupynvim").setup({
+				log_level = "info",
+				image_renderer = "placeholder", -- "placeholder", "kitty", or "chafa"
+			})
+		end,
+	},
 
 	--Latex
 	{
@@ -491,7 +494,6 @@ return {
 			-- "echasnovski/mini.comment",
 			-- "hkupty/iron.nvim", -- repl provider
 			-- "akinsho/toggleterm.nvim", -- alternative repl provider
-			-- "benlubas/molten-nvim", -- alternative repl provider
 			{ "nvimtools/hydra.nvim", event = "VeryLazy" },
 		},
 		config = function()
@@ -500,7 +502,7 @@ return {
 				cell_markers = {
 					-- python = "# %%",
 				},
-				repl_provider = "molten",
+				repl_provider = "iron",
 			})
 		end,
 	},
@@ -624,7 +626,13 @@ return {
 	------------------
 	----Efficiency----
 	------------------
+	--code exploration picker
 
+	{
+		"error311/wayfinder.nvim",
+		opts = {},
+		keys = { { "<leader>wf", "<Plug>(WayfinderOpen)", desc = "Wayfinder" } },
+	},
 	{
 		"windwp/nvim-autopairs",
 		event = "InsertEnter",
@@ -809,6 +817,16 @@ return {
 		-- dependencies = { "OXY2DEV/markview.nvim" },
 		opts = {},
 		cmd = "Store",
+	},
+
+	{
+		"letieu/jira.nvim",
+		opts = {
+			-- Your setup options...
+			jira = {
+				limit = 200, -- Global limit of tasks per view (default: 200)
+			},
+		},
 	},
 	{ -- For loadig very large files
 		"minigian/juan-logs.nvim",

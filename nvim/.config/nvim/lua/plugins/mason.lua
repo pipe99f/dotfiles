@@ -50,7 +50,6 @@ return {
 				"gofumpt",
 				"goimports",
 				"kulala-fmt",
-				"jupytext",
 				"latexindent",
 				"markdownlint",
 				"prettierd",

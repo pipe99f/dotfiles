@@ -217,11 +217,12 @@ cache_eval "atuin"    "atuin init zsh --disable-up-arrow"
 
 
 # Conda lazy loader
-conda() {
-    unfunction conda
-    source "/home/pipe99f/miniconda3/etc/profile.d/conda.sh"
-    conda "$@"
-}
+# I prefer to use pixi, or aur's mamba or miniconda if needed
+# conda() {
+#     unfunction conda
+#     source "/home/pipe99f/miniconda3/etc/profile.d/conda.sh"
+#     conda "$@"
+# }
 
 # Direnv
 # eval "$(direnv hook zsh)"

@@ -14,6 +14,7 @@ opt.matchpairs = { "(:)", "{:}", "[:]", "<:>" }
 -- opt.syntax = "enable"
 opt.history = 500
 g.have_nerd_font = true
+-- I dont think I need this anymore, I was using it only for molten
 g.python3_host_prog = vim.fn.expand("~/.pixi/envs/data-science-env/bin/python3")
 opt.breakindent = true
 opt.expandtab = true -- Convert tabs to spaces

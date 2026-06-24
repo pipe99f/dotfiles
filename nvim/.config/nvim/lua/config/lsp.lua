@@ -92,3 +92,8 @@ vim.lsp.config["kulala-ls"] = {
 }
 
 vim.lsp.enable("kulala_ls")
+
+vim.lsp.config("ty", {
+	-- Solves correct root when having multiple pyproject.toml
+	root_markers = { "uv.lock" },
+})

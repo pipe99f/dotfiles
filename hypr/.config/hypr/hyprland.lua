@@ -41,6 +41,11 @@ hl.env("SDL_VIDEODRIVER", "wayland")
 hl.env("XDG_CURRENT_DESKTOP", "Hyprland")
 hl.env("XDG_SESSION_DESKTOP", "Hyprland")
 
+-- Tell applications to use the gnome-keyring socket
+---- Fetch the runtime directory dynamically from the host environment
+local runtime_dir = os.getenv("XDG_RUNTIME_DIR") or "/run/user/1000"
+hl.env("SSH_AUTH_SOCK", runtime_dir .. "/keyring/ssh")
+
 -- Qt Configuration
 hl.env("QT_QPA_PLATFORM", "wayland;xcb")
 -- hl.env("QT_QPA_PLATFORMTHEME", "qt6ct")
@@ -228,6 +233,11 @@ hl.config({
 -- GTK / THEME (exec-once on startup)
 -- ─────────────────────────────────────────
 hl.on("hyprland.start", function()
+	-- Next lines must be on top
+	-- Update the activation environment first
+	hl.exec_cmd("dbus-update-activation-environment --all")
+	hl.exec_cmd("systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP")
+
 	hl.exec_cmd("gsettings set org.gnome.desktop.wm.preferences theme Adwaita-One-Dark")
 	hl.exec_cmd('gsettings set org.gnome.desktop.interface font-name "Arimo Nerd Font"')
 	hl.exec_cmd("gsettings set org.gnome.desktop.interface gtk-theme Adwaita-One-Dark")
@@ -239,9 +249,9 @@ hl.on("hyprland.start", function()
 	hl.exec_cmd("swaync")
 	hl.exec_cmd("waybar")
 	hl.exec_cmd("systemctl --user start hyprpolkitagent")
+	hl.exec_cmd("gnome-keyring-daemon --start --components=secrets,ssh")
 	hl.exec_cmd("hypridle")
 	hl.exec_cmd("hyprpaper")
-	hl.exec_cmd("dbus-update-activation-environment --all")
 
 	hl.exec_cmd("sleep 3 && ~/.config/hypr/scripts/random_wallpaper.sh")
 
