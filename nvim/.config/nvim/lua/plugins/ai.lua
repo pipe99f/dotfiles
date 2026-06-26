@@ -271,15 +271,6 @@ return {
 
 			vim.o.autoread = true -- Required for `opts.events.reload`
 
-			-- Recommended/example keymaps
-			vim.keymap.set({ "n", "x" }, "<leader>oa", function()
-				require("opencode").ask("@this: ")
-			end, { desc = "Ask OpenCode…" })
-
-			vim.keymap.set({ "n", "x" }, "<leader>os", function()
-				require("opencode").select()
-			end, { desc = "Select OpenCode…" })
-
 			vim.keymap.set({ "n", "x" }, "go", function()
 				return require("opencode").operator("@this ")
 			end, { desc = "Add range to opencode", expr = true })
@@ -287,6 +278,25 @@ return {
 				return require("opencode").operator("@this ") .. "_"
 			end, { desc = "Add line to opencode", expr = true })
 		end,
+
+		keys = {
+			{
+				"<leader>oa",
+				function()
+					require("opencode").ask("@this: ")
+				end,
+				mode = { "n", "v" },
+				desc = "Ask OpenCode…",
+			},
+			{
+				"<leader>os",
+				function()
+					require("opencode").select()
+				end,
+				mode = { "n", "v" },
+				desc = "Select OpenCode…",
+			},
+		},
 	},
 
 	------

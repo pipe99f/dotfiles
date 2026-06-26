@@ -1,13 +1,12 @@
 return {
 	"nvim-telescope/telescope.nvim",
 	-- tag = "*", -- not working, however, according to one issue, master is the branch to use
-	branch = "master",
 	cmd = "Telescope",
 	dependencies = {
-
     -- stylua: ignore
     { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
-		{ "nvim-telescope/telescope-frecency.nvim", dependencies = { "tami5/sqlite.lua" } },
+		{ "nvim-telescope/telescope-frecency.nvim" },
+		{ "nvim-telescope/telescope-bibtex.nvim" },
 	},
 	config = function()
 		require("telescope").setup({
@@ -32,6 +31,9 @@ return {
 				fzf = {
 					fuzzy = true,
 				},
+				bibtex = {
+					global_files = { "~/org/references.bib" },
+				},
 				-- Your extension configuration goes here:
 				-- extension_name = {
 				--   extension_config_key = value,
@@ -43,5 +45,6 @@ return {
 		require("telescope").load_extension("fzf")
 		require("telescope").load_extension("projects")
 		require("telescope").load_extension("frecency")
+		require("telescope").load_extension("bibtex")
 	end,
 }

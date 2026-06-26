@@ -44,11 +44,6 @@ return {
 	},
 	{
 		"Bekaboo/dropbar.nvim",
-		-- optional, but required for fuzzy finder support
-		dependencies = {
-			"nvim-telescope/telescope-fzf-native.nvim",
-			build = "make",
-		},
 		config = function()
 			local dropbar_api = require("dropbar.api")
 			vim.keymap.set("n", "<Leader>;", dropbar_api.pick, { desc = "Pick symbols in winbar" })
@@ -173,7 +168,7 @@ return {
 				"<CMD>Octo notification list<CR>",
 				desc = "List GitHub Notifications",
 			},
-			{
+			{ --FIX: CONFLICTS WITH OPENCODE
 				"<leader>os",
 				function()
 					require("octo.utils").create_base_search_command({ include_current_repo = true })
@@ -329,7 +324,15 @@ return {
 		"nvim-orgmode/orgmode",
 		-- event = "VeryLazy",
 		ft = { "org" },
-		dependencies = { "akinsho/org-bullets.nvim", "chipsenkbeil/org-roam.nvim" },
+		dependencies = {
+			{
+				"akinsho/org-bullets.nvim",
+				config = function()
+					require("org-bullets").setup()
+				end,
+			},
+			"chipsenkbeil/org-roam.nvim",
+		},
 		config = function()
 			-- Setup orgmode
 			require("orgmode").setup({
@@ -394,9 +397,6 @@ return {
 	},
 
 	-- SQL
-	-- { "pope/vim-dadbod" },
-	-- { "kristijanhusak/vim-dadbod-ui" },
-	-- { "kristijanhusak/vim-dadbod-completion" },
 	{
 		"kristijanhusak/vim-dadbod-ui",
 		dependencies = {
@@ -813,6 +813,20 @@ return {
 	--------------
 	-- { "nvim-lua/plenary.nvim", lazy = true },
 	-- { "Vimjas/vim-python-pep8-indent" },
+	-- { -- manage environment variables
+	-- 	"ph1losof/ecolog2.nvim",
+	-- 	-- lazy = false,
+	-- 	build = "cargo install ecolog-lsp",
+	-- 	keys = {
+	-- 		{ "<leader>el", "<cmd>Ecolog list<cr>", desc = "List env variables" },
+	-- 		{ "<leader>ef", "<cmd>Ecolog files select<cr>", desc = "Select env file" },
+	-- 		{ "<leader>eo", "<cmd>Ecolog files open_active<cr>", desc = "Open active env file" },
+	-- 		{ "<leader>er", "<cmd>Ecolog refresh<cr>", desc = "Refresh env variables" },
+	-- 	},
+	-- 	config = function()
+	-- 		require("ecolog").setup()
+	-- 	end,
+	-- },
 	{
 		"alex-popov-tech/store.nvim",
 		-- dependencies = { "OXY2DEV/markview.nvim" },
@@ -829,6 +843,36 @@ return {
 			},
 		},
 		cmd = "Jira",
+	},
+	{ -- all in one GitHub/Bitbucket/GitLab PRs and Jira/GitHub/GitLab issues
+		"emrearmagan/atlas.nvim",
+		cmd = { "AtlasIssues", "AtlasPulls", "AtlasCreatePR", "AtlasCreateIssue", "AtlasSearch" },
+		dependencies = {
+			"MeanderingProgrammer/render-markdown.nvim", -- optional but recommended
+			"esmuellert/codediff.nvim", -- optional (PullRequest diff)
+		},
+		opts = {
+			pulls = {
+				providers = {
+					---@type AtlasBitbucketConfig
+					bitbucket = {}, -- See configuration below
+					---@type AtlasGitHubConfig
+					github = {}, -- See configuration below
+					---@type AtlasGitLabPullsConfig
+					gitlab = {}, -- See configuration below
+				},
+			},
+			issues = {
+				providers = {
+					---@type AtlasJiraIssuesConfig
+					jira = {}, -- See configuration below
+					---@type AtlasGitHubIssuesConfig
+					github = {}, -- See configuration below
+					---@type AtlasGitLabIssuesConfig
+					gitlab = {}, -- See configuration below
+				},
+			},
+		},
 	},
 	{ -- For loadig very large files
 		"minigian/juan-logs.nvim",

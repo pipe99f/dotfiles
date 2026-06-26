@@ -1,3 +1,4 @@
+-- C
 vim.lsp.config["clangd"] = {
 	cmd = {
 		"clangd",
@@ -28,6 +29,7 @@ vim.lsp.config["clangd"] = {
 	end,
 }
 
+-- Go
 vim.lsp.config["gopls"] = {
 	settings = {
 		gopls = {
@@ -67,6 +69,7 @@ vim.lsp.config["gopls"] = {
 	},
 }
 
+-- Lua
 local runtime_path = vim.split(package.path, ";")
 vim.lsp.config["lua_ls"] = {
 	settings = {
@@ -85,6 +88,7 @@ vim.lsp.config["lua_ls"] = {
 	},
 }
 
+-- Kulala
 vim.lsp.config["kulala-ls"] = {
 	cmd = { "kulala-ls", "--stdio" },
 	filetypes = { "http" },
@@ -97,3 +101,5 @@ vim.lsp.config("ty", {
 	-- Solves correct root when having multiple pyproject.toml
 	root_markers = { "uv.lock" },
 })
+
+vim.lsp.enable("org")

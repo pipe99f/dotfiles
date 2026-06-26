@@ -20,6 +20,9 @@ term = xterm-256color
 # Always open ghostty in $HOME, default directory in ghostty is the directory of the previously focused terminal window 
 # window-inherit-working-directory = false
 # working-directory = home
+
+# unbind Ctrl+Enter=fullscreen
+keybind = ctrl+enter=unbind
  
 # Vim-mode
 keybind = alt+v=activate_key_table:vim

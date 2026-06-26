@@ -193,6 +193,7 @@ return {
 				"lazydev",
 			},
 			providers = {
+				dadbod = { name = "Dadbod", module = "vim_dadbod_completion.blink" },
 				codeium = {
 					name = "codeium",
 					module = "blink.compat.source",
@@ -203,6 +204,11 @@ return {
 							return [[\%(-\?\d\+\%(\.\d\+\)\?\|\h\w*\%(-\w*\)*\)]]
 						end,
 					},
+				},
+				orgmode = {
+					name = "Orgmode",
+					module = "orgmode.org.autocompletion.blink",
+					fallbacks = { "buffer" },
 				},
 
 				otter = {
