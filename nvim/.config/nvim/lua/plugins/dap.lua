@@ -22,15 +22,7 @@ return {
       { "<leader>dt", function() require("dap").terminate() end, desc = "Terminate" },
       { "<leader>dw", function() require("dap.ui.widgets").hover() end, desc = "Widgets" },
     },
-		dependencies = {
-			"rcarriga/nvim-dap-ui",
-			"nvim-neotest/nvim-nio", -- for nvim-dap-ui
-			-- virtual text for the debugger
-			{
-				"theHamsta/nvim-dap-virtual-text",
-				opts = {},
-			},
-		},
+		dependencies = {},
 		config = function(self, opts)
 			-- Debug settings if you're using nvim-dap
 			local dap = require("dap")
@@ -56,29 +48,57 @@ return {
 			}
 		end,
 	},
+	-- {
+	-- 	"rcarriga/nvim-dap-ui",
+	-- 	dependencies = {
+	-- 		"mfussenegger/nvim-dap",
+	-- 		"nvim-neotest/nvim-nio", -- for nvim-dap-ui
+	-- 	},
+	--
+	--    -- stylua: ignore
+	--    keys = {
+	--        { "<leader>du", function() require("dapui").toggle({ }) end, desc = "Dap UI" },
+	--        { "<leader>de", function() require("dapui").eval() end, desc = "Eval", mode = {"n", "v"} },
+	--    },
+	-- 	opts = {},
+	-- 	config = function()
+	-- 		local dap = require("dap")
+	-- 		local dapui = require("dapui")
+	-- 		dapui.setup()
+	-- 		dap.listeners.after.event_initialized["dapui_config"] = function()
+	-- 			dapui.open()
+	-- 		end
+	-- 		dap.listeners.before.event_terminated["dapui_config"] = function()
+	-- 			dapui.close()
+	-- 		end
+	-- 		dap.listeners.before.event_exited["dapui_config"] = function()
+	-- 			dapui.close()
+	-- 		end
+	-- 	end,
+	-- },
+	-- Unmaintained
+	-- { -- virtual text for the debugger
+	-- 	"theHamsta/nvim-dap-virtual-text",
+	-- 	opts = {},
+	-- 	dependencies = {
+	-- 		"mfussenegger/nvim-dap",
+	-- 	},
+	-- },
 	{
-		"rcarriga/nvim-dap-ui",
-    -- stylua: ignore
-    keys = {
-        { "<leader>du", function() require("dapui").toggle({ }) end, desc = "Dap UI" },
-        { "<leader>de", function() require("dapui").eval() end, desc = "Eval", mode = {"n", "v"} },
-    },
-		opts = {},
+		url = "https://gitlab.com/david_wright/nvim-dap-image",
+		-- GitHub mirror: "dav1d-wright/nvim-dap-image"
+		dependencies = { "mfussenegger/nvim-dap", "3rd/image.nvim" },
 		config = function()
-			local dap = require("dap")
-			local dapui = require("dapui")
-			dapui.setup()
-			dap.listeners.after.event_initialized["dapui_config"] = function()
-				dapui.open()
-			end
-			dap.listeners.before.event_terminated["dapui_config"] = function()
-				dapui.close()
-			end
-			dap.listeners.before.event_exited["dapui_config"] = function()
-				dapui.close()
-			end
+			require("nvim-dap-image").setup()
 		end,
+		cmd = "DapImageView",
 	},
+	{ -- Better UI for nvim-dap
+		"igorlfs/nvim-dap-view",
+		dependencies = { "mfussenegger/nvim-dap" },
+		cmd = "DapViewOpen",
+	},
+
 	{
 		"mfussenegger/nvim-dap-python",
     -- stylua: ignore

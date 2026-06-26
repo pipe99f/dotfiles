@@ -1,3 +1,7 @@
+-- required for nvim-tree correct functioning
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
 vim.opt.termguicolors = true -- must run before colorizer
 vim.g.mapleader = " " -- must run before lazy.nvim
 vim.loader.enable() --fast loading

@@ -101,8 +101,6 @@ end, { expr = true, desc = "Incremental rename" })
 -- Toggleterm
 vim.keymap.set("n", "<A-i>", "<cmd>HiddenFloatToggle<CR>", { desc = "Toggle floating terminal" })
 vim.keymap.set("t", "<A-i>", "<C-\\><C-n><cmd>HiddenFloatToggle<CR>", { desc = "Toggle floating terminal" })
-vim.keymap.set("n", "<A-g>", "<cmd>LazygitToggle<CR>", { desc = "Toggle lazygit" })
-vim.keymap.set("t", "<A-g>", "<C-\\><C-n><cmd>LazygitToggle<CR>", { desc = "Toggle lazygit" })
 
 -- Telescope
 vim.keymap.set("n", "<leader>tk", "<cmd>Telescope keymaps<CR>", { desc = "Telescope keymaps" })
@@ -111,6 +109,11 @@ vim.keymap.set("n", "<leader>tf", "<cmd>Telescope frecency<CR>", { desc = "Frece
 vim.keymap.set("n", "<leader><leader>", "<cmd>Telescope resume<CR>", { desc = "Resume previous search" })
 vim.keymap.set("n", "<leader>gt", "<cmd>Telescope git_status<CR>", { desc = "Git status" })
 vim.keymap.set("n", "<leader>cm", "<cmd>Telescope git_commits<CR>", { desc = "Git commits" })
+
+vim.keymap.set("n", "gD", "<cmd>lua require'telescope.builtin'.lsp_definitions()<CR>", opts)
+vim.keymap.set("n", "gi", "<cmd>lua require'telescope.builtin'.lsp_implementations()<CR>", opts)
+vim.keymap.set("n", "gT", "<cmd>lua require'telescope.builtin'.lsp_type_definitions()<CR>", opts)
+vim.keymap.set("n", "gr", "<cmd>lua require'telescope.builtin'.lsp_references()<CR>", opts)
 
 -- Yanky
 vim.keymap.set({ "n", "x" }, "p", "<Plug>(YankyPutAfter)")
