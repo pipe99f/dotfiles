@@ -335,6 +335,7 @@ return {
 			require("orgmode").setup({
 				org_agenda_files = "~/org/**/*",
 				org_default_notes_file = "~/org/refile.org",
+				org_startup_folded = "showeverything", -- options: overview (show top level), content (first two levels), showeverything (all levels)
 				mappings = {
 					org = {
 						org_cycle = "<leader>c",
@@ -827,6 +828,7 @@ return {
 				limit = 200, -- Global limit of tasks per view (default: 200)
 			},
 		},
+		cmd = "Jira",
 	},
 	{ -- For loadig very large files
 		"minigian/juan-logs.nvim",
