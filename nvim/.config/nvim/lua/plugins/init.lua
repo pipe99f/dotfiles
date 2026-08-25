@@ -90,12 +90,12 @@ return {
 		opts = { pattern = "*" },
 	},
 	-- I don't like indentation behavior in python after function definition, may be fixed in the future
-	-- { -- Paste following current indentation
-	-- 	"nemanjamalesija/smart-paste.nvim",
-	-- 	-- event = "VeryLazy",
-	-- 	event = "BufEnter",
-	-- 	config = true,
-	-- },
+	{ -- Paste following current indentation
+		"nemanjamalesija/smart-paste.nvim",
+		-- event = "VeryLazy",
+		event = "BufEnter",
+		config = true,
+	},
 
 	--------------
 	----Others----

@@ -26,5 +26,14 @@ return {
 		end
 		vim.keymap.set("n", "<M-d>", "<cmd>lua lazy_docker_toggle()<CR>", { desc = "Toggle lazydocker" })
 		vim.keymap.set("t", "<M-d>", "<C-\\><C-n><cmd>lua lazy_docker_toggle()<CR>", { desc = "Toggle lazydocker" })
+
+		local hiddenFloat = Terminal:new({
+			direction = "float",
+			count = 6,
+			hidden = true,
+		})
+		vim.api.nvim_create_user_command("HiddenFloatToggle", function()
+			hiddenFloat:toggle()
+		end, {})
 	end,
 }
