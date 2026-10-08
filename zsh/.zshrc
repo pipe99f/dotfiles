@@ -156,7 +156,7 @@ setopt NOBEEP                  # No beep on error
 
 #GTK THEME
 export GTK_THEME=Adwaita-One-Dark
-export XDG_CURRENT_DESKTOP=sway
+export XDG_CURRENT_DESKTOP=Hyprland
 
 #QT
 export QT_QPA_PLATFORMTHEME=qt6ct

@@ -7,14 +7,14 @@ show_hidden = true
 # 	{ run = 'nvim "$@"', block = true },
 # ]
 image = [
-  { run = 'imv "$@"', orphan = true, for = "unix" },
+  { run = 'imv %s', orphan = true, for = "unix" },
 ]
 play = [
-  { run = 'mpv "$@"', orphan = true, for = "unix" },
+  { run = 'mpv %s', orphan = true, for = "unix" },
   # { run = "xdg-open %s1",                desc = "Play", for = "linux" },
 ]
 open = [
-  { run = 'nohup xdg-open "$@"', desc = "Open" },
+  { run = 'nohup xdg-open %s1', desc = "Open" },
 ]
 
 [open]

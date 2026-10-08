@@ -84,15 +84,6 @@ return {
 	-- 		"mfussenegger/nvim-dap",
 	-- 	},
 	-- },
-	{
-		url = "https://gitlab.com/david_wright/nvim-dap-image",
-		-- GitHub mirror: "dav1d-wright/nvim-dap-image"
-		dependencies = { "mfussenegger/nvim-dap", "3rd/image.nvim" },
-		config = function()
-			require("nvim-dap-image").setup()
-		end,
-		cmd = "DapImageView",
-	},
 	{ -- Better UI for nvim-dap
 		"igorlfs/nvim-dap-view",
 		dependencies = { "mfussenegger/nvim-dap" },

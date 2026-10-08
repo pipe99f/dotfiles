@@ -33,6 +33,7 @@ return {
 			"sql",
 			"toml",
 			"typescript",
+			"typst",
 			"xml",
 			"yaml",
 		}

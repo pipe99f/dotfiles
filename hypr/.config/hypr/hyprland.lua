@@ -11,6 +11,7 @@ local down = "j"
 local up_key = "k"
 local right = "l"
 
+local ipc = "noctalia msg "
 local term = "ghostty"
 local menu = "fuzzel"
 local fileManager = "thunar"
@@ -246,14 +247,17 @@ hl.on("hyprland.start", function()
 
 	-- Daemons
 	hl.exec_cmd("gammastep")
-	hl.exec_cmd("swaync")
-	hl.exec_cmd("waybar")
+
+	hl.exec_cmd("noctalia")
+	hl.exec_cmd("sleep 3 && noctalia msg wallpaper-random")
+
+	-- hl.exec_cmd("waybar")
+	-- hl.exec_cmd("swaync") -- can't start cause noctalia has its own notifications
 	hl.exec_cmd("systemctl --user start hyprpolkitagent")
 	hl.exec_cmd("gnome-keyring-daemon --start --components=secrets,ssh")
-	hl.exec_cmd("hypridle")
-	hl.exec_cmd("hyprpaper")
-
-	hl.exec_cmd("sleep 3 && ~/.config/hypr/scripts/random_wallpaper.sh")
+	-- hl.exec_cmd("hypridle") -- I'm using noctalia
+	-- hl.exec_cmd("hyprpaper")
+	-- hl.exec_cmd("sleep 3 && ~/.config/hypr/scripts/random_wallpaper.sh")
 
 	-- Clipboard
 	hl.exec_cmd("wl-paste --watch cliphist store")
@@ -299,6 +303,23 @@ hl.window_rule({
 hl.window_rule({ name = "float-float_term", match = { class = "^(com.mitchellh.float_term)$" }, float = true })
 hl.window_rule({ name = "float-sway-rec", match = { title = "^(Sway recorder)$" }, float = true })
 hl.window_rule({ name = "float-floating", match = { class = "^(floating)$" }, float = true })
+
+hl.window_rule({
+	match = { class = "dev.noctalia.Noctalia" },
+	float = true,
+	size = { 1080, 920 },
+})
+
+hl.layer_rule({
+	name = "noctalia",
+	match = {
+		namespace = "^noctalia-(bar-.+|notification|dock|panel|attached-panel|osd|window-switcher)$",
+	},
+	no_anim = true,
+	ignore_alpha = 0.5,
+	blur = true,
+	blur_popups = true,
+})
 
 -- Generic dialog / popup float rules
 hl.window_rule({ name = "float-popup", match = { title = "^(pop-up)$" }, float = true })
@@ -350,9 +371,8 @@ hl.window_rule({ name = "ws10-appimage", match = { class = "^(AppRun.wrapped)$" 
 hl.bind(mod .. " + Return", hl.dsp.exec_cmd(term))
 hl.bind(mod .. " + SHIFT + Return", hl.dsp.exec_cmd("ghostty --class=com.mitchellh.float_term"))
 local closeWindowBind = hl.bind(mod .. " + SHIFT + Q", hl.dsp.window.close())
-hl.bind(mod .. " + D", hl.dsp.exec_cmd(menu))
+-- hl.bind(mod .. " + D", hl.dsp.exec_cmd(menu))
 hl.bind(mod .. " + SHIFT + C", hl.dsp.exec_cmd("hyprctl reload"))
-hl.bind(mod .. " + SHIFT + N", hl.dsp.exec_cmd("swaync-client -t -sw"))
 hl.bind(mod .. " + SHIFT + E", hl.dsp.exec_cmd("hyprctl dispatch exit"))
 
 hl.bind(
@@ -361,6 +381,17 @@ hl.bind(
 )
 hl.bind(mod .. " + E", hl.dsp.exec_cmd(fileManager))
 -- hl.bind(mod .. " + P", hl.dsp.window.pseudo()) -- No sé qué hace
+
+-- Noctalia
+hl.bind(mod .. "+ D", hl.dsp.exec_cmd(ipc .. "panel-toggle launcher"))
+hl.bind(mod .. "+ S", hl.dsp.exec_cmd(ipc .. "panel-toggle control-center"))
+hl.bind(mod .. "+ C", hl.dsp.exec_cmd(ipc .. "panel-toggle clipboard"))
+hl.bind(mod .. " + SHIFT + N", hl.dsp.exec_cmd("panel-toggle control-center notifications"))
+hl.bind(mod .. "+ comma", hl.dsp.exec_cmd(ipc .. "settings-toggle"))
+-- hl.bind("ALT + Tab", hl.dsp.exec_cmd(ipc .. "window-switcher")) -- Doesn't have the behavior I like
+
+-- Alt+Tab: previous workspace NOTE: Noctalia seems to handle this better
+hl.bind("ALT + Tab", hl.dsp.focus({ workspace = "previous" }))
 
 -- Window Layout
 hl.bind(mod .. " + B", hl.dsp.layout("togglesplit")) -- dwindle only
@@ -380,7 +411,7 @@ hl.bind(mod .. " + Minus", hl.dsp.workspace.toggle_special("magic"))
 
 -- Clipboard picker
 -- hl.bind(mod .. " + C", hl.dsp.exec_cmd("cliphist list | fuzzel --dmenu | cliphist decode | wl-copy"))
-hl.bind(mod .. " + C", hl.dsp.exec_cmd("bash ~/.config/hypr/scripts/cliphist.sh"))
+-- hl.bind(mod .. " + C", hl.dsp.exec_cmd("bash ~/.config/hypr/scripts/cliphist.sh"))
 
 -- Screenshots
 hl.bind(mod .. " + P", hl.dsp.exec_cmd('grim -g "$(slurp)" - | wl-copy'))
@@ -473,9 +504,6 @@ for i = 1, 10 do
 	end)
 	hl.bind(mod .. " + SHIFT + " .. key, hl.dsp.window.move({ workspace = target }))
 end
-
--- Alt+Tab: previous workspace
-hl.bind("ALT + Tab", hl.dsp.focus({ workspace = "previous" }))
 
 -- Mouse drag / resize
 hl.bind(mod .. " + mouse:272", hl.dsp.window.drag(), { mouse = true })

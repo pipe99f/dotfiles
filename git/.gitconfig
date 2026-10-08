@@ -33,3 +33,5 @@
 [includeIf "gitdir:~/ce/Projects/fz/"]
     path = ~/.gitconfig-work
 
+[init]
+	defaultBranch = main

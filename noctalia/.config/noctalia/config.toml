@@ -1,0 +1,115 @@
+[theme]
+mode = "dark"  # dark | light | auto
+source = "builtin"  # builtin | community | wallpaper | custom
+name = "Catppuccin"  # which palette to load, meaning depends on `source`
+
+[theme.templates]
+enable_builtin_templates = false
+# activeTemplates = [
+#   { id = "btop", active = false },
+#   { id = "ghostty", active = true },   # keep ones you actually want managed
+#   { id = "gtk3", active = true },
+#   { id = "gtk4", active = true },
+# ]
+
+# Overlay popups in the top center of the screen
+[osd.kinds]
+media = false # MPRIS playback, track changes, and per-player volume changes
+
+[wallpaper]
+enabled = true
+directory = "~/.config/hypr/wallpapers"
+
+# [wallpaper.default]
+# path = "~/.config/hypr/wallpapers/kriegsplit.jpg"
+
+[keybinds]
+# Improve tab behavior
+tab_next = ["down"]
+tab_previous = ["up"]
+down = ["tab"]
+up = ["shift+tab", "iso_left_tab"]
+
+[idle.behavior.lock]
+timeout = 300
+action = "lock"
+enabled = true  # explicitly disabled in the default config
+
+[idle.behavior.screen-off]
+timeout = 600
+action = "screen_off"  # turns monitors off, and back on when you return
+enabled = true  # explicitly disabled in the default config
+
+[idle.behavior.suspend]
+timeout = 900
+action = "lock_and_suspend"  # or action = "suspend" with lock_before_suspend = false
+
+[lockscreen]
+enabled = true  # master switch for session lock
+lock_before_suspend = true  # lock on PrepareForSleep (lid close / systemctl suspend)
+fingerprint = true  # allow fingerprint (PAM) authentication on the lock screen
+allow_empty_password = false  # submit Enter with an empty password (security-key PAM stacks)
+blur_intensity = 0.1  # background blur (0.0 = none, 1.0 = maximum)
+tint_intensity = 0.3  # surface-color tint over the background (0.0 = none, 1.0 = opaque)
+wallpaper = "~/.config/hypr/lockscreen_wallpapers/grotesqueimpalement.jpg"  # optional image path; empty uses the desktop wallpaper per output
+
+[bar.default]
+background_opacity = 0.7  # 0.0 (transparent) to 1.0 (opaque)
+margin_ends = 0
+start = [
+  # "workspaces",
+  "taskbar",
+]
+center = [
+  "clock",
+]
+end = [
+  "privacy",
+  "caffeine",
+  "network",
+  "bluetooth",
+  "cpu",
+  "ram",
+  "temp",
+  "volume",
+  "brightness",
+  "battery",
+  "keyboard_layout",
+  "notifications",
+  "tray",
+]
+
+[widget.cpu]
+type = "sysmon"
+stat = "cpu_usage"
+
+[widget.ram]
+type = "sysmon"
+stat = "ram_used"
+
+[widget.temp]
+type = "sysmon"
+stat = "cpu_temp"
+
+[widget.clock]
+format = "{:%H:%M} {:%d/%m/%Y}"
+
+[widget.media.actions]
+scroll_up = "none"
+scroll_down = "none"
+
+[widget.network]
+show_label = false
+
+[widget.privacy]
+hide_inactive = true
+
+[widget.taskbar]
+group_by_workspace = true
+
+[widget.volume.actions]
+right = "exec helvum"
+middle = "media toggle"
+
+[widget.workspaces]
+show_labels = true
